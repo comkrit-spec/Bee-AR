@@ -700,6 +700,13 @@
     [data-glove] .tl-track, [data-glove] .tl-fill { top: 28px; }
     .glove-btn[aria-pressed="true"] { color: var(--accent); text-decoration: underline; }
 
+    /* ============ v5.2: CONNECTION TEST ============ */
+    .conn-result { font-size: 13px; line-height: 1.6; border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; }
+    .conn-result.ok { background: rgba(16, 185, 129, 0.12); color: #047857; }
+    .conn-result.bad { background: rgba(220, 38, 38, 0.1); color: #B91C1C; }
+    .conn-result.wait { background: var(--surface-2); color: var(--muted); }
+    .conn-result ul { margin: 6px 0 0; padding-left: 18px; }
+
     /* ============ v4: PRINT ============ */
     @media print {
       .app-header, .bottom-nav, .report-tools, .chips, #filterCard, .toast-container, .rc-more, #refreshBtn { display: none !important; }
@@ -1024,6 +1031,8 @@
       <input type="password" id="pinNew" inputmode="numeric" maxlength="6" autocomplete="new-password" placeholder="เว้นว่างถ้าไม่ต้องการล็อก">
       <button type="button" class="link-btn" id="pinRemoveBtn" hidden onclick="removePin()">เลิกใช้ PIN</button>
     </div>
+    <button type="button" class="btn-outline" style="padding: 10px; margin-bottom: 10px;" onclick="testConnection()">🔌 ทดสอบการเชื่อมต่อ</button>
+    <div id="connResult" class="conn-result" hidden></div>
     <div style="display: flex; gap: 10px;">
       <button class="btn-outline" style="padding: 10px;" onclick="closeSettings()">ยกเลิก</button>
       <button class="btn-primary" style="padding: 10px;" onclick="saveSettings()">บันทึก</button>
@@ -1608,6 +1617,7 @@
     $('pinNew').value = '';
     $('pinNew').placeholder = saved ? 'ตั้งไว้แล้ว เว้นว่างเพื่อใช้ PIN เดิม' : 'เว้นว่างถ้าไม่ต้องการล็อก';
     $('pinRemoveBtn').hidden = !saved;
+    $('connResult').hidden = true;
     $('settingsModal').classList.add('active');
     setTimeout(() => (IS_GAS ? $('pinNew') : $('scriptUrlInput')).focus(), 150);
   }
@@ -1616,6 +1626,7 @@
     const url = $('scriptUrlInput').value.trim();
     const pin = $('pinNew').value.trim();
     if (!IS_GAS && (!url || !url.includes('script.google.com'))) return showToast('URL ต้องเป็นลิงก์ script.google.com', 'error');
+    if (!IS_GAS && !/\/exec\/?$/.test(url)) return showToast('URL ต้องลงท้ายด้วย /exec (ไม่ใช่ /dev) กด "ทดสอบการเชื่อมต่อ" เพื่อตรวจ', 'error', 5000);
     if (pin && !/^\d{4,6}$/.test(pin)) return showToast('PIN ต้องเป็นตัวเลข 4–6 หลัก', 'error');
     if (!IS_GAS) { googleScriptUrl = url; store.set(KEYS.url, url); }
     if (pin) store.set(KEYS.pin, await hashPin(pin));
@@ -1635,6 +1646,55 @@
     if ($('pinModal').classList.contains('active')) return $('pinCancel').click();
     closeSettings(); hideSuccess(); closeSheet();
   });
+
+  /* ============ CONNECTION TEST ============ */
+  async function testConnection() {
+    const box = $('connResult');
+    const show = (cls, html) => { box.className = `conn-result ${cls}`; box.innerHTML = html; box.hidden = false; };
+    const url = IS_GAS ? '' : ($('scriptUrlInput').value.trim() || googleScriptUrl);
+    const pending = getQueue().length;
+    const pendingNote = pending ? `<br>มีรายการรอส่ง ${pending} รายการ จะถูกส่งให้อัตโนมัติเมื่อเชื่อมต่อได้` : '';
+
+    if (!IS_GAS) {
+      if (!url) return show('bad', 'ยังไม่ได้ใส่ URL ของ Apps Script');
+      if (/\/dev(\?|$)/.test(url)) return show('bad', 'URL นี้ลงท้ายด้วย <b>/dev</b> ซึ่งใช้ได้เฉพาะเจ้าของสคริปต์ ต้องใช้ URL ที่ลงท้ายด้วย <b>/exec</b> จากหน้า Deploy > Manage deployments');
+      if (!/^https:\/\/script\.google\.com\/(a\/[^/]+\/)?macros\/s\/[\w-]+\/exec\/?$/.test(url)) {
+        return show('bad', 'รูปแบบ URL ไม่ถูกต้อง ต้องเป็น <b>https://script.google.com/macros/s/.../exec</b> (คัดลอกจาก Deploy > Manage deployments > Web app URL)');
+      }
+    }
+    if (!navigator.onLine) return show('bad', 'เครื่องนี้ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วลองใหม่');
+    show('wait', 'กำลังทดสอบ...');
+
+    if (IS_GAS) {
+      try { const r = await gasCall('ping', {}); return show('ok', `✅ เชื่อมต่อสำเร็จ ข้อมูลอยู่ในไฟล์ <b>${escapeHTML(r.spreadsheet || '')}</b> ชีต <b>${escapeHTML(r.sheet || '')}</b> (${r.rows} แถว)${pendingNote}`); }
+      catch (e) { return show('bad', `เชื่อมต่อไม่ได้: ${escapeHTML(e.message)}`); }
+    }
+
+    let res, text;
+    try {
+      const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 15000);
+      res = await fetch(`${url}?action=ping&t=${Date.now()}`, { signal: ctrl.signal });
+      text = await res.text();
+    } catch (e) {
+      return show('bad', `❌ เข้าถึง Apps Script ไม่ได้ สาเหตุที่พบบ่อย:<ul>
+        <li>ตอน Deploy ตั้ง <b>Who has access</b> ไม่ใช่ <b>Anyone</b> (ถ้าเป็นบัญชีองค์กร อาจเห็นแค่ "Anyone within ..." ให้ติดต่อผู้ดูแลระบบ)</li>
+        <li>URL ผิดหรือ Deployment ถูกลบ/ปิดไปแล้ว</li>
+        <li>ยังไม่ได้กด Run ฟังก์ชัน <b>setup</b> เพื่ออนุญาตสิทธิ์</li></ul>`);
+    }
+    let data = null; try { data = JSON.parse(text); } catch (_) {}
+    if (!data) {
+      return show('bad', `❌ Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล${/ScriptError|not found|ไม่พบ/i.test(text) ? ' (สคริปต์ error)' : ''} สาเหตุที่พบบ่อย:<ul>
+        <li>ยังไม่ได้วางโค้ด <b>Code.gs</b> ตัวใหม่ หรือแก้โค้ดแล้วยังไม่ได้ Deploy เป็น <b>New version</b></li>
+        <li>ยังไม่ได้ Run ฟังก์ชัน <b>setup</b> เพื่ออนุญาตสิทธิ์</li>
+        <li>Deploy เป็นประเภทอื่นที่ไม่ใช่ <b>Web app</b></li></ul>`);
+    }
+    if (Array.isArray(data) || data.code === 'UNKNOWN_ACTION') {
+      return show('bad', '⚠️ เชื่อมต่อได้ แต่ Apps Script ที่ Deploy อยู่เป็นเวอร์ชันเก่า วางโค้ด Code.gs ตัวใหม่ แล้ว Deploy > Manage deployments > Edit > <b>New version</b>');
+    }
+    if (data.status === 'error') return show('bad', `❌ Apps Script แจ้งข้อผิดพลาด: ${escapeHTML(data.message)}`);
+    show('ok', `✅ เชื่อมต่อสำเร็จ<br>ข้อมูลจะถูกบันทึกในไฟล์ <b>${escapeHTML(data.spreadsheet || '-')}</b> ชีต <b>${escapeHTML(data.sheet || '-')}</b> (มีแล้ว ${data.rows} แถว)${pendingNote}`);
+    if (pending) flushQueue(true);
+  }
 
   /* ============ TABS ============ */
   const TABS = ['form', 'report', 'import'];
@@ -1692,7 +1752,13 @@
     let data = null;
     try { data = JSON.parse(text); } catch (_) {}
     if (!res.ok) throw new Error(`เซิร์ฟเวอร์ตอบกลับผิดพลาด (${res.status})`);
-    if (data === null) return { status: 'ok', unconfirmed: true };   // Apps Script เวอร์ชันเก่าที่ไม่คืน JSON
+    if (data === null) {
+      // Google ตอบเป็นหน้าเว็บ (เช่น หน้า login หรือหน้า error) = ข้อมูลไม่ได้ถูกบันทึก
+      if (/<html|<!doctype/i.test(text)) {
+        throw Object.assign(new Error('Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล ข้อมูลยังไม่ถูกบันทึก กด ⚙️ แล้วกด "ทดสอบการเชื่อมต่อ" เพื่อดูสาเหตุ'), { code: 'BAD_RESPONSE' });
+      }
+      return { status: 'ok', unconfirmed: true };
+    }
     if (!Array.isArray(data) && data.status === 'error') throw apiErr(data);
     return data;
   }
@@ -1759,7 +1825,7 @@
     flushing = false;
     $('pendingBadge').classList.remove('syncing');
     if (sent) showToast(`ส่งรายการที่ค้างไว้ ${sent} รายการแล้ว`, 'success');
-    else if (failed && manual) showToast('ส่งรายการค้างไม่สำเร็จ จะลองใหม่อัตโนมัติ', 'error');
+    else if (failed && manual) showToast('ส่งรายการค้างไม่สำเร็จ: เชื่อมต่อ Apps Script ไม่ได้ กด ⚙️ แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 7000);
   }
   window.addEventListener('online', () => flushQueue());
   window.addEventListener('offline', () => showToast('ออฟไลน์อยู่ บันทึกต่อได้ ระบบจะเก็บไว้ส่งทีหลัง', 'info', 4000));
@@ -1927,15 +1993,17 @@
       return;
     }
 
-    const queueIt = () => {
+    const queueIt = (wasOnline) => {
       const r = enqueue({ kind: 'single', data });
       if (r === 'fail') return showToast('พื้นที่ในเครื่องเต็ม เก็บรายการไว้ส่งทีหลังไม่ได้ ลองลบรูปออกแล้วส่งใหม่', 'error', 6000);
       logSent(data);
       resetWorkFields();
+      const why = wasOnline ? 'เชื่อมต่อ Apps Script ไม่ได้' : 'ยังไม่มีสัญญาณ';
       showSuccess(detail, summary,
-        r === 'nophotos' ? 'ยังไม่มีสัญญาณ เก็บข้อมูลไว้ส่งทีหลังแล้ว แต่รูปใหญ่เกินพื้นที่ในเครื่อง รูปจะไม่ถูกส่ง'
-                         : 'ยังไม่มีสัญญาณ เก็บไว้ในเครื่องแล้ว จะส่งให้อัตโนมัติเมื่อออนไลน์',
-        'เก็บไว้ส่งทีหลัง');
+        r === 'nophotos' ? `${why} เก็บข้อมูลไว้ส่งทีหลังแล้ว แต่รูปใหญ่เกินพื้นที่ในเครื่อง รูปจะไม่ถูกส่ง`
+                         : `${why} เก็บไว้ในเครื่องแล้ว จะลองส่งใหม่อัตโนมัติ` +
+                           (wasOnline ? ' ถ้าเกิดซ้ำ กด ⚙️ แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
+        'ยังไม่ได้ส่ง');
     };
 
     try {
@@ -1945,8 +2013,8 @@
       showSuccess(detail, summary, res.unconfirmed ? 'ส่งข้อมูลแล้ว ตรวจสอบได้ที่หน้ารายงาน' : '');
     } catch (err) {
       // ทุกรายการมีรหัสประจำตัว (sid) เซิร์ฟเวอร์จะไม่บันทึกซ้ำ จึงเก็บไว้ลองใหม่ได้อย่างปลอดภัย
-      if (err.network) queueIt();
-      else showToast(err.message || 'ส่งข้อมูลไม่สำเร็จ ลองอีกครั้ง', 'error', 4500);
+      if (err.network) queueIt(err.kind !== 'offline');
+      else showToast(err.message || 'ส่งข้อมูลไม่สำเร็จ ลองอีกครั้ง', 'error', 7000);
     } finally {
       restoreBtn();
     }
