@@ -1,7 +1,7 @@
 // Service worker: เปิดแอปได้แม้ออฟไลน์ (ข้อมูลที่ส่งไม่ผ่านจะถูกเก็บในคิวของหน้าแอปเอง)
 // เปลี่ยนเลขเวอร์ชันทุกครั้งที่อัปเดตไฟล์ เพื่อให้เครื่องผู้ใช้ดึงไฟล์ใหม่
-const CACHE = 'field-app-v5-5';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png'];
+const CACHE = 'field-app-v5-8';
+const SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => Promise.allSettled(SHELL.map(u => c.add(u)))).then(() => self.skipWaiting()));
