@@ -1,6 +1,6 @@
 // Service worker: เปิดแอปได้แม้ออฟไลน์ (ข้อมูลที่ส่งไม่ผ่านจะถูกเก็บในคิวของหน้าแอปเอง)
 // เปลี่ยนเลขเวอร์ชันทุกครั้งที่อัปเดตไฟล์ เพื่อให้เครื่องผู้ใช้ดึงไฟล์ใหม่
-const CACHE = 'field-app-v5-20';
+const CACHE = 'field-app-v5-21';
 const SHELL = ['./', './index.html', './style.css',
   './js/config.js', './js/form.js', './js/sync.js', './js/submit.js', './js/report.js', './js/admin.js',
   './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
