@@ -287,7 +287,7 @@
     .tl-gap { font-size: 11px; color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
     .tl-gap:not(:empty) { background: var(--tint); padding: 1px 8px; border-radius: 10px; }
     .input-group { display: flex; align-items: center; gap: 8px; }
-    .input-group input[type="time"] { flex: 1; padding: 10px 12px; }
+    .input-group input.time-input { flex: 1; min-width: 0; padding: 10px 12px; font-size: 16px; font-variant-numeric: tabular-nums; letter-spacing: .5px; }
 
     .btn-time-now {
       background: var(--surface); color: var(--accent); border: 1px solid var(--accent);
@@ -501,7 +501,7 @@
     .tl-item.warn .tl-dot svg { display: none; }
     .tl-item.warn .tl-dot::after { content: '!'; color: #fff; font-weight: 700; font-size: 14px; }
     .tl-item.warn .tl-num { opacity: 0; }
-    .tl-item.warn input[type="time"] { border-color: #F59E0B; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18); }
+    .tl-item.warn .time-input { border-color: #F59E0B; box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18); }
     .tl-item.warn .tl-gap { background: rgba(245, 158, 11, 0.15); color: #B45309; }
     [data-theme="dark"] .tl-item.warn .tl-gap { color: #FBBF24; }
 
@@ -690,7 +690,7 @@
     [data-glove] .step-btn { width: 52px; height: 54px; font-size: 26px; }
     [data-glove] .stepper input { width: 60px; font-size: 20px; }
     [data-glove] .data-item > span, [data-glove] .tl-label { font-size: 16px; }
-    [data-glove] .input-group input[type="time"] { font-size: 18px; padding: 14px 12px; }
+    [data-glove] .input-group input.time-input { font-size: 18px; padding: 14px 12px; }
     [data-glove] .btn-time-now { height: 54px; padding: 0 20px; font-size: 16px; }
     [data-glove] .shift-selector label { padding: 15px; font-size: 17px; }
     [data-glove] button.btn-primary { padding: 20px; font-size: 18px; }
@@ -743,9 +743,142 @@
     .ph-fb .ic { width: 26px; height: 26px; }
     .dropzone .dz-title { display: flex; align-items: center; justify-content: center; gap: 6px; }
 
+    /* ============ v5.6: SECTION SWITCHES + LOCATION ============ */
+    .modal-content { max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px); overflow-y: auto; }
+    .sec-list { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 6px; }
+    .form-group label.sec-row, .sec-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; margin-bottom: 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+    .sec-row:last-child { border-bottom: none; }
+    .sec-name { flex: 1; font-size: 14px; font-weight: 500; min-width: 0; }
+    .sec-name small { display: block; font-size: 11px; color: var(--muted); font-weight: 400; }
+    .switch { position: relative; width: 46px; height: 26px; flex-shrink: 0; }
+    .switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 2; }
+    .switch span { position: absolute; inset: 0; border-radius: 13px; background: #CBD5E1; transition: background .25s; }
+    .switch span::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+      background: #fff; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.3); transition: transform .3s var(--spring); }
+    .switch input:checked + span { background: var(--tw-blue); }
+    .switch input:checked + span::after { transform: translateX(20px); }
+    .switch input:disabled { cursor: not-allowed; }
+    .switch input:disabled + span { opacity: .5; }
+    .switch input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .qr-loc { font-size: 14px; color: #334155; margin-top: 4px; word-break: break-word; }
+    .qr-loc:empty { display: none; }
+
+    /* ============ v5.7: BACKGROUND ART ============ */
+    #appBg { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
+      background: linear-gradient(180deg, #EAF0FA 0%, #F4F7FC 38%, #F8FAFC 70%, #EDF1F8 100%); }
+    #appBg::before { content: ''; position: absolute; inset: 0;
+      background: radial-gradient(520px 420px at 92% 4%, rgba(43, 79, 184, 0.16), transparent 70%),
+                  radial-gradient(480px 380px at 2% 96%, rgba(220, 38, 38, 0.07), transparent 70%); }
+    #appBg.custom { background-size: cover; background-position: center; }
+    #appBg.custom > * , #appBg.custom::before { display: none; }
+    .bg-grid { position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(30, 58, 138, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 58, 138, 0.055) 1px, transparent 1px),
+                        linear-gradient(rgba(30, 58, 138, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 58, 138, 0.04) 1px, transparent 1px);
+      background-size: 140px 140px, 140px 140px, 28px 28px, 28px 28px;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.4) 55%, transparent 88%);
+      mask-image: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.4) 55%, transparent 88%); }
+    .bg-sky { position: absolute; left: 0; right: 0; bottom: 0; height: clamp(150px, 30vh, 300px);
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20720%20300%27%3E%0A%3Cg%20fill%3D%27%231E3A8A%27%20fill-opacity%3D%27.12%27%3E%0A%3Crect%20x%3D%270%27%20y%3D%27292%27%20width%3D%27720%27%20height%3D%278%27%2F%3E%0A%3Cpath%20d%3D%27M30%20292V205Q30%20184%2090%20184Q150%20184%20150%20205V292Z%27%2F%3E%0A%3Cpath%20d%3D%27M165%20292V228Q165%20214%20203%20214Q241%20214%20241%20228V292Z%27%2F%3E%0A%3Cpath%20d%3D%27M272%20292V96Q272%2078%20291%2078Q310%2078%20310%2096V292Z%27%2F%3E%0A%3Crect%20x%3D%27328%27%20y%3D%2752%27%20width%3D%277%27%20height%3D%27240%27%2F%3E%0A%3Cpath%20d%3D%27M410%20292C428%20246%20432%20214%20428%20168L420%20150H500L492%20168C488%20214%20492%20246%20510%20292Z%27%2F%3E%0A%3Cpath%20d%3D%27M562%20292L570%2092H586L594%20292Z%27%2F%3E%0A%3Cpath%20d%3D%27M616%20292V236L650%20222L684%20236V292Z%27%2F%3E%0A%3Crect%20x%3D%27241%27%20y%3D%27262%27%20width%3D%27171%27%20height%3D%275%27%2F%3E%3Crect%20x%3D%27241%27%20y%3D%27274%27%20width%3D%27171%27%20height%3D%275%27%2F%3E%3Crect%20x%3D%27510%27%20y%3D%27266%27%20width%3D%2752%27%20height%3D%275%27%2F%3E%0A%3Crect%20x%3D%27262%27%20y%3D%27267%27%20width%3D%274%27%20height%3D%2725%27%2F%3E%3Crect%20x%3D%27330%27%20y%3D%27267%27%20width%3D%274%27%20height%3D%2725%27%2F%3E%3Crect%20x%3D%27384%27%20y%3D%27267%27%20width%3D%274%27%20height%3D%2725%27%2F%3E%3Crect%20x%3D%27528%27%20y%3D%27271%27%20width%3D%274%27%20height%3D%2721%27%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.65%27%20stroke-width%3D%272%27%20fill%3D%27none%27%3E%0A%3Cpath%20d%3D%27M30%20214H150M30%20244H150M165%20240H241M165%20262H241%27%2F%3E%3Cpath%20d%3D%27M272%20130H310M272%20170H310M272%20215H310M272%20255H310%27%2F%3E%3Cpath%20d%3D%27M565%20205H591M564%20245H592%27%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%27%23fff%27%20fill-opacity%3D%27.65%27%3E%3Crect%20x%3D%27628%27%20y%3D%27248%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27646%27%20y%3D%27248%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27664%27%20y%3D%27248%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27637%27%20y%3D%27268%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27655%27%20y%3D%27268%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3C%2Fg%3E%0A%3Cg%20fill%3D%27%23DC2626%27%20fill-opacity%3D%27.26%27%3E%3Cpath%20d%3D%27M569.2%20112H586.8L587.6%20132H568.4Z%27%2F%3E%3Cpath%20d%3D%27M567.6%20152H588.4L589.2%20172H566.8Z%27%2F%3E%3Ccircle%20cx%3D%27331.5%27%20cy%3D%2750%27%20r%3D%274%27%2F%3E%3C%2Fg%3E%0A%3Cg%20fill%3D%27%231E3A8A%27%20fill-opacity%3D%27.07%27%3E%3Ccircle%20cx%3D%27455%27%20cy%3D%27128%27%20r%3D%2722%27%2F%3E%3Ccircle%20cx%3D%27480%27%20cy%3D%27106%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%27508%27%20cy%3D%2784%27%20r%3D%2722%27%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E") repeat-x left bottom / auto 100%; }
+    .bg-wave { position: absolute; left: 0; bottom: 0; width: calc(100% + 720px); height: 72px; will-change: transform;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20720%2080%27%3E%3Cpath%20d%3D%27M0%2040C120%200%20240%200%20360%2040C480%2080%20600%2080%20720%2040V80H0Z%27%20fill%3D%27%232B4FB8%27%20fill-opacity%3D%27.14%27%2F%3E%3Cpath%20d%3D%27M0%2040C120%200%20240%200%20360%2040C480%2080%20600%2080%20720%2040%27%20fill%3D%27none%27%20stroke%3D%27%23fff%27%20stroke-opacity%3D%27.6%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E") repeat-x 0 bottom / 720px 100%; animation: waveMove 14s linear infinite; }
+    .bg-wave-2 { bottom: 16px; height: 62px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20720%2080%27%3E%3Cpath%20d%3D%27M0%2040C120%2080%20240%2080%20360%2040C480%200%20600%200%20720%2040V80H0Z%27%20fill%3D%27%231E3A8A%27%20fill-opacity%3D%27.10%27%2F%3E%3C%2Fsvg%3E"); animation-duration: 23s; animation-direction: reverse; }
+    @keyframes waveMove { to { transform: translateX(-720px); } }
+    .bg-bubbles i { position: absolute; bottom: -30px; left: var(--l); width: var(--s); height: var(--s); border-radius: 50%; opacity: 0;
+      border: 1.5px solid rgba(43, 79, 184, 0.35); background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 60%);
+      animation: bubbleUp var(--d) ease-in infinite; animation-delay: var(--t); }
+    @keyframes bubbleUp { 0% { transform: translate(0, 0); opacity: 0; } 10% { opacity: .75; } 50% { transform: translate(14px, -50vh); } 100% { transform: translate(-10px, -105vh); opacity: 0; } }
+    .card:not(.install-card):not(.edit-banner) { background: rgba(255, 255, 255, 0.93); }
+    [data-nobg] #appBg, [data-glove] #appBg { display: none; }
+    .app-header::before { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(420px 90px at 88% -30%, rgba(255, 255, 255, 0.22), transparent 70%),
+                  repeating-linear-gradient(115deg, rgba(255, 255, 255, 0.035) 0 2px, transparent 2px 14px); }
+    .hdr-left, .hdr-right { position: relative; z-index: 1; }
+
+    /* ============ v5.7: SERVER STATUS ============ */
+    .hdr-sub { display: flex; align-items: center; gap: 8px; min-width: 0; margin-top: 2px; }
+    .hdr-sub .hdr-greet { max-width: none; flex: 1; min-width: 0; }
+    .conn-chip { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; font-family: inherit;
+      padding: 1px 9px 1px 7px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.28); background: rgba(255, 255, 255, 0.14);
+      color: #fff; font-size: 11px; font-weight: 500; line-height: 1.6; transition: background .2s; }
+    .conn-chip:hover { background: rgba(255, 255, 255, 0.24); }
+    .conn-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: #94A3B8; flex-shrink: 0; transition: background .3s; }
+    .conn-chip[data-state="ok"] .dot { background: #34D399; animation: okPulse 2.6s ease-out infinite; }
+    .conn-chip[data-state="checking"] .dot { background: #FBBF24; animation: dotBlink 1.1s ease-in-out infinite; }
+    .conn-chip[data-state="down"] .dot { background: #F87171; box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.3); }
+    .conn-chip[data-slow] .dot { background: #FBBF24; animation: none; }
+    @keyframes okPulse { 0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); } 70%, 100% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); } }
+    @keyframes dotBlink { 50% { opacity: .3; } }
+    @media (max-width: 359px) { .hdr-sub .hdr-greet { display: none; } }
+    .status-hero { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 12px; background: var(--surface-2); margin-bottom: 12px; }
+    .status-hero .big-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; background: #94A3B8; }
+    .status-hero[data-state="ok"] .big-dot { background: #10B981; box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.2); }
+    .status-hero[data-state="checking"] .big-dot { background: #F59E0B; animation: dotBlink 1.1s ease-in-out infinite; }
+    .status-hero[data-state="down"] .big-dot { background: #DC2626; box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.18); }
+    .status-hero[data-slow] .big-dot { background: #F59E0B; box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.2); }
+    .status-hero b { display: block; font-size: 16px; }
+    .status-hero small { color: var(--muted); font-size: 12px; }
+    .status-rows { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .status-rows > div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 12px; font-size: 13px; border-bottom: 1px dashed var(--border); }
+    .status-rows > div:last-child { border-bottom: none; }
+    .status-rows span:first-child { color: var(--muted); flex-shrink: 0; }
+    .status-rows span:last-child { font-weight: 500; text-align: right; word-break: break-word; }
+    .spinner.dark { border-color: rgba(30, 58, 138, 0.2); border-top-color: var(--tw-blue); }
+    .status-hint { margin-top: 12px; font-size: 12.5px; line-height: 1.6; padding: 10px 12px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); color: #92400E; }
+
+    /* ============ v5.7: HERO BANNER ============ */
+    .hero { position: relative; overflow: hidden; height: 104px; border-radius: 16px; margin-bottom: 15px; color: #fff;
+      background: linear-gradient(120deg, #1E3A8A 0%, #2B4FB8 55%, #1E3A8A 100%); box-shadow: var(--shadow-md); isolation: isolate; }
+    .hero-art { position: absolute; inset: 0; z-index: 0; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20720%20300%27%3E%0A%3Cg%20fill%3D%27%23FFFFFF%27%20fill-opacity%3D%27.17%27%3E%0A%3Crect%20x%3D%270%27%20y%3D%27292%27%20width%3D%27720%27%20height%3D%278%27%2F%3E%0A%3Cpath%20d%3D%27M30%20292V205Q30%20184%2090%20184Q150%20184%20150%20205V292Z%27%2F%3E%0A%3Cpath%20d%3D%27M165%20292V228Q165%20214%20203%20214Q241%20214%20241%20228V292Z%27%2F%3E%0A%3Cpath%20d%3D%27M272%20292V96Q272%2078%20291%2078Q310%2078%20310%2096V292Z%27%2F%3E%0A%3Crect%20x%3D%27328%27%20y%3D%2752%27%20width%3D%277%27%20height%3D%27240%27%2F%3E%0A%3Cpath%20d%3D%27M410%20292C428%20246%20432%20214%20428%20168L420%20150H500L492%20168C488%20214%20492%20246%20510%20292Z%27%2F%3E%0A%3Cpath%20d%3D%27M562%20292L570%2092H586L594%20292Z%27%2F%3E%0A%3Cpath%20d%3D%27M616%20292V236L650%20222L684%20236V292Z%27%2F%3E%0A%3Crect%20x%3D%27241%27%20y%3D%27262%27%20width%3D%27171%27%20height%3D%275%27%2F%3E%3Crect%20x%3D%27241%27%20y%3D%27274%27%20width%3D%27171%27%20height%3D%275%27%2F%3E%3Crect%20x%3D%27510%27%20y%3D%27266%27%20width%3D%2752%27%20height%3D%275%27%2F%3E%0A%3Crect%20x%3D%27262%27%20y%3D%27267%27%20width%3D%274%27%20height%3D%2725%27%2F%3E%3Crect%20x%3D%27330%27%20y%3D%27267%27%20width%3D%274%27%20height%3D%2725%27%2F%3E%3Crect%20x%3D%27384%27%20y%3D%27267%27%20width%3D%274%27%20height%3D%2725%27%2F%3E%3Crect%20x%3D%27528%27%20y%3D%27271%27%20width%3D%274%27%20height%3D%2721%27%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20stroke%3D%27%231E3A8A%27%20stroke-opacity%3D%27.55%27%20stroke-width%3D%272%27%20fill%3D%27none%27%3E%0A%3Cpath%20d%3D%27M30%20214H150M30%20244H150M165%20240H241M165%20262H241%27%2F%3E%3Cpath%20d%3D%27M272%20130H310M272%20170H310M272%20215H310M272%20255H310%27%2F%3E%3Cpath%20d%3D%27M565%20205H591M564%20245H592%27%2F%3E%0A%3C%2Fg%3E%0A%3Cg%20fill%3D%27%231E3A8A%27%20fill-opacity%3D%27.55%27%3E%3Crect%20x%3D%27628%27%20y%3D%27248%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27646%27%20y%3D%27248%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27664%27%20y%3D%27248%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27637%27%20y%3D%27268%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3Crect%20x%3D%27655%27%20y%3D%27268%27%20width%3D%279%27%20height%3D%279%27%2F%3E%3C%2Fg%3E%0A%3Cg%20fill%3D%27%23F87171%27%20fill-opacity%3D%27.55%27%3E%3Cpath%20d%3D%27M569.2%20112H586.8L587.6%20132H568.4Z%27%2F%3E%3Cpath%20d%3D%27M567.6%20152H588.4L589.2%20172H566.8Z%27%2F%3E%3Ccircle%20cx%3D%27331.5%27%20cy%3D%2750%27%20r%3D%274%27%2F%3E%3C%2Fg%3E%0A%3Cg%20fill%3D%27%23FFFFFF%27%20fill-opacity%3D%27.10%27%3E%3Ccircle%20cx%3D%27455%27%20cy%3D%27128%27%20r%3D%2722%27%2F%3E%3Ccircle%20cx%3D%27480%27%20cy%3D%27106%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%27508%27%20cy%3D%2784%27%20r%3D%2722%27%2F%3E%3C%2Fg%3E%0A%3C%2Fsvg%3E") repeat-x right bottom / auto 96%; }
+    .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(90deg, rgba(30, 58, 138, 0.94) 0%, rgba(30, 58, 138, 0.6) 52%, rgba(30, 58, 138, 0) 100%); }
+    .hero-wave { position: absolute; left: 0; bottom: 0; width: calc(100% + 720px); height: 46px; z-index: 2; will-change: transform; pointer-events: none;
+      background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20720%2080%27%3E%3Cpath%20d%3D%27M0%2040C120%200%20240%200%20360%2040C480%2080%20600%2080%20720%2040V80H0Z%27%20fill%3D%27%23FFFFFF%27%20fill-opacity%3D%27.18%27%2F%3E%3Cpath%20d%3D%27M0%2040C120%200%20240%200%20360%2040C480%2080%20600%2080%20720%2040%27%20fill%3D%27none%27%20stroke%3D%27%23FFFFFF%27%20stroke-opacity%3D%27.55%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E") repeat-x 0 bottom / 720px 100%; animation: waveMove 11s linear infinite; }
+    .hero-wave.w2 { bottom: 8px; height: 40px; background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20720%2080%27%3E%3Cpath%20d%3D%27M0%2040C120%2080%20240%2080%20360%2040C480%200%20600%200%20720%2040V80H0Z%27%20fill%3D%27%23FFFFFF%27%20fill-opacity%3D%27.10%27%2F%3E%3C%2Fsvg%3E"); animation-duration: 17s; animation-direction: reverse; }
+    .hero-text { position: relative; z-index: 3; padding: 20px 18px; max-width: 78%; }
+    .hero-kicker { font-size: 12px; letter-spacing: .4px; opacity: .85; display: flex; align-items: center; gap: 6px; }
+    .hero-kicker::before { content: ''; width: 18px; height: 3px; border-radius: 2px; background: #F87171; }
+    .hero-title { font-size: 20px; font-weight: 700; line-height: 1.25; margin-top: 6px; text-shadow: 0 1px 8px rgba(15, 23, 42, 0.35); }
+    .hero-sub { font-size: 12px; opacity: .8; margin-top: 3px; }
+    [data-nobg] .hero, [data-glove] .hero { display: none; }
+    @media (min-width: 768px) { .hero { height: 120px; } .hero-title { font-size: 24px; } .hero-text { padding: 26px 26px; } }
+
+    /* ============ v5.8: TYPED TIME + SMART CHIPS ============ */
+    .time-input.invalid { border-color: var(--tw-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.14); }
+    .tl-item.bad .tl-gap { background: rgba(220, 38, 38, 0.1); color: var(--tw-red); }
+    .quick-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .tchip { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--border); background: var(--surface); color: var(--accent);
+      border-radius: 999px; padding: 5px 12px; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer;
+      font-variant-numeric: tabular-nums; transition: background .15s, transform .1s; }
+    .tchip:active { transform: scale(0.94); background: var(--tint); }
+    .tchip small { font-size: 10.5px; color: var(--muted); font-weight: 400; }
+    .tchip.freq { border-color: rgba(30, 58, 138, 0.4); background: var(--tint); }
+    .tchip.adj { min-width: 46px; justify-content: center; color: var(--muted); }
+    .tl-chips { display: none; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .tl-item.next .tl-chips, .tl-item:focus-within .tl-chips { display: flex; }
+    .tl-chips:empty { display: none !important; }
+    [data-glove] .tchip { padding: 9px 16px; font-size: 15px; }
+
+    /* ============ v5.9: JOB SUGGEST / REPORT LIMIT ============ */
+    .job-field { position: relative; }
+    .job-suggest { position: absolute; left: 0; right: 0; top: 100%; margin-top: 4px; z-index: 40; max-height: 320px; overflow-y: auto;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow-md); padding: 4px; }
+    .job-suggest[hidden] { display: none; }
+    .js-head { font-size: 11px; color: var(--muted); padding: 6px 10px 2px; }
+    .js-item { display: block; width: 100%; text-align: left; border: none; background: none; font-family: inherit; cursor: pointer;
+      padding: 9px 10px; border-radius: 9px; color: var(--text); }
+    .js-item b { display: block; font-size: 15px; font-weight: 600; word-break: break-word; }
+    .js-item small { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .js-item small .ic { width: 12px; height: 12px; vertical-align: -1px; }
+    .js-item:hover, .js-item.sel { background: var(--tint); }
+    .limit-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; font-size: 13px; color: var(--muted); }
+    .limit-row .seg button { padding: 7px 12px; }
+    .report-more { text-align: center; margin: 14px 0 6px; }
+    .report-more[hidden] { display: none; }
+    .report-more .btn-outline { width: auto; display: inline-flex; padding: 10px 22px; }
+
     /* ============ v4: PRINT ============ */
     @media print {
-      .app-header, .bottom-nav, .report-tools, .chips, #filterCard, .toast-container, .rc-more, #refreshBtn { display: none !important; }
+      #appBg, .hero, .app-header, .bottom-nav, .report-tools, .chips, #filterCard, .toast-container, .rc-more, #refreshBtn { display: none !important; }
       body { padding: 0; background: #fff; color: #000; }
       .app-container { margin-top: 0; max-width: none; }
       .card, .stat { box-shadow: none; break-inside: avoid; }
@@ -759,7 +892,14 @@
   </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol></defs></svg>
+<div id="appBg" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-sky"></div>
+  <div class="bg-wave bg-wave-2"></div>
+  <div class="bg-wave bg-wave-1"></div>
+  <div class="bg-bubbles"><i style="--l:6%;--s:10px;--d:15s;--t:-2s"></i><i style="--l:17%;--s:16px;--d:19s;--t:-9s"></i><i style="--l:29%;--s:8px;--d:13s;--t:-5s"></i><i style="--l:41%;--s:12px;--d:17s;--t:-1s"></i><i style="--l:53%;--s:18px;--d:21s;--t:-12s"></i><i style="--l:64%;--s:9px;--d:14s;--t:-7s"></i><i style="--l:76%;--s:14px;--d:18s;--t:-4s"></i><i style="--l:88%;--s:11px;--d:16s;--t:-10s"></i><i style="--l:95%;--s:7px;--d:12s;--t:-6s"></i></div>
+</div>
 
 <header class="app-header" id="appHeader">
   <div class="hdr-left">
@@ -768,7 +908,10 @@
     </div>
     <div style="min-width:0;">
       <h1>ระบบหน้างาน</h1>
-      <div class="hdr-greet" id="greeting">สวัสดี</div>
+      <div class="hdr-sub">
+        <button type="button" class="conn-chip" id="connChip" data-state="checking" onclick="openStatus()" aria-label="สถานะเซิร์ฟเวอร์ แตะเพื่อดูรายละเอียด"><span class="dot"></span><span id="connLbl">กำลังตรวจสอบ</span></button>
+        <span class="hdr-greet" id="greeting">สวัสดี</span>
+      </div>
     </div>
   </div>
   <div class="hdr-right">
@@ -791,6 +934,16 @@
 
   <!-- PAGE 1: FORM -->
   <div id="page-form" class="view-page active">
+    <div class="hero" id="hero">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-wave w2" aria-hidden="true"></div>
+      <div class="hero-wave" aria-hidden="true"></div>
+      <div class="hero-text">
+        <div class="hero-kicker">บันทึกกิจกรรมหน้างาน</div>
+        <div class="hero-title" id="heroDate">-</div>
+        <div class="hero-sub" id="heroSub"></div>
+      </div>
+    </div>
     <div class="card install-card" id="installCard" hidden>
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
       <div class="ic-text"><b>ติดตั้งเป็นแอปบนมือถือ</b>เปิดเต็มจอ เร็วขึ้น และใช้ได้แม้สัญญาณไม่ดี</div>
@@ -804,7 +957,7 @@
     </div>
     <form id="dataForm" novalidate>
       <div class="desktop-grid">
-        <div class="card full-width">
+        <div class="card full-width" data-section="basic">
           <div class="section-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             ข้อมูลเบื้องต้น
@@ -816,30 +969,55 @@
               <input type="text" name="reporter" id="reporterName" placeholder="เช่น นพดล" required autocomplete="name">
             </div>
             <div class="form-group">
-              <label for="jobNo">รหัสงาน (Job No.) <span class="required">*</span></label>
-              <input type="text" name="job" id="jobNo" value="V-20601,V-0601" required>
+              <label for="currentDate">วันที่ปฏิบัติงาน <span class="required">*</span></label>
+              <input type="date" name="date" required id="currentDate">
+              <div class="quick-chips" id="dateChips">
+                <button type="button" class="tchip" data-day="0">วันนี้</button>
+                <button type="button" class="tchip" data-day="-1">เมื่อวาน</button>
+              </div>
             </div>
           </div>
 
-          <div class="desktop-2-col">
-            <div class="form-group">
-              <label for="currentDate">วันที่ปฏิบัติงาน <span class="required">*</span></label>
-              <input type="date" name="date" required id="currentDate">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>กะการทำงาน <span class="required">*</span></label>
+            <div class="shift-selector" role="radiogroup" aria-label="กะการทำงาน">
+              <input type="radio" id="shiftDay" name="shift" value="Day" required>
+              <label for="shiftDay"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg> กะเช้า (D)</label>
+              <input type="radio" id="shiftNight" name="shift" value="Night">
+              <label for="shiftNight"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg> กะดึก (N)</label>
             </div>
-            <div class="form-group" style="margin-bottom: 0;">
-              <label>กะการทำงาน <span class="required">*</span></label>
-              <div class="shift-selector" role="radiogroup" aria-label="กะการทำงาน">
-                <input type="radio" id="shiftDay" name="shift" value="Day" required>
-                <label for="shiftDay"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg> กะเช้า (D)</label>
-                <input type="radio" id="shiftNight" name="shift" value="Night">
-                <label for="shiftNight"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg> กะดึก (N)</label>
-              </div>
-              <div class="shift-hint" id="shiftHint"></div>
-            </div>
+            <div class="shift-hint" id="shiftHint"></div>
           </div>
         </div>
 
-        <div class="card">
+        <div class="card full-width" id="jobCard">
+          <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span id="jobCardTitle">งานและสถานที่</span>
+          </div>
+          <div class="desktop-2-col">
+            <div class="form-group job-field">
+              <label for="jobNo">รหัสงาน (Job No.) <span class="required">*</span></label>
+              <input type="text" name="job" id="jobNo" required placeholder="เช่น V-20601" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="jobSuggest">
+              <div class="job-suggest" id="jobSuggest" role="listbox" hidden></div>
+            </div>
+            <div class="form-group" data-section="location">
+              <label for="siteLocation">ชื่อสถานที่</label>
+              <input type="text" name="location" id="siteLocation" list="locList" maxlength="100" placeholder="เช่น โรงงาน A อาคาร 2" autocomplete="off">
+              <datalist id="locList"></datalist>
+            </div>
+          </div>
+          <div class="form-group" data-section="location" style="margin-bottom: 0;">
+            <label>พิกัด GPS</label>
+            <div class="geo-row" style="margin-top: 0;">
+              <button type="button" class="geo-btn" id="geoBtn" onclick="captureLocation(true)"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> บันทึกพิกัดตอนนี้</button>
+              <span id="geoStatus" class="geo-status">กดปุ่มเพื่อบันทึกพิกัดของตำแหน่งปัจจุบัน</span>
+            </div>
+            <input type="hidden" name="lat" id="geoLat"><input type="hidden" name="lng" id="geoLng"><input type="hidden" name="acc" id="geoAcc">
+          </div>
+        </div>
+
+        <div class="card" data-section="manpower">
           <div class="section-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
             กำลังพล (Position)
@@ -849,7 +1027,7 @@
           <div class="data-list" id="manpower-list"></div>
         </div>
 
-        <div class="card">
+        <div class="card" data-section="times">
           <div class="section-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
             เวลา (Activity)
@@ -862,20 +1040,15 @@
           </div>
         </div>
 
-        <div class="card full-width">
+        <div class="card full-width" data-section="photos">
           <div class="section-title">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-            รูปถ่ายและพิกัด
+            รูปถ่าย
             <span id="photoCount" class="total-badge" style="background: var(--tw-blue);">0/3</span>
           </div>
           <div class="photo-grid" id="photoGrid"></div>
           <input type="file" id="photoInput" accept="image/*" capture="environment" multiple hidden>
           <div id="existingPhotos" class="geo-status" style="margin-top:8px;"></div>
-          <div class="geo-row">
-            <button type="button" class="geo-btn" id="geoBtn" onclick="captureLocation(true)"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> บันทึกพิกัดตอนนี้</button>
-            <span id="geoStatus" class="geo-status">พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to BEE</span>
-          </div>
-          <input type="hidden" name="lat" id="geoLat"><input type="hidden" name="lng" id="geoLng"><input type="hidden" name="acc" id="geoAcc">
         </div>
       </div>
 
@@ -913,6 +1086,15 @@
         <button class="chip" data-range="month">เดือนนี้</button>
         <button class="chip active" data-range="all">ทั้งหมด</button>
       </div>
+      <div class="limit-row">
+        <span>แสดงรายการล่าสุด</span>
+        <div class="seg" id="limitSeg" role="group" aria-label="จำนวนรายการที่แสดง">
+          <button type="button" data-limit="50">50</button>
+          <button type="button" data-limit="100">100</button>
+          <button type="button" data-limit="200">200</button>
+          <button type="button" data-limit="0">ทั้งหมด</button>
+        </div>
+      </div>
       <div style="margin-bottom: 12px; display:flex; gap:10px;">
         <div style="flex: 1;">
           <label for="filterStartDate" style="font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px;">ตั้งแต่วันที่</label>
@@ -943,7 +1125,7 @@
     <div class="report-tools" id="reportTools" hidden>
       <div class="search-box">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" id="reportSearch" placeholder="ค้นหา Job หรือชื่อผู้รายงาน" aria-label="ค้นหา Job หรือชื่อผู้รายงาน">
+        <input type="text" id="reportSearch" placeholder="ค้นหา Job, ผู้รายงาน หรือสถานที่" aria-label="ค้นหา Job ผู้รายงาน หรือสถานที่">
       </div>
       <div class="seg" id="shiftSeg" role="group" aria-label="กรองตามกะ">
         <button class="active" data-shift="all">ทั้งหมด</button>
@@ -972,6 +1154,7 @@
     <div id="report-list" class="report-grid">
       <div class="empty-state">กด "ค้นหาข้อมูล" หรือ "รีเฟรช" เพื่อดูประวัติการบันทึก</div>
     </div>
+    <div id="reportMore" class="report-more" hidden></div>
   </div>
 
   <!-- PAGE 3: IMPORT -->
@@ -1008,10 +1191,11 @@
         QR Code ประจำหน้างาน
       </h2>
       <div class="qr-controls">
-        <p class="tool-p">สร้าง QR ติดไว้ที่หน้างาน คนงานสแกนแล้วแอปจะเปิดพร้อมใส่ Job No. ให้ทันที</p>
-        <div style="display:flex; gap:10px;">
-          <input type="text" id="qrJob" placeholder="Job No. เช่น V-20601" style="flex:1;">
-          <button class="btn-primary" style="width:auto; padding: 0 18px;" onclick="makeQR()">สร้าง QR</button>
+        <p class="tool-p">สร้าง QR ติดไว้ที่หน้างาน คนงานสแกนแล้วแอปจะเปิดพร้อมใส่ Job No. และสถานที่ให้ทันที</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <input type="text" id="qrJob" placeholder="Job No. เช่น V-20601">
+          <input type="text" id="qrLoc" placeholder="สถานที่ (ไม่บังคับ)" maxlength="100">
+          <button class="btn-primary" style="padding: 12px;" onclick="makeQR()">สร้าง QR</button>
         </div>
       </div>
       <div class="qr-result" id="qrResult" hidden>
@@ -1019,12 +1203,27 @@
           <div class="qr-title">สแกนเพื่อบันทึกข้อมูลหน้างาน</div>
           <div id="qrBox" class="qr-box"></div>
           <div class="qr-job" id="qrJobLabel"></div>
+          <div class="qr-loc" id="qrLocLabel"></div>
         </div>
         <div class="qr-url" id="qrUrl"></div>
         <div class="qr-controls" style="display:flex; gap:10px; margin-top: 12px;">
           <button class="btn-outline" style="padding:11px;" onclick="copyQrLink()">คัดลอกลิงก์</button>
           <button class="btn-primary" style="padding:11px;" onclick="printQR()">พิมพ์ QR</button>
         </div>
+      </div>
+    </div>
+
+    <div class="card" id="setupCard" hidden style="border-top: 4px solid var(--tw-blue);">
+      <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg> ตั้งค่าเครื่องใหม่</h2>
+      <p class="tool-p">สร้าง QR หรือลิงก์ที่มี URL ของฐานข้อมูลอยู่ในตัว ให้เครื่องใหม่สแกนหรือเปิดลิงก์ ระบบจะจำค่าไว้และใช้งานได้ทันที ไม่ต้องวาง URL เอง (ส่งให้เฉพาะเพื่อนร่วมงานที่ไว้ใจ)</p>
+      <button type="button" class="btn-outline" onclick="makeSetupQR()">สร้าง QR ตั้งค่าเครื่อง</button>
+      <div class="qr-result" id="setupResult" hidden>
+        <div class="qr-print">
+          <div class="qr-title">สแกนเพื่อตั้งค่าเครื่อง</div>
+          <div id="setupQrBox" class="qr-box"></div>
+        </div>
+        <div class="qr-url" id="setupLink"></div>
+        <button type="button" class="btn-outline" style="padding:11px; margin-top:12px;" onclick="copySetupLink()">คัดลอกลิงก์</button>
       </div>
     </div>
 
@@ -1059,9 +1258,31 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
       ตั้งค่าระบบ (Admin)
     </div>
-    <p id="urlNote" style="font-size: 13px; color: var(--muted); margin-bottom: 15px; line-height:1.6;">วาง Web App URL ของ Google Apps Script ที่นี่ ระบบจะจำค่าไว้ในเครื่องนี้</p>
+    <p id="urlNote" style="font-size: 13px; color: var(--muted); margin-bottom: 15px; line-height:1.6;">วาง Web App URL ของ Google Apps Script ที่นี่ ระบบจะจำค่าไว้ในเครื่องนี้ทันที ไม่ต้องกดบันทึกและไม่ต้องใส่ซ้ำ</p>
     <div class="form-group" id="urlGroup">
       <input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+    </div>
+    <p id="iosHint" class="status-hint" hidden>iPhone: เพิ่มแอปไปยังหน้าจอโฮมเพื่อให้ค่าที่จำไว้ไม่ถูกลบ (แตะปุ่มแชร์ แล้วเลือก "เพิ่มไปยังหน้าจอโฮม") เพราะ Safari จะล้างข้อมูลของเว็บที่ไม่ได้เปิดเกิน 7 วัน</p>
+    <div class="form-group">
+      <label style="font-size:13px;">ส่วนของแบบฟอร์มที่แสดง</label>
+      <div class="sec-list" id="secList"></div>
+      <div class="shift-hint">ปิดส่วนที่ไม่ใช้เพื่อให้กรอกเร็วขึ้น ตั้งค่านี้มีผลเฉพาะเครื่องนี้</div>
+    </div>
+    <div class="form-group">
+      <label style="font-size:13px;">การกรอกข้อมูล</label>
+      <div class="sec-list">
+        <label class="sec-row"><span class="sec-name">เติมข้อมูลให้อัตโนมัติ<small>จำชื่อ/Job/สถานที่ล่าสุด, เลือกวันที่และกะตามเวลาปัจจุบัน, บันทึกพิกัดเมื่อกด Now ที่ Arrival</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-autofill"><span></span></span></label>
+      </div>
+      <div class="shift-hint">ปิดอยู่ = ทุกช่องว่าง ต้องกรอกหรือเลือกเองทุกครั้ง</div>
+    </div>
+    <div class="form-group">
+      <label style="font-size:13px;">เสียงและการแสดงผล</label>
+      <div class="sec-list">
+        <label class="sec-row"><span class="sec-name">เสียงแจ้งเตือน<small>เสียงเมื่อบันทึกสำเร็จ เก็บไว้ส่งทีหลัง หรือผิดพลาด</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-sound"><span></span></span></label>
+        <div class="sec-row" id="soundLevelRow"><span class="sec-name">ระดับเสียง<small>เพิ่มเมื่อทำงานในที่เสียงดัง</small></span><div class="seg" id="soundLevelSeg" role="group" aria-label="ระดับเสียง"><button type="button" data-level="low">เบา</button><button type="button" data-level="mid">กลาง</button><button type="button" data-level="high">ดัง</button></div></div>
+        <div class="sec-row"><span class="sec-name">ทดสอบเสียง<small>สำเร็จ, เก็บไว้ส่งทีหลัง, ผิดพลาด</small></span><button type="button" class="geo-btn" onclick="testSounds()"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg> เล่นเสียง</button></div>
+        <label class="sec-row"><span class="sec-name">ภาพพื้นหลัง<small>ปิดเพื่อประหยัดแบตเตอรี่ หรือให้อ่านง่ายกลางแดด</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-bg"><span></span></span></label>
+      </div>
     </div>
     <div class="form-group">
       <label for="pinNew" style="font-size:13px;">PIN แอดมิน (ตัวเลข 4–6 หลัก)</label>
@@ -1131,6 +1352,20 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="statusModal" onclick="if(event.target===this) closeStatus()">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="statusTitle">
+    <div class="modal-title" id="statusTitle"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg><span>สถานะการเชื่อมต่อเซิร์ฟเวอร์</span></div>
+    <div class="status-hero" id="statusHero" data-state="checking"></div>
+    <div class="status-rows" id="statusRows"></div>
+    <div class="status-hint" id="statusHint" hidden></div>
+    <div style="display:flex; gap:10px; margin-top:14px;">
+      <button type="button" class="btn-outline" id="statusCheckBtn" style="padding:10px 8px; font-size:14px; white-space:nowrap;" onclick="checkServer(true)"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> ตรวจสอบตอนนี้</button>
+      <button type="button" class="btn-primary" style="padding:10px;" onclick="closeStatus()">ปิด</button>
+    </div>
+    <button type="button" class="link-btn" id="statusFlushBtn" hidden onclick="flushQueue(true)" style="margin-top:10px;"></button>
+  </div>
+</div>
+
 <div id="toast" class="toast-container" role="status" aria-live="polite"></div>
 
 <script>
@@ -1147,19 +1382,33 @@
   const DAY_START = 6, DAY_END = 18;   // 06:00–17:59 = กะเช้า
   const MAX_GAP_BEFORE_MIDNIGHT = 720; // เวลาย้อนเกิน 12 ชม. = ข้ามเที่ยงคืน
   const MAX_PHOTOS = 3;
+  const REPORT_DOM_PAGE = 200;          // รายงาน: วาดการ์ดทีละกี่ใบ (กดแสดงเพิ่มได้)
+  const REPORT_REFRESH_MS = 90000;      // รีเฟรชรายงานเองทุก ~90 วินาที ขณะเปิดหน้ารายงาน (เห็นรายการของคนอื่นที่เพิ่งบันทึก)
   const REMIND_WINDOW = { Day: [18 * 60 + 30, 23 * 60 + 59], Night: [6 * 60 + 30, 12 * 60] };
   const QR_LIB = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
   const KEYS = { url: 'googleScriptUrl', job: 'lastJobNo', reporter: 'lastReporter', draft: 'formDraft',
-                 queue: 'pendingQueue', sent: 'sentLog', pin: 'adminPin', install: 'installDismissed',
+                 queue: 'pendingQueue', sent: 'sentLog', loc: 'lastLocation', locs: 'recentLocs', sections: 'formSections', sound: 'soundOn', autofill: 'autoFill', timeHist: 'timeHist', reportLimit: 'reportLimit', jobList: 'jobList', jobHist: 'jobHist', soundLevel: 'soundLevel', bg: 'bgOn', pin: 'adminPin', install: 'installDismissed',
                  presets: 'mpPresets', glove: 'gloveMode', remindOn: 'remindOn', reminded: 'remindedKey' };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // เปิดผ่าน Apps Script (HtmlService) หรือโฮสต์เอง
   const IS_GAS = typeof google !== 'undefined' && !!(google.script && google.script.run);
 
-  /* ใส่ Web App URL ของ Apps Script ตรงนี้ครั้งเดียว ผู้ใช้ทุกเครื่องจะใช้ได้ทันทีโดยไม่ต้องตั้งค่าเอง
-     ตัวอย่าง: 'https://script.google.com/macros/s/AKfy..../exec'
-     (ถ้าเว้นว่าง ผู้ใช้ต้องวาง URL เองที่ปุ่มตั้งค่า (ไอคอนฟันเฟือง)) */
-  const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiTFk_A9FhJ9gKFhML-A8zI5KAZ1nJt2AaGFYyU0DV4-nSjB6swEIV9g3fCKL7LUaOZQ/exec';
+  /* ===== วาง Web App URL ของ Apps Script ที่นี่ (ลงท้ายด้วย /exec) =====
+     ตัวอย่างค่าที่วาง: 'https://script.google.com/macros/s/AKfy..../exec' (วางแทนเครื่องหมายคำพูดว่างในบรรทัดล่าง)
+     - ฝังแล้ว: ทุกเครื่องใช้ URL นี้ทันที, หน้าตั้งค่าจะไม่แสดงช่อง URL
+       และ URL นี้ชนะค่าเก่าที่เคยบันทึกค้างในเครื่องพนักงาน
+     - เว้นว่าง: ผู้ใช้ต้องวาง URL เองที่ปุ่มตั้งค่า (ไอคอนฟันเฟือง)
+     เปลี่ยน URL ภายหลัง: แก้บรรทัดนี้แล้วอัปโหลดไฟล์ใหม่ (เปลี่ยนเลข CACHE ใน sw.js ด้วย) */
+  const DEFAULT_SCRIPT_URL = '';
+  const EMBEDDED_URL = (DEFAULT_SCRIPT_URL || '').trim();
+
+  /* รูปพื้นหลังของหน่วยงาน (ไม่บังคับ): วางไฟล์ภาพไว้ใน repo แล้วใส่ชื่อไฟล์ เช่น 'bg.jpg'
+     เว้นว่าง = ใช้ภาพโรงงานและคลื่นน้ำที่มากับแอป (ภาพที่ใส่จะถูกซ้อนฟิล์มสีขาวบาง ๆ เพื่อให้อ่านตัวหนังสือง่าย) */
+  const BG_IMAGE_URL = '';
+
+  /* ส่วนของแบบฟอร์มที่แสดงโดยปริยายของทุกเครื่อง (true = แสดง, false = ซ่อน)
+     ผู้ใช้ปรับเฉพาะเครื่องตัวเองได้ที่ ตั้งค่า > ส่วนของแบบฟอร์มที่แสดง */
+  const DEFAULT_SECTIONS = { location: true, manpower: true, times: true, photos: true };
 
   /* ============ HELPERS ============ */
   const $ = id => document.getElementById(id);
@@ -1180,6 +1429,10 @@
   const todayLocal = () => ymd(new Date());
   const uid = () => (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
     : Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  // ขอให้เบราว์เซอร์เก็บข้อมูลของแอปถาวร (กันถูกล้างเมื่อพื้นที่เครื่องเต็ม)
+  function requestPersist() { try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {} }
+  requestPersist();
   function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
   const shiftLabel = s => String(s || '').toLowerCase() === 'day' ? 'กะเช้า' : 'กะดึก';
   function thaiDate(s) {
@@ -1200,6 +1453,8 @@
     return fd;
   }
   const hasBackend = () => IS_GAS || !!googleScriptUrl;
+  // ค่าเริ่มต้น = ปิด: ฟอร์มว่างทุกช่อง ไม่เติมอะไรให้เอง (เปิดได้ที่ ตั้งค่า > การกรอกข้อมูล)
+  function autofillOn() { return store.get(KEYS.autofill) === '1'; }
 
   /* ============ TIME ANALYSIS ============ */
   const toMin = v => { const [h, m] = v.split(':').map(Number); return h * 60 + m; };
@@ -1247,23 +1502,43 @@
       <span class="tl-dot"><span class="tl-num">${i + 1}</span><svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 8"></polyline></svg></span>
       <div class="tl-label"><label for="${n}">${l}</label><span class="tl-gap"></span></div>
       <div class="input-group">
-        <input type="time" name="${n}" id="${n}">
+        <input type="text" class="time-input" name="${n}" id="${n}" inputmode="numeric" enterkeyhint="next" autocomplete="off" maxlength="5" placeholder="เช่น 07:00" aria-label="${l} เวลา พิมพ์ เช่น 0700">
         <button type="button" class="btn-time-now" onclick="setCurrentTime('${n}')">Now</button>
       </div>
+      <div class="tl-chips" aria-label="เวลาที่แนะนำสำหรับ ${l}"></div>
     </li>`).join('');
 
   /* ============ STATE ============ */
   const form = $('dataForm');
   const SUBMIT_HTML = $('submitBtn').innerHTML;
-  let googleScriptUrl = store.get(KEYS.url) || DEFAULT_SCRIPT_URL;
+  let googleScriptUrl = EMBEDDED_URL || store.get(KEYS.url) || '';
+  if (EMBEDDED_URL) store.del(KEYS.url);   // ล้าง URL เก่าที่ค้างในเครื่อง ป้องกันส่งไปผิดที่
+  const server = { state: (IS_GAS || googleScriptUrl) ? 'checking' : 'nourl', latency: null, lastOk: null, lastCheck: null, info: null, outdated: false, err: '' };
   let timelineState = { warns: 0, total: 0 };
   let lastSummary = '';
   let photos = [];          // รูปใหม่ (data URL) ที่จะส่ง
   let editing = null;       // { sid, item } ขณะแก้ไขรายการเดิม
   let sessionPin = '';      // PIN ฝั่งเซิร์ฟเวอร์ที่ใส่ถูกแล้วในรอบนี้
-  $('currentDate').value = todayLocal();
-  if (store.get(KEYS.job)) $('jobNo').value = store.get(KEYS.job);
-  if (store.get(KEYS.reporter)) $('reporterName').value = store.get(KEYS.reporter);
+  // เติมข้อมูลเริ่มต้นเฉพาะเมื่อผู้ใช้เปิด "เติมข้อมูลให้อัตโนมัติ" ไม่เช่นนั้นทุกช่องว่าง
+  function prefillBasics() {
+    const on = autofillOn();
+    $('reporterName').value = on ? (store.get(KEYS.reporter) || '') : '';
+    $('jobNo').value = on ? (store.get(KEYS.job) || '') : '';
+    $('siteLocation').value = on ? (store.get(KEYS.loc) || '') : '';
+    $('currentDate').value = on ? todayLocal() : '';
+    autoSelectShift();
+  }
+  // เพิ่งเปิดสวิตช์: เติมเฉพาะช่องที่ยังว่าง ไม่ทับสิ่งที่กรอกไว้
+  function applyAutofillNow() {
+    if (!autofillOn()) return;
+    if (!$('reporterName').value) $('reporterName').value = store.get(KEYS.reporter) || '';
+    if (!$('jobNo').value) $('jobNo').value = store.get(KEYS.job) || '';
+    if (!$('siteLocation').value && sectionOn('location')) $('siteLocation').value = store.get(KEYS.loc) || '';
+    if (!$('currentDate').value) $('currentDate').value = todayLocal();
+    if (!form.querySelector('input[name="shift"]:checked')) autoSelectShift();
+    renderGeoStatus(); refreshForm(); scheduleDraftSave();
+  }
+  prefillBasics();
 
   /* ============ CLOCK + GREETING ============ */
   function tickClock() {
@@ -1271,6 +1546,8 @@
     $('clockHM').textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
     $('clockS').textContent = pad(d.getSeconds());
     $('clockDate').textContent = d.toLocaleDateString('th-TH', { weekday: 'short', day: 'numeric', month: 'short' });
+    const heroDate = d.toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    if ($('heroDate').textContent !== heroDate) $('heroDate').textContent = heroDate;
     const h = d.getHours();
     const g = h < 12 ? 'สวัสดีตอนเช้า' : h < 17 ? 'สวัสดีตอนบ่าย' : h < 21 ? 'สวัสดีตอนเย็น' : 'สวัสดีตอนดึก';
     const name = $('reporterName').value.trim();
@@ -1285,11 +1562,16 @@
     document.documentElement.dataset.theme = 'light';
   }
   function autoSelectShift() {
-    const h = new Date().getHours();
-    const shift = (h >= DAY_START && h < DAY_END) ? 'Day' : 'Night';
-    (shift === 'Day' ? $('shiftDay') : $('shiftNight')).checked = true;
-    $('shiftHint').textContent = 'เลือกให้อัตโนมัติตามเวลาตอนนี้ เปลี่ยนได้';
-    applyTheme(shift);
+    if (autofillOn()) {
+      const h = new Date().getHours();
+      const shift = (h >= DAY_START && h < DAY_END) ? 'Day' : 'Night';
+      (shift === 'Day' ? $('shiftDay') : $('shiftNight')).checked = true;
+      $('shiftHint').textContent = 'เลือกให้อัตโนมัติตามเวลาตอนนี้ เปลี่ยนได้';
+    } else {
+      $('shiftDay').checked = false; $('shiftNight').checked = false;
+      $('shiftHint').textContent = '';
+    }
+    applyTheme();
   }
   document.querySelectorAll('input[name="shift"]').forEach(r => r.addEventListener('change', () => {
     applyTheme(r.value);
@@ -1385,26 +1667,156 @@
   renderPresets();
 
   /* ============ TIMELINE ============ */
+  /* ============ TIME INPUT (พิมพ์เอง + ปุ่มเลือกแบบฉลาด) ============ */
+  const fmtHM = m => { m = ((Math.round(m) % 1440) + 1440) % 1440; return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`; };
+  const addMin = (t, g) => fmtHM(toMin(t) + g);
+  const round5 = m => Math.round(m / 5) * 5;
+  const fmtGapShort = g => g % 60 === 0 ? `${g / 60}ชม.` : (g > 60 ? `${Math.floor(g / 60)}ชม.${g % 60}น.` : `${g}น.`);
+  // แปลงสิ่งที่พิมพ์เป็น HH:MM  รองรับ 2012, 20:12, 20.12, 20 12, 7, 715, 7:5, "20.12 น." (ไม่ถูกต้อง = '')
+  function parseTime(raw) {
+    const s = String(raw ?? '').trim().replace(/\s*น\.?$/i, '');
+    if (!s) return '';
+    let h, m;
+    const mt = s.match(/^(\d{1,2})\s*[:.,;\s]\s*(\d{1,2})$/);
+    if (mt) { h = +mt[1]; m = +mt[2]; }
+    else if (/^\d{1,4}$/.test(s)) {
+      if (s.length <= 2) { h = +s; m = 0; } else { h = +s.slice(0, -2); m = +s.slice(-2); }
+    } else return '';
+    return (h >= 0 && h <= 23 && m >= 0 && m <= 59) ? `${pad(h)}:${pad(m)}` : '';
+  }
+  const timeValues = () => ACTIVITIES.map(([n]) => parseTime($(n).value));
+  // เมื่อพิมพ์ครบ 4 หลักล้วน (2012) ใส่ : ให้เอง
+  function liveFormatTime(input) {
+    if (/^\d{4}$/.test(input.value)) input.value = input.value.slice(0, 2) + ':' + input.value.slice(2);
+  }
+  // คืน true ถ้าว่างหรือถูกต้อง (แล้วปรับเป็น HH:MM) / false ถ้าพิมพ์มาแต่อ่านไม่ออก
+  function commitTime(input) {
+    const raw = input.value.trim(), v = parseTime(raw);
+    if (v) { input.value = v; input.classList.remove('invalid'); return true; }
+    input.classList.toggle('invalid', !!raw);
+    return !raw;
+  }
+
+  // ประวัติเวลาที่เคยกรอก (เก็บในเครื่อง) ใช้เรียนรู้เวลาที่ใช้บ่อยและช่วงห่างระหว่างขั้นตอน
+  let reportRecs = [];   // เวลาจากรายงานที่โหลดมา (ใช้ช่วยให้เครื่องใหม่ได้คำแนะนำที่ดีด้วย)
+  function recordTimes(d) {
+    const t = {};
+    ACTIVITIES.forEach(([n]) => { const v = parseTime(normTime(d[n])); if (v) t[n] = v; });
+    return t;
+  }
+  function learnTimes(d) {
+    const t = recordTimes(d);
+    if (!Object.keys(t).length) return;
+    const hist = (store.getJSON(KEYS.timeHist) || []).slice(-39);
+    hist.push({ shift: d.shift, t });
+    store.setJSON(KEYS.timeHist, hist);
+  }
+  function timeRecords() {
+    const sh = (form.querySelector('input[name="shift"]:checked') || {}).value;
+    const base = reportRecs.length >= 8 ? reportRecs : (store.getJSON(KEYS.timeHist) || []);
+    const same = sh ? base.filter(r => String(r.shift).toLowerCase() === sh.toLowerCase()) : base;
+    return same.length >= 3 ? same : base;
+  }
+  // คำแนะนำเวลาของขั้นที่ i: เวลาที่ใช้บ่อย, ต่อจากขั้นก่อน + ช่วงห่างที่มักเกิด, หรือย้อนหลังจากตอนนี้
+  function smartTimes(i) {
+    const name = ACTIVITIES[i][0], vals = timeValues(), cur = vals[i];
+    let pi = -1;
+    for (let k = i - 1; k >= 0; k--) if (vals[k]) { pi = k; break; }
+    const prev = pi >= 0 ? vals[pi] : '';
+    const recs = timeRecords(), out = [];
+    const add = (t, tag, kind) => { if (t && t !== cur && !out.some(o => o.t === t)) out.push({ t, tag, kind }); };
+    const fwdOk = t => !prev || diffMin(prev, t) !== null;     // ไม่ย้อนเวลาจากขั้นก่อนหน้า
+    const counts = {};
+    recs.forEach(r => { const t = r.t && r.t[name]; if (t) { const k = fmtHM(round5(toMin(t))); counts[k] = (counts[k] || 0) + 1; } });
+    Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).slice(0, 3)
+      .forEach(([t, c]) => { if (c >= 2 && fwdOk(t)) add(t, 'บ่อย', 'freq'); });
+    if (prev) {
+      const pn = ACTIVITIES[pi][0];
+      const gaps = recs.map(r => (r.t && r.t[pn] && r.t[name]) ? diffMin(r.t[pn], r.t[name]) : null).filter(g => g !== null).sort((a, b) => a - b);
+      if (gaps.length >= 3) { const med = round5(gaps[Math.floor(gaps.length / 2)]); if (med > 0) add(addMin(prev, med), '+' + fmtGapShort(med), 'rel'); }
+      [15, 30, 60].forEach(g => add(addMin(prev, g), '+' + fmtGapShort(g), 'rel'));
+    } else {
+      const n = new Date(), nowM = n.getHours() * 60 + n.getMinutes();
+      add(fmtHM(round5(nowM)), 'ใกล้ตอนนี้', 'now');
+      add(fmtHM(round5(nowM - 15)), '-15น.', 'ago');
+      add(fmtHM(round5(nowM - 30)), '-30น.', 'ago');
+    }
+    return out.slice(0, 4);
+  }
+  function renderTimeChips() {
+    document.querySelectorAll('.tl-item').forEach((it, i) => {
+      const box = it.querySelector('.tl-chips'); if (!box) return;
+      const cur = parseTime($(ACTIVITIES[i][0]).value);
+      let html = smartTimes(i).map(o => `<button type="button" class="tchip ${o.kind}" data-t="${o.t}" aria-label="ใช้เวลา ${o.t} (${o.tag})">${o.t}<small>${o.tag}</small></button>`).join('');
+      if (cur) html += '<button type="button" class="tchip adj" data-adj="-5" aria-label="ลด 5 นาที">−5</button><button type="button" class="tchip adj" data-adj="5" aria-label="เพิ่ม 5 นาที">+5</button>';
+      if (box.dataset.sig !== html) { box.innerHTML = html; box.dataset.sig = html; }   // ไม่วาดซ้ำถ้าเหมือนเดิม กันปุ่มหายตอนกำลังกด
+    });
+  }
+  function setTimeValue(input, v) {
+    input.value = v; input.classList.remove('invalid');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    haptic(10);
+  }
+  const tlList = $('tlList');
+  tlList.addEventListener('input', e => { const t = e.target; if (t.classList.contains('time-input')) { t.classList.remove('invalid'); liveFormatTime(t); } });
+  tlList.addEventListener('focusin', e => { if (e.target.classList.contains('time-input')) { try { e.target.select(); } catch (_) {} } requestAnimationFrame(layoutTrack); });
+  tlList.addEventListener('focusout', e => {
+    if (e.target.classList.contains('time-input')) { commitTime(e.target); refreshForm(); scheduleDraftSave(); }
+    requestAnimationFrame(layoutTrack);
+  });
+  tlList.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' || !e.target.classList.contains('time-input')) return;
+    e.preventDefault();                                   // Enter ไม่ส่งฟอร์ม แต่ไปช่องเวลาถัดไป
+    commitTime(e.target);
+    const inputs = [...tlList.querySelectorAll('.time-input')], nx = inputs[inputs.indexOf(e.target) + 1];
+    nx ? nx.focus() : e.target.blur();
+  });
+  tlList.addEventListener('mousedown', e => { if (e.target.closest('.tchip')) e.preventDefault(); });   // กดปุ่มแล้วช่องพิมพ์ไม่เสียโฟกัส
+  tlList.addEventListener('click', e => {
+    const b = e.target.closest('.tchip'); if (!b) return;
+    const idx = [...document.querySelectorAll('.tl-item')].indexOf(b.closest('.tl-item'));
+    const input = $(ACTIVITIES[idx][0]);
+    let v = b.dataset.t;
+    if (b.dataset.adj) { const cur = parseTime(input.value); if (!cur) return; v = addMin(cur, Number(b.dataset.adj)); }
+    setTimeValue(input, v);
+  });
+  $('dateChips').addEventListener('click', e => {
+    const b = e.target.closest('[data-day]'); if (!b) return;
+    const d = new Date(); d.setDate(d.getDate() + Number(b.dataset.day));
+    $('currentDate').value = ymd(d);
+    $('currentDate').dispatchEvent(new Event('input', { bubbles: true }));
+    haptic(8);
+  });
+
+  /* ============ TIMELINE ============ */
+  let tlLastDone = -1;
+  function layoutTrack() {
+    const items = [...document.querySelectorAll('.tl-item')];
+    if (!items.length) return;
+    $('tlTrack').style.height = items[items.length - 1].offsetTop + 'px';
+    $('tlFill').style.height = tlLastDone >= 0 ? items[tlLastDone].offsetTop + 'px' : '0';
+  }
   function updateTimeline() {
     const items = [...document.querySelectorAll('.tl-item')];
-    const res = analyzeTimes(ACTIVITIES.map(([n]) => $(n).value));
-    let lastDone = -1, doneCount = 0;
+    const res = analyzeTimes(timeValues());
+    let doneCount = 0; tlLastDone = -1;
     items.forEach((it, i) => {
-      const r = res.items[i];
+      const r = res.items[i], bad = $(ACTIVITIES[i][0]).classList.contains('invalid');
       it.classList.toggle('done', r.done && !r.warn);
       it.classList.toggle('warn', r.warn);
+      it.classList.toggle('bad', bad);
       it.classList.remove('next');
-      it.querySelector('.tl-gap').textContent = r.warn ? 'เวลาก่อนขั้นก่อนหน้า' : (r.gap !== null ? fmtDur(r.gap) : '');
-      if (r.done) { lastDone = i; doneCount++; }
+      it.querySelector('.tl-gap').textContent = bad ? 'พิมพ์ เช่น 07:00 หรือ 0700' : (r.warn ? 'เวลาก่อนขั้นก่อนหน้า' : (r.gap !== null ? fmtDur(r.gap) : ''));
+      if (r.done) { tlLastDone = i; doneCount++; }
     });
     const nextIdx = res.items.findIndex(r => !r.done);
     if (nextIdx > -1) items[nextIdx].classList.add('next');
-    $('tlTrack').style.height = items.length ? items[items.length - 1].offsetTop + 'px' : '0';
-    $('tlFill').style.height = lastDone >= 0 ? items[lastDone].offsetTop + 'px' : '0';
     const badge = $('tl-count');
     badge.textContent = res.warns ? `ตรวจเวลา ${res.warns} จุด` : (doneCount > 1 ? `${doneCount}/${items.length}, ${fmtDur(res.total, false)}` : `${doneCount}/${items.length}`);
     badge.style.background = res.warns ? '#F59E0B' : doneCount === items.length ? '#10B981' : 'var(--tw-blue)';
     timelineState = res;
+    renderTimeChips();
+    layoutTrack();
   }
   function setCurrentTime(inputId) {
     const input = $(inputId);
@@ -1414,7 +1826,7 @@
     input.dispatchEvent(new Event('input', { bubbles: true }));
     haptic(15);
     showToast(`บันทึกเวลา ${input.value} แล้ว`, 'success');
-    if (inputId === 'arr_bee' && !$('geoLat').value) captureLocation(false);
+    if (inputId === 'arr_bee' && autofillOn() && sectionOn('location') && !$('geoLat').value) captureLocation(false);
   }
   window.addEventListener('resize', updateTimeline);
 
@@ -1472,7 +1884,7 @@
       $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดใหม่';
     } else {
       el.className = 'geo-status';
-      el.textContent = 'พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to BEE';
+      el.textContent = autofillOn() ? 'พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to BEE' : 'กดปุ่มเพื่อบันทึกพิกัดของตำแหน่งปัจจุบัน';
       $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดตอนนี้';
     }
   }
@@ -1499,13 +1911,76 @@
     const fields = [
       $('reporterName').value.trim(), $('jobNo').value.trim(), $('currentDate').value,
       form.querySelector('input[name="shift"]:checked') ? '1' : '',
-      ...manpowerInputs.map(i => i.value),
-      ...ACTIVITIES.map(([n]) => $(n).value)
+      ...(sectionOn('location') ? [$('siteLocation').value.trim()] : []),
+      ...(sectionOn('manpower') ? manpowerInputs.map(i => i.value) : []),
+      ...(sectionOn('times') ? timeValues() : [])
     ];
     const pct = Math.round(fields.filter(Boolean).length / fields.length * 100);
     $('formProgress').style.width = pct + '%';
     $('formProgress').classList.toggle('complete', pct === 100);
   }
+
+  /* ============ FORM SECTIONS (เปิด/ปิดส่วนของฟอร์ม) ============ */
+  const SECTIONS = [
+    { key: 'basic',    label: 'ข้อมูลเบื้องต้น', desc: 'ชื่อผู้รายงาน, วันที่, กะ (ต้องมีเสมอ)', locked: true },
+    { key: 'location', label: 'สถานที่',        desc: 'ชื่อสถานที่และพิกัด GPS (ช่อง Job No. แสดงเสมอ)' },
+    { key: 'manpower', label: 'กำลังพล',        desc: 'จำนวนคนแยกตามตำแหน่ง' },
+    { key: 'times',    label: 'เวลา (Activity)', desc: 'เวลาของแต่ละขั้นตอน' },
+    { key: 'photos',   label: 'รูปถ่าย',         desc: 'แนบรูปหน้างาน' }
+  ];
+  const getSections = () => Object.assign({}, DEFAULT_SECTIONS, store.getJSON(KEYS.sections) || {});
+  // ขณะแก้ไขรายการเดิม แสดงทุกส่วนเสมอ เพื่อไม่ให้ข้อมูลของส่วนที่ซ่อนถูกทับเป็นค่าว่าง
+  const sectionOn = key => { const s = SECTIONS.find(x => x.key === key); return !!(editing || (s && s.locked) || getSections()[key]); };
+  function sectionHasData(key) {
+    if (key === 'location') return !!($('siteLocation').value.trim() || $('geoLat').value);
+    if (key === 'manpower') return manpowerInputs.some(i => i.value !== '');
+    if (key === 'times') return ACTIVITIES.some(([n]) => $(n).value);
+    if (key === 'photos') return photos.length > 0;
+    return false;
+  }
+  function clearSection(key) {
+    if (key === 'location') { $('siteLocation').value = ''; ['geoLat', 'geoLng', 'geoAcc'].forEach(id => { $(id).value = ''; }); renderGeoStatus(); }
+    if (key === 'manpower') manpowerInputs.forEach(i => { i.value = ''; });
+    if (key === 'times') ACTIVITIES.forEach(([n]) => { $(n).value = ''; $(n).classList.remove('invalid'); });
+    if (key === 'photos') { photos = []; renderPhotos(); $('existingPhotos').textContent = ''; }
+  }
+  function applySectionVisibility(clearHidden = false) {
+    SECTIONS.forEach(s => {
+      const on = sectionOn(s.key);
+      document.querySelectorAll(`[data-section="${s.key}"]`).forEach(el => { el.hidden = !on; });
+      if (!on && clearHidden) clearSection(s.key);
+    });
+    // ถ้าซ่อนการ์ดคู่ (กำลังพล/เวลา) ไว้ใบเดียว ให้อีกใบกว้างเต็มแถว
+    const man = sectionOn('manpower'), tim = sectionOn('times');
+    document.querySelector('[data-section="manpower"]').classList.toggle('full-width', man && !tim);
+    document.querySelector('[data-section="times"]').classList.toggle('full-width', tim && !man);
+    $('jobCardTitle').textContent = sectionOn('location') ? 'งานและสถานที่' : 'งาน';
+    refreshForm();
+  }
+  function renderSectionSettings() {
+    const cfg = getSections();
+    $('secList').innerHTML = SECTIONS.map(s => `
+      <label class="sec-row">
+        <span class="sec-name">${escapeHTML(s.label)}<small>${escapeHTML(s.desc)}</small></span>
+        <span class="switch"><input type="checkbox" role="switch" id="sec-${s.key}" ${s.locked || cfg[s.key] ? 'checked' : ''} ${s.locked ? 'disabled' : ''}><span></span></span>
+      </label>`).join('');
+  }
+
+  /* ============ RECENT LOCATIONS ============ */
+  function renderLocList() {
+    $('locList').innerHTML = (store.getJSON(KEYS.locs) || []).map(l => `<option value="${escapeHTML(l)}">`).join('');
+  }
+  function rememberLocation(name, front = true) {
+    name = String(name || '').trim();
+    if (!name) return;
+    let list = store.getJSON(KEYS.locs) || [];
+    const has = list.includes(name);
+    if (front) list = [name, ...list.filter(x => x !== name)];
+    else if (!has) list.push(name);
+    store.setJSON(KEYS.locs, list.slice(0, 12));
+    renderLocList();
+  }
+  renderLocList();
 
   /* ============ DRAFT AUTOSAVE ============ */
   function collectForm() {
@@ -1539,6 +2014,7 @@
     const draft = store.getJSON(KEYS.draft);
     if (!draft || !draft.data || (!hasWork(draft.data) && !(draft.photos || []).length)) return false;
     fillForm(draft.data);
+    ACTIVITIES.forEach(([n]) => commitTime($(n)));
     photos = draft.photos || [];
     renderPhotos(); renderGeoStatus();
     if (draft.data.shift) {
@@ -1550,9 +2026,10 @@
     if (!silent) setTimeout(() => showToast('กู้คืนข้อมูลที่กรอกค้างไว้แล้ว', 'info'), 400);
     return true;
   }
-  function resetWorkFields(keepDraft = false) {
-    form.querySelectorAll('input[type="number"], input[type="time"], input[type="hidden"]').forEach(input => input.value = '');
-    $('currentDate').value = todayLocal();
+  function resetWorkFields(keepDraft = false, clearText = false) {
+    form.querySelectorAll('input[type="number"], input.time-input, input[type="hidden"]').forEach(input => { input.value = ''; input.classList.remove('invalid'); });
+    if (clearText) ['reporterName', 'jobNo', 'siteLocation'].forEach(id => { $(id).value = ''; });
+    $('currentDate').value = autofillOn() ? todayLocal() : '';
     photos = [];
     renderPhotos(); renderGeoStatus();
     $('existingPhotos').textContent = '';
@@ -1561,16 +2038,21 @@
     refreshForm();
   }
   async function clearForm() {
-    if (!hasWork(collectForm()) && !photos.length) return showToast('ฟอร์มว่างอยู่แล้ว', 'info');
-    const ok = await confirmDialog('ล้างฟอร์ม', 'ล้างจำนวนกำลังพล เวลา รูป และพิกัดที่กรอกไว้ ชื่อผู้รายงานและ Job No. จะยังอยู่', 'ล้างฟอร์ม');
-    if (ok) { resetWorkFields(); showToast('ล้างฟอร์มแล้ว', 'success'); }
+    const keep = autofillOn();
+    const anyText = ['reporterName', 'jobNo', 'siteLocation'].some(id => $(id).value.trim());
+    if (!hasWork(collectForm()) && !photos.length && (keep || !anyText)) return showToast('ฟอร์มว่างอยู่แล้ว', 'info');
+    const ok = await confirmDialog('ล้างฟอร์ม', keep ? 'ล้างจำนวนกำลังพล เวลา รูป และพิกัดที่กรอกไว้ ชื่อผู้รายงาน, Job No. และสถานที่ จะยังอยู่' : 'ล้างข้อมูลที่กรอกไว้ในฟอร์มทั้งหมด', 'ล้างฟอร์ม');
+    if (ok) { resetWorkFields(false, !keep); showToast('ล้างฟอร์มแล้ว', 'success'); }
   }
 
   function refreshForm() { calculateTotalManpower(); updateTimeline(); updateProgress(); }
+  // บันทึกร่างทันทีเมื่อปิดหรือซ่อนหน้า (เช่น สลับแอป รีโหลด) ไม่ต้องรอ 0.4 วินาที
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(draftTimer); saveDraft(); } });
+  window.addEventListener('pagehide', () => { clearTimeout(draftTimer); saveDraft(); });
   form.addEventListener('input', () => { refreshForm(); scheduleDraftSave(); });
   form.addEventListener('change', () => { refreshForm(); scheduleDraftSave(); });
   restoreDraft();
-  refreshForm();
+  applySectionVisibility(true);   // ส่วนที่ปิดไว้: ล้างค่าที่ค้างจากร่างเก่า
   document.fonts && document.fonts.ready.then(updateTimeline);
 
   /* ============ TOAST ============ */
@@ -1580,6 +2062,7 @@
     const icon = type === 'success' ? ic('check-circle') : type === 'error' ? ic('alert') : ic('info');
     toast.innerHTML = `${icon} <span style="font-weight:600;">${escapeHTML(message)}</span>`;
     toast.className = `toast-container toast-${type} show`;
+    if (type === 'error') playSound('error');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('show'), ms ?? (type === 'info' ? 5000 : 3000));
   }
@@ -1648,30 +2131,54 @@
       }
       pinFails = 0;
     }
-    $('urlGroup').hidden = IS_GAS;
+    $('urlGroup').hidden = IS_GAS || !!EMBEDDED_URL;
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    $('iosHint').hidden = !(isIOS && !standalone && !IS_GAS);
     $('urlNote').textContent = IS_GAS
       ? 'แอปนี้เปิดผ่าน Google Apps Script และเชื่อมกับ Sheet โดยตรง ไม่ต้องตั้ง URL'
-      : 'วาง Web App URL ของ Google Apps Script ที่นี่ ระบบจะจำค่าไว้ในเครื่องนี้';
+      : EMBEDDED_URL
+        ? 'แอปนี้เชื่อมต่อกับฐานข้อมูลของหน่วยงานแล้ว ไม่ต้องตั้ง URL กด "ทดสอบการเชื่อมต่อ" เพื่อตรวจสอบได้'
+        : 'วาง Web App URL ของ Google Apps Script ที่นี่ ระบบจะจำค่าไว้ในเครื่องนี้ทันที ไม่ต้องกดบันทึกและไม่ต้องใส่ซ้ำ';
     $('scriptUrlInput').value = googleScriptUrl;
     $('pinNew').value = '';
     $('pinNew').placeholder = saved ? 'ตั้งไว้แล้ว เว้นว่างเพื่อใช้ PIN เดิม' : 'เว้นว่างถ้าไม่ต้องการล็อก';
     $('pinRemoveBtn').hidden = !saved;
     $('connResult').hidden = true;
+    renderSectionSettings();
+    renderPrefs();
     $('settingsModal').classList.add('active');
-    setTimeout(() => (IS_GAS ? $('pinNew') : $('scriptUrlInput')).focus(), 150);
+    setTimeout(() => (IS_GAS || EMBEDDED_URL ? $('pinNew') : $('scriptUrlInput')).focus(), 150);
   }
   function closeSettings() { $('settingsModal').classList.remove('active'); }
   async function saveSettings() {
     const url = $('scriptUrlInput').value.trim();
     const pin = $('pinNew').value.trim();
-    if (!IS_GAS && (!url || !url.includes('script.google.com'))) return showToast('URL ต้องเป็นลิงก์ script.google.com', 'error');
-    if (!IS_GAS && !/\/exec\/?$/.test(url)) return showToast('URL ต้องลงท้ายด้วย /exec (ไม่ใช่ /dev) กด "ทดสอบการเชื่อมต่อ" เพื่อตรวจ', 'error', 5000);
+    const needUrl = !IS_GAS && !EMBEDDED_URL;
+    if (needUrl && (!url || !url.includes('script.google.com'))) return showToast('URL ต้องเป็นลิงก์ script.google.com', 'error');
+    if (needUrl && !/\/exec\/?$/.test(url)) return showToast('URL ต้องลงท้ายด้วย /exec (ไม่ใช่ /dev) กด "ทดสอบการเชื่อมต่อ" เพื่อตรวจ', 'error', 5000);
     if (pin && !/^\d{4,6}$/.test(pin)) return showToast('PIN ต้องเป็นตัวเลข 4–6 หลัก', 'error');
-    if (!IS_GAS) { googleScriptUrl = url; store.set(KEYS.url, url); }
+    // ส่วนของแบบฟอร์ม: ถ้าปิดส่วนที่มีข้อมูลค้าง ต้องยืนยันก่อนล้าง
+    const cur = getSections(), next = { ...cur };
+    SECTIONS.filter(x => !x.locked).forEach(x => { const el = $('sec-' + x.key); if (el) next[x.key] = el.checked; });
+    if (!editing) {
+      const losing = SECTIONS.filter(x => !x.locked && cur[x.key] && !next[x.key] && sectionHasData(x.key));
+      if (losing.length) {
+        const ok = await confirmDialog('ปิดส่วนที่มีข้อมูลค้างอยู่',
+          `ส่วน ${losing.map(x => x.label).join(', ')} มีข้อมูลที่กรอกไว้ การปิดจะล้างข้อมูลในส่วนนั้น`, 'ปิดและล้างข้อมูล');
+        if (!ok) return;
+      }
+    }
+    store.setJSON(KEYS.sections, next);
+    applySectionVisibility(true);
+    if (needUrl) { googleScriptUrl = url; store.set(KEYS.url, url); }
     if (pin) store.set(KEYS.pin, await hashPin(pin));
     showToast(pin ? 'บันทึกการตั้งค่าและ PIN แล้ว' : 'บันทึกการตั้งค่าแล้ว', 'success');
     closeSettings();
     flushQueue();
+    checkServer();
+    renderSetupCard();
+    loadJobs(true);
   }
   function removePin() {
     store.del(KEYS.pin);
@@ -1679,27 +2186,46 @@
     $('pinNew').placeholder = 'เว้นว่างถ้าไม่ต้องการล็อก';
     showToast('เลิกใช้ PIN แล้ว', 'success');
   }
+  // จำ URL ทันทีที่วางลงช่อง (ถ้ารูปแบบถูกต้อง) ไม่ต้องกดบันทึก แล้วทดสอบการเชื่อมต่อให้เลย
+  let urlSaveTimer;
+  $('scriptUrlInput').addEventListener('input', () => {
+    clearTimeout(urlSaveTimer);
+    urlSaveTimer = setTimeout(() => {
+      if (IS_GAS || EMBEDDED_URL) return;
+      const v = $('scriptUrlInput').value.trim();
+      if (!v || urlProblem(v) || v === googleScriptUrl) return;
+      googleScriptUrl = v; store.set(KEYS.url, v); requestPersist();
+      showToast('จำ URL ไว้ในเครื่องนี้แล้ว ครั้งหน้าเปิดแอปใช้งานได้ทันที', 'success', 3500);
+      checkServer(); loadJobs(true); renderSetupCard();
+      testConnection();
+    }, 600);
+  });
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if ($('confirmModal').classList.contains('active')) return $('confirmCancel').click();
     if ($('pinModal').classList.contains('active')) return $('pinCancel').click();
-    closeSettings(); hideSuccess(); closeSheet();
+    closeSettings(); hideSuccess(); closeSheet(); closeStatus();
   });
 
   /* ============ CONNECTION TEST ============ */
+  function urlProblem(url) {
+    if (!url) return 'ยังไม่ได้ใส่ URL ของ Apps Script';
+    if (/\/dev(\?|$)/.test(url)) return 'URL นี้ลงท้ายด้วย <b>/dev</b> ซึ่งใช้ได้เฉพาะเจ้าของสคริปต์ ต้องใช้ URL ที่ลงท้ายด้วย <b>/exec</b> จากหน้า Deploy > Manage deployments';
+    if (!/^https:\/\/script\.google\.com\/(a\/[^/]+\/)?macros\/s\/[\w-]+\/exec\/?$/.test(url)) {
+      return 'รูปแบบ URL ไม่ถูกต้อง ต้องเป็น <b>https://script.google.com/macros/s/.../exec</b> (คัดลอกจาก Deploy > Manage deployments > Web app URL)';
+    }
+    return '';
+  }
   async function testConnection() {
     const box = $('connResult');
     const show = (cls, html) => { box.className = `conn-result ${cls}`; box.innerHTML = ic({ ok: 'check-circle', bad: 'alert', wait: 'clock' }[cls] || 'info') + '<div>' + html + '</div>'; box.hidden = false; };
-    const url = IS_GAS ? '' : ($('scriptUrlInput').value.trim() || googleScriptUrl);
+    const url = IS_GAS ? '' : (EMBEDDED_URL || $('scriptUrlInput').value.trim() || googleScriptUrl);
     const pending = getQueue().length;
     const pendingNote = pending ? `<br>มีรายการรอส่ง ${pending} รายการ จะถูกส่งให้อัตโนมัติเมื่อเชื่อมต่อได้` : '';
 
     if (!IS_GAS) {
-      if (!url) return show('bad', 'ยังไม่ได้ใส่ URL ของ Apps Script');
-      if (/\/dev(\?|$)/.test(url)) return show('bad', 'URL นี้ลงท้ายด้วย <b>/dev</b> ซึ่งใช้ได้เฉพาะเจ้าของสคริปต์ ต้องใช้ URL ที่ลงท้ายด้วย <b>/exec</b> จากหน้า Deploy > Manage deployments');
-      if (!/^https:\/\/script\.google\.com\/(a\/[^/]+\/)?macros\/s\/[\w-]+\/exec\/?$/.test(url)) {
-        return show('bad', 'รูปแบบ URL ไม่ถูกต้อง ต้องเป็น <b>https://script.google.com/macros/s/.../exec</b> (คัดลอกจาก Deploy > Manage deployments > Web app URL)');
-      }
+      const prob = urlProblem(url);
+      if (prob) return show('bad', prob + (EMBEDDED_URL ? '<br>URL นี้ฝังอยู่ในโค้ด แก้ที่บรรทัด <b>DEFAULT_SCRIPT_URL</b> ใน index.html' : ''));
     }
     if (!navigator.onLine) return show('bad', 'เครื่องนี้ออฟไลน์อยู่ ต่ออินเทอร์เน็ตแล้วลองใหม่');
     show('wait', 'กำลังทดสอบ...');
@@ -1759,7 +2285,8 @@
     $('appHeader').classList.toggle('no-progress', tabId !== 'form');
     haptic(6);
     if (tabId === 'form') requestAnimationFrame(updateTimeline);
-    if (tabId === 'report') fetchReport();
+    if (tabId === 'report') { fetchReport(); startReportAutoRefresh(); } else stopReportAutoRefresh();
+    if (tabId === 'import') renderSetupCard();
   }
 
   /* ============ API LAYER ============ */
@@ -1782,9 +2309,12 @@
     });
   }
   async function api(action, payload = {}, opts = {}) {
-    if (!navigator.onLine) throw netErr('offline');
-    if (IS_GAS) return gasCall(action, payload);
-    const READ = ['getReport', 'checkDuplicate'];
+    if (!navigator.onLine) { noteServer(false); throw netErr('offline'); }
+    if (IS_GAS) {
+      try { const r = await gasCall(action, payload); noteServer(true); return r; }
+      catch (e) { noteServer(!e.network, e.network ? e.message : ''); throw e; }
+    }
+    const READ = ['getReport', 'checkDuplicate', 'ping', 'getJobs'];
     const ctrl = opts.timeout ? new AbortController() : null;
     if (ctrl) setTimeout(() => ctrl.abort(), opts.timeout);
     let res;
@@ -1802,26 +2332,49 @@
         });
       }
     } catch (e) {
-      throw netErr(e.name === 'AbortError' ? 'timeout' : 'network');
+      const ne = netErr(e.name === 'AbortError' ? 'timeout' : 'network');
+      noteServer(false, ne.message);
+      throw ne;
     }
     const text = await res.text();
     let data = null;
     try { data = JSON.parse(text); } catch (_) {}
-    if (!res.ok) throw new Error(`เซิร์ฟเวอร์ตอบกลับผิดพลาด (${res.status})`);
+    if (!res.ok) { const he = new Error(`เซิร์ฟเวอร์ตอบกลับผิดพลาด (${res.status})`); he.status = res.status; noteServer(false, he.message); throw he; }
     if (data === null) {
       // Google ตอบเป็นหน้าเว็บ (เช่น หน้า login หรือหน้า error) = ข้อมูลไม่ได้ถูกบันทึก
       if (/<html|<!doctype/i.test(text)) {
+        noteServer(false, 'Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล');
         throw Object.assign(new Error('Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล ข้อมูลยังไม่ถูกบันทึก เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ" เพื่อดูสาเหตุ'), { code: 'BAD_RESPONSE' });
       }
+      noteServer(true);
       return { status: 'ok', unconfirmed: true };
     }
+    noteServer(true);   // เซิร์ฟเวอร์ตอบเป็นข้อมูลแล้ว = เชื่อมต่อได้ (แม้คำสั่งนั้นจะถูกปฏิเสธ)
     if (!Array.isArray(data) && data.status === 'error') throw apiErr(data);
     return data;
+  }
+  // เซิร์ฟเวอร์ไม่ว่าง (มีคนใช้พร้อมกันเยอะ หรือติดคิวเขียนนานเกินไป) = ลองใหม่ได้อย่างปลอดภัย
+  function isBusyErr(err) {
+    return !!err && (err.code === 'BUSY' || err.status === 429 || err.status === 503 ||
+      /simultaneous|too many|rate limit|quota|server busy|service unavailable/i.test(err.message || ''));
+  }
+  // ลองใหม่อัตโนมัติ 3 ครั้งแบบหน่วงเวลาเพิ่มขึ้น + สุ่ม (กันทุกเครื่องลองพร้อมกันอีก) ปลอดภัยเพราะทุกรายการมีรหัส เซิร์ฟเวอร์ไม่บันทึกซ้ำ
+  async function apiRetry(action, payload, opts = {}) {
+    const waits = [1200, 3500, 8000];
+    for (let i = 0; ; i++) {
+      try { return await api(action, payload, opts); }
+      catch (err) {
+        if (!isBusyErr(err)) throw err;
+        if (i >= waits.length) { err.network = true; err.kind = 'busy'; throw err; }   // ยังไม่ว่าง: ให้เก็บเข้าคิวส่งทีหลัง
+        if (opts.onRetry) opts.onRetry(i + 1);
+        await sleep(waits[i] * (0.7 + Math.random() * 0.6));
+      }
+    }
   }
   // คำสั่งที่ต้องใช้ PIN ฝั่งเซิร์ฟเวอร์ (แก้ไข/ลบ)
   async function callWithPin(action, payload) {
     try {
-      return await api(action, { ...payload, pin: sessionPin });
+      return await apiRetry(action, { ...payload, pin: sessionPin });
     } catch (err) {
       if (err.code !== 'PIN_REQUIRED' && err.code !== 'PIN_WRONG') throw err;
       if (err.code === 'PIN_WRONG') { sessionPin = ''; showToast('PIN ไม่ถูกต้อง', 'error'); }
@@ -1854,8 +2407,10 @@
     $('pendingCount').textContent = `รอส่ง ${n}`;
   }
   let flushing = false;
+  let flushHold = 0;   // เซิร์ฟเวอร์ไม่ว่าง: พักการส่งอัตโนมัติสักครู่ (กันทุกเครื่องรุมส่งพร้อมกัน)
   async function flushQueue(manual = false) {
     if (flushing) return;
+    if (!manual && Date.now() < flushHold) return;
     const q = getQueue();
     if (!q.length) { if (manual) showToast('ไม่มีรายการค้างส่ง', 'info'); return; }
     if (!hasBackend()) { if (manual) openSettings(); return; }
@@ -1870,6 +2425,7 @@
         sent++;
         setQueue(getQueue().filter(x => x.id !== item.id));
       } catch (err) {
+        if (isBusyErr(err)) { flushHold = Date.now() + 20000 + Math.random() * 10000; failed = err; break; }   // ไม่ว่าง: เก็บรายการไว้ ลองรอบหน้า
         if (!err.network) { // เซิร์ฟเวอร์ปฏิเสธข้อมูล: ไม่ต้องลองซ้ำไปเรื่อย ๆ
           setQueue(getQueue().filter(x => x.id !== item.id));
           showToast(`ส่งรายการค้างไม่ผ่าน: ${err.message}`, 'error', 6000);
@@ -1880,20 +2436,287 @@
     }
     flushing = false;
     $('pendingBadge').classList.remove('syncing');
-    if (sent) showToast(`ส่งรายการที่ค้างไว้ ${sent} รายการแล้ว`, 'success');
+    if (sent) { showToast(`ส่งรายการที่ค้างไว้ ${sent} รายการแล้ว`, 'success'); playSound('success'); }
     else if (failed && manual) showToast('ส่งรายการค้างไม่สำเร็จ: เชื่อมต่อ Apps Script ไม่ได้ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 7000);
   }
-  window.addEventListener('online', () => flushQueue());
+  window.addEventListener('online', () => setTimeout(() => flushQueue(), Math.random() * 3000));
   window.addEventListener('offline', () => showToast('ออฟไลน์อยู่ บันทึกต่อได้ ระบบจะเก็บไว้ส่งทีหลัง', 'info', 4000));
-  setInterval(() => flushQueue(), 30000);
+  setTimeout(() => setInterval(() => flushQueue(), 30000), Math.random() * 10000);   // เหลื่อมเวลาแต่ละเครื่อง
   updatePendingBadge();
-  setTimeout(() => flushQueue(), 1500);
+  setTimeout(() => flushQueue(), 1500 + Math.random() * 1500);
+
+  /* ============ SERVER STATUS (สถานะการเชื่อมต่อเซิร์ฟเวอร์) ============ */
+  const SERVER_LABEL = { ok: 'เชื่อมต่อแล้ว', checking: 'กำลังตรวจสอบ', down: 'เชื่อมต่อไม่ได้', offline: 'ออฟไลน์', nourl: 'ยังไม่ตั้งค่า' };
+  const SLOW_MS = 4000;
+  let serverChecking = false;
+  function setServer(patch) {
+    Object.assign(server, patch);
+    renderServerChip();
+    if ($('statusModal').classList.contains('active')) renderStatusPanel();
+  }
+  // ทุกครั้งที่เรียก API สำเร็จ/ล้มเหลว สถานะจะอัปเดตเองโดยไม่ต้องรอตรวจเป็นรอบ
+  function noteServer(ok, err = '') {
+    const was = server.state;
+    if (ok) setServer({ state: 'ok', lastOk: Date.now(), lastCheck: Date.now(), err: '' });
+    else setServer({ state: navigator.onLine ? 'down' : 'offline', lastCheck: Date.now(), err });
+    if (ok && (was === 'down' || was === 'offline') && getQueue().length) setTimeout(() => flushQueue(), 300 + Math.random() * 2700);
+  }
+  function serverSlow() { return server.state === 'ok' && server.latency > SLOW_MS; }
+  function renderServerChip() {
+    const c = $('connChip'); if (!c) return;
+    c.dataset.state = server.state;
+    c.toggleAttribute('data-slow', serverSlow());
+    const label = serverSlow() ? 'ตอบช้า' : SERVER_LABEL[server.state];
+    $('connLbl').textContent = label;
+    c.setAttribute('aria-label', `สถานะเซิร์ฟเวอร์: ${label} แตะเพื่อดูรายละเอียด`);
+  }
+  async function checkServer(manual = false) {
+    if (!hasBackend()) return setServer({ state: 'nourl' });
+    if (!navigator.onLine) return setServer({ state: 'offline' });
+    if (serverChecking) return;
+    serverChecking = true;
+    const btn = $('statusCheckBtn');
+    if (manual) { btn.disabled = true; btn.innerHTML = '<span class="spinner dark"></span> กำลังตรวจสอบ...'; }
+    if (server.state !== 'ok') setServer({ state: 'checking' });
+    const t0 = performance.now();
+    try {
+      // แบบเบา (light) ไม่เปิด Sheet จึงเรียกถี่ได้ ส่วนตอนกดตรวจเองจะอ่านชื่อไฟล์/ชีต/จำนวนแถวด้วย
+      const r = await api('ping', manual ? {} : { light: '1' }, { timeout: 12000 });
+      const patch = { latency: Math.round(performance.now() - t0), outdated: false };
+      if (manual && r && r.spreadsheet) patch.info = { file: r.spreadsheet, sheet: r.sheet, rows: r.rows };
+      setServer(patch);
+    } catch (err) {
+      if (err.code === 'UNKNOWN_ACTION') setServer({ latency: Math.round(performance.now() - t0), outdated: true });
+    } finally {
+      serverChecking = false;
+      if (manual) { btn.disabled = false; btn.innerHTML = ic('refresh') + ' ตรวจสอบตอนนี้'; }
+      if (server.state === 'checking') setServer({ state: 'down' });
+    }
+  }
+  function renderStatusPanel() {
+    const st = server.state, slow = serverSlow();
+    const title = slow ? 'เชื่อมต่อได้ แต่ตอบช้า' : { ok: 'เชื่อมต่อเซิร์ฟเวอร์แล้ว', checking: 'กำลังตรวจสอบ...', down: 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้', offline: 'ไม่มีอินเทอร์เน็ต', nourl: 'ยังไม่ได้ตั้งค่าเซิร์ฟเวอร์' }[st];
+    const desc = { ok: 'ข้อมูลที่บันทึกจะถูกส่งเข้า Google Sheet ทันที', checking: 'รอสักครู่', down: 'ข้อมูลจะเก็บในเครื่องก่อน แล้วส่งให้อัตโนมัติเมื่อเชื่อมต่อได้', offline: 'บันทึกต่อได้ ระบบจะเก็บไว้ส่งทีหลัง', nourl: 'เปิดตั้งค่าเพื่อกำหนด URL ของ Apps Script' }[st];
+    const hero = $('statusHero');
+    hero.dataset.state = st; hero.toggleAttribute('data-slow', slow);
+    hero.innerHTML = `<span class="big-dot"></span><div><b>${title}</b><small>${desc}</small></div>`;
+    const t = server.lastCheck ? new Date(server.lastCheck).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) : '-';
+    const mode = IS_GAS ? 'เปิดผ่าน Google Apps Script' : EMBEDDED_URL ? 'ผู้ดูแลกำหนดไว้ในแอป' : googleScriptUrl ? 'ตั้งค่าในเครื่องนี้' : 'ยังไม่ตั้งค่า';
+    const info = server.info ? `${escapeHTML(server.info.file)} / ${escapeHTML(server.info.sheet)} (${server.info.rows} แถว)` : 'กด "ตรวจสอบตอนนี้" เพื่อดู';
+    const pending = getQueue().length;
+    $('statusRows').innerHTML = [
+      ['อินเทอร์เน็ต', navigator.onLine ? 'ออนไลน์' : 'ออฟไลน์'],
+      ['เซิร์ฟเวอร์', mode],
+      ['เวลาตอบกลับ', server.latency != null ? `${server.latency.toLocaleString('th-TH')} มิลลิวินาที` : '-'],
+      ['ตรวจล่าสุด', t],
+      ['ฐานข้อมูล', info],
+      ['รายการรอส่ง', pending ? `${pending} รายการ` : 'ไม่มี']
+    ].map(([k, v]) => `<div><span>${k}</span><span>${v}</span></div>`).join('');
+    let hint = '';
+    if (st === 'down') hint = (server.err ? escapeHTML(server.err) + ' ' : '') + 'ถ้าเกิดซ้ำ ให้เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ" เพื่อดูสาเหตุ หรือแจ้งผู้ดูแลระบบตรวจการ Deploy ของ Apps Script';
+    else if (server.outdated) hint = 'Apps Script ที่ Deploy อยู่เป็นเวอร์ชันเก่า (ยังไม่รองรับคำสั่งตรวจสถานะ) ควรอัปเดต Code.gs และ Deploy เวอร์ชันใหม่';
+    else if (slow) hint = 'เซิร์ฟเวอร์ตอบช้า การบันทึกอาจใช้เวลานานกว่าปกติ';
+    $('statusHint').hidden = !hint; $('statusHint').innerHTML = hint;
+    const fb = $('statusFlushBtn'); fb.hidden = !pending;
+    fb.innerHTML = pending ? ic('refresh') + ` ส่งรายการที่ค้าง ${pending} รายการตอนนี้` : '';
+  }
+  function openStatus() {
+    renderStatusPanel();
+    $('statusModal').classList.add('active');
+    if (Date.now() - (server.lastCheck || 0) > 10000) checkServer();
+  }
+  function closeStatus() { $('statusModal').classList.remove('active'); }
+  window.addEventListener('online', () => checkServer());
+  window.addEventListener('offline', () => setServer({ state: 'offline' }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - (server.lastCheck || 0) > 30000) checkServer(); });
+  setTimeout(() => setInterval(() => { if (!document.hidden) checkServer(); }, 120000), Math.random() * 30000);   // ทุก 2 นาที (แบบเบา) เหลื่อมเวลาแต่ละเครื่อง
+  renderServerChip();
+  setTimeout(() => checkServer(), 700);
+
+  /* ============ SOUND (สังเคราะห์เสียงด้วย Web Audio ไม่ต้องมีไฟล์เสียง ใช้ได้ตอนออฟไลน์) ============ */
+  const SOUND_LEVELS = { low: 0.45, mid: 1, high: 1.9 };
+  // [ความถี่ Hz, เริ่มที่ (วินาที), ยาว, ความดัง, รูปคลื่น]
+  const SOUNDS = {
+    success: [[659.25, 0, .14, .28, 'sine'], [783.99, .11, .14, .28, 'sine'], [1046.5, .22, .32, .30, 'sine']],   // ไล่เสียงขึ้น 3 โน้ต
+    queued:  [[523.25, 0, .12, .24, 'triangle'], [523.25, .16, .16, .24, 'triangle']],                            // ติ๊ก-ติ๊ก เก็บไว้ส่งทีหลัง
+    error:   [[196, 0, .18, .22, 'sawtooth'], [196, .24, .26, .22, 'sawtooth']],                                  // ต่ำ 2 ครั้ง ผิดพลาด
+    alert:   [[880, 0, .12, .20, 'square'], [880, .2, .12, .20, 'square'], [880, .4, .12, .20, 'square']]         // บี๊บ 3 ครั้ง เตือน
+  };
+  let audioCtxObj = null, audioOut = null, lastErrSound = 0;
+  function soundOn() { return store.get(KEYS.sound) !== '0'; }
+  function soundLevel() { const v = store.get(KEYS.soundLevel); return SOUND_LEVELS[v] ? v : 'mid'; }
+  function getAudio() {
+    if (audioCtxObj) return audioCtxObj;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    try {
+      audioCtxObj = new AC();
+      audioOut = audioCtxObj.createDynamicsCompressor();   // กันเสียงแตกเมื่อเลือกระดับ "ดัง"
+      audioOut.connect(audioCtxObj.destination);
+    } catch (_) { audioCtxObj = null; }
+    return audioCtxObj;
+  }
+  // เบราว์เซอร์ต้องให้ผู้ใช้แตะหน้าจอก่อนจึงจะเล่นเสียงได้ จึงปลดล็อกตอนแตะครั้งแรก
+  function unlockAudio() { const c = getAudio(); if (c && c.state === 'suspended') c.resume().catch(() => {}); }
+  ['pointerdown', 'touchend', 'click', 'keydown'].forEach(ev => document.addEventListener(ev, unlockAudio, { passive: true }));
+  function tone(c, freq, at, dur, vol, type) {
+    const o = c.createOscillator(), g = c.createGain();
+    o.type = type; o.frequency.setValueAtTime(freq, at);
+    g.gain.setValueAtTime(0.0001, at);
+    g.gain.exponentialRampToValueAtTime(vol, at + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+    o.connect(g); g.connect(audioOut);
+    o.start(at); o.stop(at + dur + 0.03);
+  }
+  function playSound(kind, opts = {}) {
+    if (!opts.force && !soundOn()) return;
+    if (kind === 'error') { const n = Date.now(); if (n - lastErrSound < 700) return; lastErrSound = n; }
+    const c = getAudio(); if (!c) return;
+    if (c.state === 'suspended') c.resume().catch(() => {});
+    const mult = SOUND_LEVELS[opts.level || soundLevel()];
+    const t0 = c.currentTime + 0.03;
+    (SOUNDS[kind] || []).forEach(([f, at, d, v, type]) => tone(c, f, t0 + at, d, Math.min(0.9, v * mult), type));
+  }
+  function testSounds() {
+    unlockAudio();
+    ['success', 'queued', 'error'].forEach((k, i) => setTimeout(() => playSound(k, { force: true }), i * 1000));
+    showToast('กำลังเล่นเสียงทดสอบ: สำเร็จ, เก็บไว้ส่งทีหลัง, ผิดพลาด', 'info', 3500);
+  }
+  function renderPrefs() {
+    $('pref-autofill').checked = autofillOn();
+    $('pref-sound').checked = soundOn();
+    $('pref-bg').checked = bgOn();
+    $('soundLevelSeg').querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.level === soundLevel()));
+    $('soundLevelRow').style.opacity = soundOn() ? '1' : '.45';
+  }
+  $('pref-autofill').addEventListener('change', e => {
+    store.set(KEYS.autofill, e.target.checked ? '1' : '0');
+    if (e.target.checked) { applyAutofillNow(); showToast('เปิดเติมข้อมูลอัตโนมัติแล้ว', 'info', 2500); }
+    else { renderGeoStatus(); showToast('ปิดเติมข้อมูลอัตโนมัติแล้ว ฟอร์มถัดไปจะว่างทุกช่อง', 'info', 3500); }
+  });
+  $('pref-sound').addEventListener('change', e => {
+    store.set(KEYS.sound, e.target.checked ? '1' : '0');
+    renderPrefs();
+    if (e.target.checked) { unlockAudio(); playSound('success'); }
+  });
+  $('soundLevelSeg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    store.set(KEYS.soundLevel, b.dataset.level);
+    renderPrefs(); unlockAudio(); playSound('success', { force: true });
+  });
+  $('pref-bg').addEventListener('change', e => { store.set(KEYS.bg, e.target.checked ? '1' : '0'); applyBackground(); });
+
+  /* ============ BACKGROUND (ภาพพื้นหลัง) ============ */
+  function bgOn() { return store.get(KEYS.bg) !== '0'; }
+  function applyBackground() { document.documentElement.toggleAttribute('data-nobg', !bgOn()); }
+  applyBackground();
+  if (BG_IMAGE_URL) {
+    const bg = $('appBg');
+    bg.classList.add('custom');
+    bg.style.backgroundImage = `linear-gradient(rgba(248, 250, 252, .86), rgba(248, 250, 252, .94)), url("${BG_IMAGE_URL.replace(/"/g, '%22')}")`;
+  }
+
+  /* ============ JOB LIST (รายชื่อ Job: พิมพ์แล้วขึ้นรายการที่ตรงกันอัตโนมัติ) ============ */
+  const JOB_REFRESH_MS = 10 * 60 * 1000;
+  const jobCacheInit = store.getJSON(KEYS.jobList) || {};
+  let jobsServer = Array.isArray(jobCacheInit.jobs) ? jobCacheInit.jobs : [], jobsAt = jobCacheInit.at || 0;
+  let jobSel = -1, jobShown = [], jobSuppress = false;
+  const normJob = v => String(v || '').toLowerCase().replace(/[\s_\-.,/]+/g, '');   // V-20601 / v20601 / "v 20601" ถือว่าเหมือนกัน
+  function localJobs() { const h = store.getJSON(KEYS.jobHist) || {}; return Object.keys(h).map(k => ({ job: k, ...h[k] })); }
+  function learnJob(d) {
+    const job = String(d.job || '').trim(); if (!job) return;
+    const h = store.getJSON(KEYS.jobHist) || {};
+    const e = h[job] || { location: '', lastDate: '', count: 0 };
+    e.count++;
+    if (d.location) e.location = d.location;
+    if (!e.lastDate || String(d.date) >= e.lastDate) e.lastDate = String(d.date || '');
+    h[job] = e;
+    const keys = Object.keys(h);
+    if (keys.length > 300) keys.sort((a, b) => String(h[a].lastDate).localeCompare(String(h[b].lastDate))).slice(0, keys.length - 300).forEach(k => delete h[k]);
+    store.setJSON(KEYS.jobHist, h);
+  }
+  // รวมรายชื่อจากฐานข้อมูล (ทุกเครื่อง) กับที่เครื่องนี้เพิ่งบันทึก เรียงใหม่สุดก่อน
+  function allJobs() {
+    const map = new Map();
+    jobsServer.forEach(j => map.set(j.job, { ...j }));
+    localJobs().forEach(j => {
+      const sv = map.get(j.job);
+      if (!sv) map.set(j.job, j);
+      else if (String(j.lastDate) > String(sv.lastDate)) { sv.lastDate = j.lastDate; if (j.location) sv.location = j.location; }
+    });
+    return [...map.values()].sort((a, b) => String(b.lastDate).localeCompare(String(a.lastDate)) || (b.count || 0) - (a.count || 0));
+  }
+  async function loadJobs(force = false) {
+    if (!hasBackend() || !navigator.onLine) return;
+    if (!force && Date.now() - jobsAt < JOB_REFRESH_MS) return;
+    try {
+      const r = await api('getJobs', {}, { timeout: 15000 });
+      if (r && Array.isArray(r.jobs)) { jobsServer = r.jobs; jobsAt = Date.now(); store.setJSON(KEYS.jobList, { at: jobsAt, jobs: jobsServer }); }
+    } catch (_) { /* เซิร์ฟเวอร์เวอร์ชันเก่าหรือเชื่อมต่อไม่ได้: ใช้รายการที่จำไว้ในเครื่อง */ }
+  }
+  function matchJobs(q) {
+    const nq = normJob(q), list = allJobs();
+    if (!nq) return list.slice(0, 6);                                   // ยังไม่พิมพ์: แสดง Job ล่าสุด
+    return list.map(j => { const nj = normJob(j.job); return { j, sc: nj === nq ? 0 : nj.startsWith(nq) ? 1 : nj.includes(nq) ? 2 : -1 }; })
+      .filter(x => x.sc >= 0).sort((a, b) => a.sc - b.sc).map(x => x.j).slice(0, 6);
+  }
+  function hideJobSuggest() { $('jobSuggest').hidden = true; $('jobNo').setAttribute('aria-expanded', 'false'); jobSel = -1; }
+  function renderJobSuggest() {
+    const box = $('jobSuggest'), input = $('jobNo'), q = input.value;
+    jobShown = document.activeElement === input ? matchJobs(q) : [];
+    if (!jobShown.length) return hideJobSuggest();
+    box.innerHTML = (q.trim() ? '' : '<div class="js-head">Job ล่าสุด</div>') + jobShown.map((j, i) => {
+      const meta = [j.location && `${ic('pin')} ${escapeHTML(j.location)}`, j.lastDate && `ล่าสุด ${escapeHTML(thaiDate(j.lastDate))}`, j.count && `${j.count} ครั้ง`].filter(Boolean).join(' · ');
+      return `<button type="button" class="js-item${i === jobSel ? ' sel' : ''}" role="option" data-i="${i}"><b>${escapeHTML(j.job)}</b>${meta ? `<small>${meta}</small>` : ''}</button>`;
+    }).join('');
+    box.hidden = false; input.setAttribute('aria-expanded', 'true');
+  }
+  // Job ที่รู้จัก: ใส่สถานที่เดิมให้ (เฉพาะเมื่อช่องสถานที่ยังว่าง)
+  function fillLocationFromJob(item) {
+    if (!item || !item.location || !sectionOn('location') || $('siteLocation').value.trim()) return false;
+    $('siteLocation').value = item.location;
+    $('siteLocation').dispatchEvent(new Event('input', { bubbles: true }));
+    showToast(`ใส่สถานที่ "${item.location}" ให้แล้ว (จาก Job นี้)`, 'info', 3500);
+    return true;
+  }
+  function pickJob(item) {
+    jobSuppress = true;
+    $('jobNo').value = item.job;
+    $('jobNo').dispatchEvent(new Event('input', { bubbles: true }));
+    jobSuppress = false;
+    hideJobSuggest();
+    fillLocationFromJob(item);
+    $('jobNo').blur();
+  }
+  $('jobNo').addEventListener('input', () => { if (jobSuppress) return; jobSel = -1; renderJobSuggest(); });
+  $('jobNo').addEventListener('focus', () => { loadJobs(); jobSel = -1; renderJobSuggest(); });
+  $('jobNo').addEventListener('blur', () => setTimeout(() => {
+    if (document.activeElement === $('jobNo')) return;     // กลับมาแตะช่องอีกแล้ว ไม่ต้องปิดรายการ
+    hideJobSuggest();
+    const v = normJob($('jobNo').value);
+    if (v) fillLocationFromJob(allJobs().find(j => normJob(j.job) === v));   // พิมพ์ชื่อ Job ที่มีอยู่ครบ -> ใส่สถานที่ให้
+  }, 120));
+  $('jobNo').addEventListener('keydown', e => {
+    const open = !$('jobSuggest').hidden;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (!open) return renderJobSuggest();
+      e.preventDefault();
+      jobSel = (jobSel + (e.key === 'ArrowDown' ? 1 : -1) + jobShown.length) % jobShown.length;
+      renderJobSuggest();
+    } else if (e.key === 'Enter' && open && jobSel >= 0) { e.preventDefault(); pickJob(jobShown[jobSel]); }
+    else if (e.key === 'Escape' && open) { e.stopPropagation(); hideJobSuggest(); }
+  });
+  $('jobSuggest').addEventListener('mousedown', e => e.preventDefault());   // กดเลือกแล้วช่องไม่เสียโฟกัสก่อน
+  $('jobSuggest').addEventListener('click', e => { const b = e.target.closest('.js-item'); if (b) pickJob(jobShown[Number(b.dataset.i)]); });
+  setTimeout(() => loadJobs(), 1500);
 
   /* ============ DUPLICATE CHECK ============ */
   function logSent(d) {
     const log = (store.getJSON(KEYS.sent) || []).slice(-199);
     log.push({ job: d.job, date: d.date, shift: d.shift, sid: d.sid, at: Date.now() });
     store.setJSON(KEYS.sent, log);
+    learnTimes(d);
+    learnJob(d);
   }
   async function findDuplicates(d) {
     const same = r => r.job === d.job && r.date === d.date && r.shift === d.shift && r.sid !== d.sid;
@@ -1911,6 +2734,7 @@
   /* ============ SUMMARY + SHARE ============ */
   function buildSummary(d) {
     const lines = ['รายงานหน้างาน', `Job: ${d.job || '-'}`, `ผู้รายงาน: ${d.reporter || '-'}`, `วันที่: ${thaiDate(d.date)} (${shiftLabel(d.shift)})`];
+    if (d.location) lines.push(`สถานที่: ${d.location}`);
     const mp = MANPOWER.filter(([k]) => Number(d[k]) > 0);
     const total = MANPOWER.reduce((s, [k]) => s + (Number(d[k]) || 0), 0);
     if (mp.length) {
@@ -1946,11 +2770,12 @@
       if (!ok) return;
       clearTimeout(draftTimer); saveDraft();
     }
-    editing = { sid: item.sid, item };
+    editing = { sid: item.sid, item, base: item.updated_at || item.timestamp || '' };
+    applySectionVisibility();
     closeSheet();
     switchTab('form');
     const data = { reporter: item.reporter || '', job: item.job || '', date: String(item.date || '').slice(0, 10), shift: item.shift,
-                   lat: item.lat || '', lng: item.lng || '', acc: item.acc || '' };
+                   lat: item.lat || '', lng: item.lng || '', acc: item.acc || '', location: item.location || '' };
     MANPOWER.forEach(([k]) => { data[k] = item[k] ?? ''; });
     ACTIVITIES.forEach(([k]) => { data[k] = normTime(item[k]); });
     fillForm(data);
@@ -1970,11 +2795,14 @@
     editing = null;
     $('editBanner').hidden = true;
     $('submitBtn').innerHTML = SUBMIT_HTML;
-    resetWorkFields(true);
-    if (store.get(KEYS.reporter)) $('reporterName').value = store.get(KEYS.reporter);
-    if (store.get(KEYS.job)) $('jobNo').value = store.get(KEYS.job);
+    resetWorkFields(true, true);
+    if (autofillOn()) {
+      $('reporterName').value = store.get(KEYS.reporter) || '';
+      $('jobNo').value = store.get(KEYS.job) || '';
+      $('siteLocation').value = store.get(KEYS.loc) || '';
+    }
     restoreDraft(true);
-    refreshForm();
+    applySectionVisibility(true);
   }
   function cancelEdit() { exitEdit(); showToast('ยกเลิกการแก้ไขแล้ว', 'info', 2500); }
 
@@ -1985,9 +2813,10 @@
     try {
       await callWithPin('delete', { sid: item.sid });
       reportData = reportData.filter(r => r.sid !== item.sid);
+      reportTotal = Math.max(0, reportTotal - 1);
       closeSheet();
       applyReportFilter();
-      showToast('ลบรายการแล้ว', 'success');
+      showToast('ลบรายการแล้ว', 'success'); playSound('success');
     } catch (err) {
       if (!err.cancelled) showToast(err.message || 'ลบไม่สำเร็จ', 'error', 4500);
     }
@@ -1997,6 +2826,10 @@
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     if (!hasBackend()) { showToast('ตั้งค่า Script URL ก่อนส่งข้อมูล', 'error'); return openSettings(); }
+    for (const [n, label] of ACTIVITIES) {
+      const inp = $(n);
+      if (!commitTime(inp)) { updateTimeline(); inp.focus(); return showToast(`เวลา "${label}" อ่านไม่ออก พิมพ์ เช่น 07:00 หรือ 0700`, 'error', 4500); }
+    }
     if (!form.checkValidity()) {
       const bad = form.querySelector(':invalid');
       bad && bad.focus();
@@ -2030,6 +2863,8 @@
     submitBtn.innerHTML = `<span class="spinner"></span> ${photos.length ? 'กำลังส่งข้อมูลและรูป...' : 'กำลังส่งข้อมูล...'}`;
     store.set(KEYS.job, data.job);
     store.set(KEYS.reporter, data.reporter);
+    store.set(KEYS.loc, data.location || '');
+    rememberLocation(data.location);
     const total = calculateTotalManpower();
     const detail = `Job ${escapeHTML(data.job)}<br>${shiftLabel(data.shift)}, กำลังพล ${total} คน` +
       (photos.length ? `, รูป ${photos.length} รูป` : '');
@@ -2037,39 +2872,47 @@
 
     // แก้ไขรายการเดิม: ต้องออนไลน์
     if (editing) {
-      try {
-        await callWithPin('update', data);
+      data.base = editing.base;     // เวอร์ชันที่เห็นตอนเริ่มแก้ ใช้ตรวจว่ามีคนอื่นแก้ไปก่อนหรือไม่
+      const doUpdate = async force => {
+        const r = await callWithPin('update', force ? { ...data, force: '1' } : data);
         const sid = editing.sid;
         exitEdit();
         showSuccess(detail, summary, '', 'แก้ไขแล้ว');
-        if (reportData.length) reportData = reportData.map(r => r.sid === sid ? { ...r, ...data, photos: r.photos } : r);
+        if (reportData.length) reportData = reportData.map(x => x.sid === sid ? { ...x, ...data, photos: x.photos, updated_at: r.updated_at || x.updated_at } : x);
+      };
+      try {
+        await doUpdate(false);
       } catch (err) {
-        if (!err.cancelled) showToast(err.network ? 'ต้องออนไลน์เพื่อแก้ไขรายการ' : (err.message || 'แก้ไขไม่สำเร็จ'), 'error', 4500);
+        if (err.code === 'CONFLICT') {
+          const ok = await confirmDialog('รายการถูกแก้ไขโดยผู้อื่น', 'มีผู้ใช้อื่นแก้ไขรายการนี้ไปก่อนแล้ว ต้องการเขียนทับด้วยข้อมูลของคุณหรือไม่ (เลือกยกเลิกเพื่อกลับไปดูข้อมูลล่าสุด)', 'เขียนทับ');
+          if (ok) { try { await doUpdate(true); } catch (e2) { if (!e2.cancelled) showToast(e2.message || 'แก้ไขไม่สำเร็จ', 'error', 4500); } }
+          else { exitEdit(); fetchReport(); }
+        } else if (!err.cancelled) showToast(err.network ? 'ต้องออนไลน์เพื่อแก้ไขรายการ' : (err.message || 'แก้ไขไม่สำเร็จ'), 'error', 4500);
       } finally { submitBtn.disabled = false; if (editing) submitBtn.innerHTML = btnHTML; }
       return;
     }
 
-    const queueIt = (wasOnline) => {
+    const queueIt = (kind) => {
       const r = enqueue({ kind: 'single', data });
       if (r === 'fail') return showToast('พื้นที่ในเครื่องเต็ม เก็บรายการไว้ส่งทีหลังไม่ได้ ลองลบรูปออกแล้วส่งใหม่', 'error', 6000);
       logSent(data);
-      resetWorkFields();
-      const why = wasOnline ? 'เชื่อมต่อ Apps Script ไม่ได้' : 'ยังไม่มีสัญญาณ';
+      resetWorkFields(false, !autofillOn());
+      const why = kind === 'busy' ? 'เซิร์ฟเวอร์ไม่ว่าง (มีผู้ใช้พร้อมกันจำนวนมาก)' : kind !== 'offline' ? 'เชื่อมต่อ Apps Script ไม่ได้' : 'ยังไม่มีสัญญาณ';
       showSuccess(detail, summary,
         r === 'nophotos' ? `${why} เก็บข้อมูลไว้ส่งทีหลังแล้ว แต่รูปใหญ่เกินพื้นที่ในเครื่อง รูปจะไม่ถูกส่ง`
                          : `${why} เก็บไว้ในเครื่องแล้ว จะลองส่งใหม่อัตโนมัติ` +
-                           (wasOnline ? ' ถ้าเกิดซ้ำ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
-        'ยังไม่ได้ส่ง');
+                           (kind !== 'offline' && kind !== 'busy' ? ' ถ้าเกิดซ้ำ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
+        'ยังไม่ได้ส่ง', 'queued');
     };
 
     try {
-      const res = await api('submit', data);
+      const res = await apiRetry('submit', data, { onRetry: n => { submitBtn.innerHTML = `<span class="spinner"></span> เซิร์ฟเวอร์ไม่ว่าง กำลังลองใหม่ (${n}/3)...`; } });
       logSent(data);
-      resetWorkFields();
+      resetWorkFields(false, !autofillOn());
       showSuccess(detail, summary, res.unconfirmed ? 'ส่งข้อมูลแล้ว ตรวจสอบได้ที่หน้ารายงาน' : '');
     } catch (err) {
       // ทุกรายการมีรหัสประจำตัว (sid) เซิร์ฟเวอร์จะไม่บันทึกซ้ำ จึงเก็บไว้ลองใหม่ได้อย่างปลอดภัย
-      if (err.network) queueIt(err.kind !== 'offline');
+      if (err.network) queueIt(err.kind);
       else showToast(err.message || 'ส่งข้อมูลไม่สำเร็จ ลองอีกครั้ง', 'error', 7000);
     } finally {
       restoreBtn();
@@ -2078,7 +2921,7 @@
 
   /* ============ SUCCESS + CONFETTI ============ */
   let successTimer;
-  function showSuccess(detailHTML, summary = '', note = '', title = 'บันทึกแล้ว') {
+  function showSuccess(detailHTML, summary = '', note = '', title = 'บันทึกแล้ว', sound = 'success') {
     lastSummary = summary;
     document.querySelector('.success-card h3').textContent = title;
     $('successDetail').innerHTML = detailHTML;
@@ -2087,6 +2930,7 @@
     $('successShare').hidden = !summary;
     $('successOverlay').classList.add('show');
     haptic([30, 40, 30]);
+    playSound(sound);
     if (!reduceMotion) runConfetti();
     clearTimeout(successTimer);
     successTimer = setTimeout(hideSuccess, 8000);
@@ -2177,7 +3021,7 @@
       if (it[k] !== undefined && it[k] !== '') { hasMp = true; mp += Number(it[k]) || 0; }
     }));
     const tiles = [
-      ['รายงานทั้งหมด', data.length, 'var(--tw-blue)'],
+      [reportTotal > data.length ? 'รายการที่แสดง' : 'รายงานทั้งหมด', data.length, 'var(--tw-blue)'],
       ['กะเช้า', day, 'var(--day)'],
       ['กะดึก', data.length - day, '#3358C9'],
       hasMp ? ['กำลังพลรวม', mp, 'var(--tw-red)', 'คน'] : ['ผู้รายงาน', reporters, 'var(--tw-red)', 'คน']
@@ -2264,28 +3108,34 @@
       </div>`).join('');
   }
 
-  function applyReportFilter() {
+  function applyReportFilter(resetShown = true) {
+    if (resetShown) reportShown = REPORT_DOM_PAGE;
     const q = reportFilter.q.trim().toLowerCase();
     reportView = reportData.filter(it => {
       if (reportFilter.shift === 'day' && !isDay(it)) return false;
       if (reportFilter.shift === 'night' && isDay(it)) return false;
-      if (q && !`${it.job || ''} ${it.reporter || ''}`.toLowerCase().includes(q)) return false;
+      if (q && !`${it.job || ''} ${it.reporter || ''} ${it.location || ''}`.toLowerCase().includes(q)) return false;
       return true;
     });
     renderStats(reportView);
     renderMetrics(reportView);
     renderChart(reportView);
     const list = $('report-list');
-    $('report-summary').innerHTML = reportView.length === reportData.length
-      ? `พบ <span style="color: var(--tw-red); font-size: 16px;">${reportData.length}</span> รายการ`
-      : `แสดง <span style="color: var(--tw-red); font-size: 16px;">${reportView.length}</span> จาก ${reportData.length} รายการ`;
+    const loaded = reportData.length, fmtN = n => Number(n).toLocaleString('th-TH');
+    const num = n => `<span style="color: var(--tw-red); font-size: 16px;">${fmtN(n)}</span>`;
+    let sum = reportView.length === loaded ? `พบ ${num(loaded)} รายการ` : `ตรงกับตัวกรอง ${num(reportView.length)} จาก ${fmtN(loaded)} รายการที่โหลด`;
+    if (reportTotal > loaded) sum += ` · ทั้งหมดในช่วงนี้ ${fmtN(reportTotal)}`;
+    if (reportTruncated) sum += ' (ระบบแสดงสูงสุดตามที่รองรับ เลือกช่วงวันที่เพื่อดูส่วนที่เหลือ)';
+    if (reportTotal > loaded && reportLimit !== '0') sum += ' <button type="button" class="link-btn" id="loadAllBtn">โหลดทั้งหมด</button>';
+    $('report-summary').innerHTML = sum;
     if (!reportView.length) {
+      $('reportMore').hidden = true;
       list.innerHTML = reportData.length
         ? '<div class="empty-state">ไม่พบรายการที่ตรงกับคำค้นหรือตัวกรอง ลองเปลี่ยนคำค้นหรือเลือก "ทั้งหมด"</div>'
         : '<div class="empty-state">ไม่พบรายการในช่วงนี้</div>';
       return;
     }
-    list.innerHTML = reportView.map((item, i) => {
+    list.innerHTML = reportView.slice(0, reportShown).map((item, i) => {
       const day = isDay(item);
       const nPhotos = String(item.photos || '').split(',').filter(Boolean).length;
       return `
@@ -2297,11 +3147,15 @@
         <div style="margin-bottom:8px;"><span class="rc-reporter">${ic('user')} ${escapeHTML(item.reporter || 'ไม่ระบุ')}</span></div>
         <div class="rc-meta">
           <span>${ic('calendar')} ปฏิบัติงาน: ${escapeHTML(thaiDate(item.date))}</span>
+          ${item.location ? `<span>${ic('pin')} สถานที่: ${escapeHTML(item.location)}</span>` : ''}
           <span style="font-size: 11px;">${ic('clock')} บันทึก: ${escapeHTML(item.timestamp || '-')}${item.updated_at ? ' (แก้ไขแล้ว)' : ''}</span>
         </div>
         <div class="rc-more">${nPhotos ? `<span class="tag">${ic('camera')} ${nPhotos} รูป</span>` : ''}${item.lat ? `<span class="tag">${ic('pin')} มีพิกัด</span>` : ''}<span>แตะเพื่อดูรายละเอียด</span></div>
       </div>`;
     }).join('');
+    const rest = reportView.length - reportShown;
+    $('reportMore').hidden = rest <= 0;
+    if (rest > 0) $('reportMore').innerHTML = `<button type="button" class="btn-outline">แสดงเพิ่มอีก ${Math.min(REPORT_DOM_PAGE, rest)} (เหลือ ${rest.toLocaleString('th-TH')})</button>`;
   }
 
   $('report-list').addEventListener('click', e => {
@@ -2342,38 +3196,82 @@
   }
   ['filterStartDate', 'filterEndDate'].forEach(id => $(id).addEventListener('change', () => setActiveChip(null)));
 
-  async function fetchReport() {
-    if (!hasBackend()) { showToast('ตั้งค่า Script URL ในเมนูตั้งค่าก่อน', 'error'); return openSettings(); }
+  let reportTotal = 0, reportTruncated = false, reportFetching = false, reportSig = '', reportShown = REPORT_DOM_PAGE;
+  let reportLimit = ['50', '100', '200', '0'].includes(store.get(KEYS.reportLimit)) ? store.get(KEYS.reportLimit) : '50';
+  function renderLimitSeg() { $('limitSeg').querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.limit === reportLimit)); }
+  renderLimitSeg();
+  function setReportLimit(v) { reportLimit = v; store.set(KEYS.reportLimit, v); renderLimitSeg(); fetchReport(); }
+  $('limitSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (b && b.dataset.limit !== reportLimit) setReportLimit(b.dataset.limit); });
+  $('report-summary').addEventListener('click', e => { if (e.target.closest('#loadAllBtn')) setReportLimit('0'); });
+  $('reportMore').addEventListener('click', () => { reportShown += REPORT_DOM_PAGE; applyReportFilter(false); });
+
+  // opts.silent = รีเฟรชเงียบ ๆ ไม่แสดงโครงโหลด/ไม่แจ้ง error และวาดใหม่เฉพาะเมื่อข้อมูลเปลี่ยน
+  async function fetchReport(opts = {}) {
+    const silent = !!opts.silent;
+    if (!hasBackend()) { if (silent) return; showToast('ตั้งค่า Script URL ในเมนูตั้งค่าก่อน', 'error'); return openSettings(); }
     const sDate = $('filterStartDate').value;
     const eDate = $('filterEndDate').value;
-    if ((sDate && !eDate) || (!sDate && eDate)) return showToast('เลือกทั้งวันเริ่มต้นและวันสิ้นสุด', 'error');
-    if (sDate && eDate && sDate > eDate) return showToast('วันเริ่มต้นต้องไม่อยู่หลังวันสิ้นสุด', 'error');
+    if ((sDate && !eDate) || (!sDate && eDate)) { if (!silent) showToast('เลือกทั้งวันเริ่มต้นและวันสิ้นสุด', 'error'); return; }
+    if (sDate && eDate && sDate > eDate) { if (!silent) showToast('วันเริ่มต้นต้องไม่อยู่หลังวันสิ้นสุด', 'error'); return; }
+    if (reportFetching) return;
+    reportFetching = true;
 
     const list = $('report-list');
-    list.innerHTML = skeletonCards();
-    $('report-summary').innerHTML = '';
-    $('report-stats').innerHTML = '';
-    $('report-metrics').innerHTML = '';
-    $('jobTableCard').hidden = true;
-
+    if (!silent) {
+      list.innerHTML = skeletonCards();
+      $('report-summary').innerHTML = '';
+      $('report-stats').innerHTML = '';
+      $('report-metrics').innerHTML = '';
+      $('jobTableCard').hidden = true;
+      $('reportMore').hidden = true;
+    }
     try {
-      const data = await api('getReport', sDate && eDate ? { startDate: sDate, endDate: eDate } : {});
-      if (!Array.isArray(data) || data.length === 0) {
+      const params = { paged: '1', limit: reportLimit };
+      if (sDate && eDate) { params.startDate = sDate; params.endDate = eDate; }
+      const res = await api('getReport', params);
+      let rows, total, truncated = false;
+      if (Array.isArray(res)) {              // Apps Script เวอร์ชันเก่า: ส่งมาทั้งหมด ตัดจำนวนที่ฝั่งแอป
+        total = res.length; rows = reportLimit !== '0' ? res.slice(0, Number(reportLimit)) : res;
+      } else { rows = res.rows || []; total = typeof res.total === 'number' ? res.total : rows.length; truncated = !!res.truncated; }
+      const sig = rows.map(r => `${r.sid}|${r.updated_at || r.timestamp}`).join(',') + '#' + total;
+      if (silent && sig === reportSig) return;
+      const grew = silent && reportSig && total > reportTotal;
+      reportSig = sig; reportTotal = total; reportTruncated = truncated;
+      if (!rows.length) {
         reportData = [];
         $('reportTools').hidden = true;
         $('chartCard').hidden = true;
         list.innerHTML = '<div class="empty-state">ไม่พบรายการในช่วงนี้ ลองเปลี่ยนช่วงวันที่ หรือบันทึกรายการแรกที่หน้า "บันทึก"</div>';
         return;
       }
-      reportData = data;
+      reportData = rows;
+      rows.forEach(r => rememberLocation(r.location, false));
+      reportRecs = rows.map(r => ({ shift: r.shift, t: recordTimes(r) })).filter(r => Object.keys(r.t).length);
       $('reportTools').hidden = false;
-      applyReportFilter();
+      applyReportFilter(!silent);
+      if (grew) showToast('มีรายการใหม่ อัปเดตรายงานแล้ว', 'info', 2500);
     } catch (error) {
+      if (silent) return;
       $('chartCard').hidden = true;
       list.innerHTML = error.kind === 'offline'
         ? '<div class="empty-state">ออฟไลน์อยู่ ดูรายงานได้เมื่อมีสัญญาณ ส่วนการบันทึกยังทำได้ตามปกติ</div>'
         : `<div class="empty-state" style="color:var(--tw-red);">โหลดข้อมูลไม่สำเร็จ (${escapeHTML(error.message)}) ตรวจสอบอินเทอร์เน็ตและ Script URL แล้วกด "รีเฟรช"</div>`;
-    }
+    } finally { reportFetching = false; }
+  }
+  // หลายคนใช้พร้อมกัน: ขณะเปิดหน้ารายงานจะรีเฟรชเองเป็นระยะ (เฉพาะเมื่อหน้าจอเปิดอยู่และไม่ได้เปิดรายละเอียดค้างไว้)
+  let reportTimer = null;
+  function stopReportAutoRefresh() { clearTimeout(reportTimer); reportTimer = null; }
+  function startReportAutoRefresh() {
+    stopReportAutoRefresh();
+    const tick = () => {
+      reportTimer = setTimeout(async () => {
+        if (!document.hidden && navigator.onLine && $('page-report').classList.contains('active') && !$('detailSheet').classList.contains('active')) {
+          await fetchReport({ silent: true });
+        }
+        if ($('page-report').classList.contains('active')) tick();
+      }, REPORT_REFRESH_MS + Math.random() * 15000);
+    };
+    tick();
   }
 
   /* ============ DETAIL SHEET ============ */
@@ -2393,7 +3291,7 @@
         <h3>${escapeHTML(it.job || '-')}</h3>
         <span class="rc-shift ${day ? 'day' : 'night'}">${day ? ic('sun') + ' กะเช้า' : ic('moon') + ' กะดึก'}</span>
       </div>
-      <div class="sub"><div>${ic('user')}<span>${escapeHTML(it.reporter || 'ไม่ระบุ')}</span></div><div>${ic('calendar')}<span>${escapeHTML(thaiDate(it.date))}</span></div><div>${ic('clock')}<span>บันทึกเมื่อ ${escapeHTML(it.timestamp || '-')}</span></div>${it.updated_at ? `<div>${ic('edit')}<span>แก้ไขล่าสุด ${escapeHTML(it.updated_at)}</span></div>` : ''}</div>`;
+      <div class="sub"><div>${ic('user')}<span>${escapeHTML(it.reporter || 'ไม่ระบุ')}</span></div><div>${ic('calendar')}<span>${escapeHTML(thaiDate(it.date))}</span></div>${it.location ? `<div>${ic('pin')}<span>${escapeHTML(it.location)}</span></div>` : ''}<div>${ic('clock')}<span>บันทึกเมื่อ ${escapeHTML(it.timestamp || '-')}</span></div>${it.updated_at ? `<div>${ic('edit')}<span>แก้ไขล่าสุด ${escapeHTML(it.updated_at)}</span></div>` : ''}</div>`;
     if (mp.length) {
       html += `<h4>กำลังพล ${total} คน</h4><div class="mp-grid">` +
         mp.map(([k, l]) => `<div><span>${l}</span><b>${escapeHTML(it[k])}</b></div>`).join('') + '</div>';
@@ -2431,17 +3329,17 @@
   const csvCell = v => /[",\n\r]/.test(String(v ?? '')) ? `"${String(v).replace(/"/g, '""')}"` : String(v ?? '');
   function exportCSV() {
     if (!reportView.length) return showToast('ไม่มีข้อมูลให้ส่งออก', 'error');
-    const labels = { timestamp: 'เวลาบันทึก', reporter: 'ชื่อผู้รายงาน', job: 'Job No.', date: 'วันที่', shift: 'กะ',
+    const labels = { timestamp: 'เวลาบันทึก', reporter: 'ชื่อผู้รายงาน', job: 'Job No.', date: 'วันที่', shift: 'กะ', location: 'สถานที่',
                      lat: 'ละติจูด', lng: 'ลองจิจูด', acc: 'ความแม่นยำ (ม.)', photos: 'รหัสรูปใน Drive', updated_at: 'แก้ไขล่าสุด', sid: 'รหัสรายการ' };
     MANPOWER.concat(ACTIVITIES).forEach(([k, l]) => { labels[k] = l; });
-    const order = ['timestamp', 'reporter', 'job', 'date', 'shift', ...MANPOWER.map(x => x[0]), ...ACTIVITIES.map(x => x[0]), 'lat', 'lng', 'acc', 'photos', 'updated_at', 'sid'];
+    const order = ['timestamp', 'reporter', 'job', 'date', 'shift', 'location', ...MANPOWER.map(x => x[0]), ...ACTIVITIES.map(x => x[0]), 'lat', 'lng', 'acc', 'photos', 'updated_at', 'sid'];
     const present = new Set(reportView.flatMap(Object.keys));
     const cols = order.filter(k => present.has(k)).concat([...present].filter(k => !order.includes(k)));
     const rows = [cols.map(k => labels[k] || k), ...reportView.map(it => cols.map(k => it[k]))];
     const csv = '\uFEFF' + rows.map(r => r.map(csvCell).join(',')).join('\r\n');
     const s = $('filterStartDate').value, e = $('filterEndDate').value;
     downloadBlob(csv, `รายงานหน้างาน_${s && e ? `${s}_ถึง_${e}` : todayLocal()}.csv`);
-    showToast(`ส่งออก ${reportView.length} รายการแล้ว`, 'success');
+    showToast(reportTotal > reportData.length ? `ส่งออก ${reportView.length} รายการที่แสดง (ทั้งหมด ${reportTotal.toLocaleString('th-TH')}) เลือก "ทั้งหมด" หากต้องการส่งออกครบ` : `ส่งออก ${reportView.length} รายการแล้ว`, 'success', reportTotal > reportData.length ? 6000 : undefined);
   }
   function downloadBlob(text, filename) {
     const blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
@@ -2456,7 +3354,7 @@
   const TEMPLATE_HEADERS = [
     'ชื่อผู้รายงาน', 'Job No.', 'วันที่ (YYYY-MM-DD)', 'กะ (Day หรือ Night)',
     'Operation Manager', 'Sale Engineer', 'Foreman', 'Permit Holder', 'Safety', 'Fire watch', 'Jetter', 'Jetter (C)',
-    'Arrival to BEE', 'Safety Tool Box Talk', 'Work Permit Approve', 'Break', 'Close Permit', 'Arrival to Asia'
+    'Arrival to BEE', 'Safety Tool Box Talk', 'Work Permit Approve', 'Break', 'Close Permit', 'Arrival to Asia', 'สถานที่'
   ];
   function parseCSV(text) {
     const rows = []; let row = [], cell = '', q = false;
@@ -2477,7 +3375,7 @@
     return rows.filter(r => r.length > 1 && r[0] !== '' && r[0] !== TEMPLATE_HEADERS[0]);
   }
   function downloadTemplate() {
-    const example = ['ตัวอย่างนาย เอ', 'V-20601,V-0601', '2026-08-22', 'Day', 1, 0, 2, 1, 2, 2, 4, 3, '06:50', '07:10', '08:40', '11:45', '18:00', '18:40'];
+    const example = ['ตัวอย่างนาย เอ', 'V-20601,V-0601', '2026-08-22', 'Day', 1, 0, 2, 1, 2, 2, 4, 3, '06:50', '07:10', '08:40', '11:45', '18:00', '18:40', 'โรงงาน A'];
     downloadBlob('\uFEFF' + TEMPLATE_HEADERS.map(csvCell).join(',') + '\r\n' + example.map(csvCell).join(','), 'template_import_งาน.csv');
   }
 
@@ -2520,7 +3418,7 @@
     const rows = parsedRows;
 
     try {
-      const res = await api('bulkImport', { data: JSON.stringify(rows) });
+      const res = await apiRetry('bulkImport', { data: JSON.stringify(rows) });
       let note = res.unconfirmed ? 'ตรวจสอบผลได้ที่หน้ารายงาน' : '';
       if (res.skipped || res.invalid) note = [res.skipped ? `ข้าม ${res.skipped} แถวที่เคยนำเข้าแล้ว` : '', res.invalid ? `ข้อมูลไม่ครบ ${res.invalid} แถว` : ''].filter(Boolean).join(', ');
       showSuccess(`นำเข้า ${typeof res.imported === 'number' ? res.imported : rows.length} รายการ`, '', note, 'นำเข้าแล้ว');
@@ -2528,7 +3426,7 @@
     } catch (err) {
       if (err.network) {
         if (enqueue({ kind: 'bulk', rows }) === 'fail') { showToast('พื้นที่ในเครื่องเต็ม เก็บไว้ส่งทีหลังไม่ได้', 'error'); return; }
-        showSuccess(`นำเข้า ${rows.length} รายการ`, '', 'ยังไม่มีสัญญาณ เก็บไว้ในเครื่องแล้ว จะส่งให้อัตโนมัติเมื่อออนไลน์', 'เก็บไว้ส่งทีหลัง');
+        showSuccess(`นำเข้า ${rows.length} รายการ`, '', 'ยังไม่มีสัญญาณ เก็บไว้ในเครื่องแล้ว จะส่งให้อัตโนมัติเมื่อออนไลน์', 'เก็บไว้ส่งทีหลัง', 'queued');
         resetDropzone();
       } else showToast(err.message || 'นำเข้าไม่สำเร็จ ลองอีกครั้ง', 'error', 4500);
     } finally {
@@ -2552,16 +3450,18 @@
   }
   async function makeQR() {
     const job = $('qrJob').value.trim() || $('jobNo').value.trim();
+    const loc = $('qrLoc').value.trim();
     if (!job) return showToast('ใส่ Job No. ก่อนสร้าง QR', 'error');
     $('qrJob').value = job;
     try {
       if (typeof qrcode === 'undefined') await loadScript(QR_LIB);
-      qrLink = `${await appBaseUrl()}?job=${encodeURIComponent(job)}`;
+      qrLink = `${await appBaseUrl()}?job=${encodeURIComponent(job)}${loc ? '&loc=' + encodeURIComponent(loc) : ''}`;
       const qr = qrcode(0, 'M');
       qr.addData(qrLink);
       qr.make();
       $('qrBox').innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
       $('qrJobLabel').textContent = job;
+      $('qrLocLabel').textContent = loc;
       $('qrUrl').textContent = qrLink;
       $('qrResult').hidden = false;
       haptic(10);
@@ -2581,7 +3481,31 @@
     setTimeout(done, 1500);
   }
 
-  // เปิดแอปจาก QR: ?job=...
+  /* ============ SETUP LINK (ตั้งค่าเครื่องใหม่) ============ */
+  let setupLink = '';
+  function renderSetupCard() { $('setupCard').hidden = IS_GAS || !!EMBEDDED_URL || !googleScriptUrl; }
+  async function makeSetupQR() {
+    if (!googleScriptUrl) return;
+    try {
+      if (typeof qrcode === 'undefined') await loadScript(QR_LIB);
+      setupLink = `${await appBaseUrl()}?server=${encodeURIComponent(googleScriptUrl)}`;
+      const qr = qrcode(0, 'M');
+      qr.addData(setupLink);
+      qr.make();
+      $('setupQrBox').innerHTML = qr.createSvgTag({ cellSize: 5, margin: 2, scalable: true });
+      $('setupLink').textContent = setupLink;
+      $('setupResult').hidden = false;
+      haptic(10);
+    } catch (_) { showToast('สร้าง QR ไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองอีกครั้ง', 'error'); }
+  }
+  async function copySetupLink() {
+    try { await navigator.clipboard.writeText(setupLink); showToast('คัดลอกลิงก์ตั้งค่าแล้ว', 'success'); }
+    catch (_) { showToast('คัดลอกไม่ได้ กดค้างที่ลิงก์ใต้ QR เพื่อคัดลอกเอง', 'error'); }
+  }
+  renderSetupCard();
+
+  // เปิดแอปจากลิงก์/QR: ?job=...&loc=... (ใส่ Job/สถานที่)  หรือ ?server=... (ตั้งค่าเครื่องใหม่)
+  const setupParamSeen = /[?&]server=/.test(location.search);
   async function applyUrlParams() {
     let params = {};
     try {
@@ -2589,14 +3513,39 @@
         ? await new Promise(r => google.script.url.getLocation(l => r(l.parameter || {})))
         : Object.fromEntries(new URLSearchParams(location.search));
     } catch (_) {}
-    if (!params.job || editing) return;
-    $('jobNo').value = params.job;
-    store.set(KEYS.job, params.job);
-    refreshForm();
-    showToast(`ตั้ง Job ${params.job} จาก QR แล้ว`, 'success');
-    if (!IS_GAS && history.replaceState) history.replaceState(null, '', location.pathname);
+    let touched = false;
+    if (params.server && !IS_GAS) {
+      touched = true;
+      const url = String(params.server).trim();
+      if (EMBEDDED_URL) { /* แอปนี้ฝัง URL ไว้แล้ว ไม่รับค่าจากลิงก์ */ }
+      else if (urlProblem(url)) showToast('ลิงก์ตั้งค่านี้มี URL ไม่ถูกต้อง', 'error', 5000);
+      else if (url === googleScriptUrl) showToast('เครื่องนี้ตั้งค่าไว้แล้ว', 'info', 2500);
+      else {
+        const ok = await confirmDialog('ตั้งค่าเซิร์ฟเวอร์จากลิงก์', `จะตั้งฐานข้อมูลของแอปเป็น ...${url.slice(-12)} ข้อมูลที่บันทึกจากเครื่องนี้จะถูกส่งไปที่นี่ กดยืนยันเฉพาะลิงก์ที่ได้รับจากผู้ดูแลระบบ`, 'ยืนยัน');
+        if (ok) {
+          googleScriptUrl = url; store.set(KEYS.url, url); requestPersist();
+          showToast('ตั้งค่าเซิร์ฟเวอร์แล้ว จำไว้ในเครื่องนี้ ใช้งานได้ทันที', 'success', 4000);
+          checkServer(); loadJobs(true); renderSetupCard();
+        }
+      }
+    }
+    if (!editing && (params.job || params.loc)) {
+      touched = true;
+      if (params.job) { $('jobNo').value = params.job; store.set(KEYS.job, params.job); }
+      if (params.loc) { $('siteLocation').value = params.loc; store.set(KEYS.loc, params.loc); }
+      refreshForm();
+      showToast(`ตั้ง${params.job ? ` Job ${params.job}` : ''}${params.job && params.loc ? ' และ' : ''}${params.loc ? `สถานที่ ${params.loc}` : ''} จาก QR แล้ว`, 'success');
+    }
+    if (touched && !IS_GAS && history.replaceState) history.replaceState(null, '', location.pathname);
   }
   applyUrlParams();
+  // เครื่องที่ยังไม่มี URL (ไม่ได้ฝังไว้และยังไม่เคยตั้ง): เปิดหน้าตั้งค่าให้เองตอนเข้าใช้งานครั้งแรก
+  setTimeout(() => {
+    if (!IS_GAS && !hasBackend() && !setupParamSeen) {
+      openSettings();
+      showToast('ครั้งแรก: วาง URL ของฐานข้อมูล ระบบจะจำไว้ทันที ครั้งหน้าใช้งานได้เลย', 'info', 8000);
+    }
+  }, 1200);
 
   /* ============ REMINDERS ============ */
   function updateRemindBtn() {
@@ -2619,6 +3568,7 @@
   }
   function notify(title, body) {
     showToast(title, 'info', 8000);
+    playSound('alert');
     haptic([60, 60, 60]);
     if (!('Notification' in window) || Notification.permission !== 'granted') return;
     const opts = { body, icon: 'icon-192.png', tag: 'field-remind' };
@@ -2643,6 +3593,10 @@
   updateRemindBtn();
   setInterval(checkReminder, 60000);
   setTimeout(checkReminder, 5000);
+
+  if (EMBEDDED_URL && !IS_GAS && urlProblem(EMBEDDED_URL)) {
+    setTimeout(() => showToast('URL ที่ฝังใน index.html ไม่ถูกต้อง (ต้องลงท้ายด้วย /exec) กดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 9000), 900);
+  }
 
   /* ============ PWA ============ */
   if (!IS_GAS && 'serviceWorker' in navigator && location.protocol.startsWith('http')) {
