@@ -1692,7 +1692,19 @@
       return show('bad', '⚠️ เชื่อมต่อได้ แต่ Apps Script ที่ Deploy อยู่เป็นเวอร์ชันเก่า วางโค้ด Code.gs ตัวใหม่ แล้ว Deploy > Manage deployments > Edit > <b>New version</b>');
     }
     if (data.status === 'error') return show('bad', `❌ Apps Script แจ้งข้อผิดพลาด: ${escapeHTML(data.message)}`);
-    show('ok', `✅ เชื่อมต่อสำเร็จ<br>ข้อมูลจะถูกบันทึกในไฟล์ <b>${escapeHTML(data.spreadsheet || '-')}</b> ชีต <b>${escapeHTML(data.sheet || '-')}</b> (มีแล้ว ${data.rows} แถว)${pendingNote}`);
+    // ทดสอบการส่งข้อมูล (POST) ด้วย เพราะบางครั้งอ่านได้แต่ส่งไม่ได้
+    show('wait', 'อ่านข้อมูลได้แล้ว กำลังทดสอบการส่งข้อมูล...');
+    let post = null;
+    try {
+      const pr = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'ping' }) });
+      const pt = await pr.text();
+      try { post = JSON.parse(pt); } catch (_) { post = { status: 'error', message: `ตอบกลับไม่ใช่ข้อมูล (HTTP ${pr.status})` }; }
+    } catch (e) { post = { status: 'error', message: 'ถูกบล็อกระหว่างส่งข้อมูล' }; }
+    if (!post || post.status !== 'ok') {
+      return show('bad', `⚠️ อ่านข้อมูลได้ แต่<b>ส่งข้อมูลไม่ได้</b> (${escapeHTML(post && post.message || '')})<br>
+        ตรวจว่าวางโค้ด <b>Code.gs</b> ตัวล่าสุดแล้ว และ Deploy เป็น <b>New version</b> แล้ว`);
+    }
+    show('ok', `✅ เชื่อมต่อสำเร็จ (อ่านและส่งข้อมูลได้)<br>ข้อมูลจะถูกบันทึกในไฟล์ <b>${escapeHTML(data.spreadsheet || '-')}</b> ชีต <b>${escapeHTML(data.sheet || '-')}</b> (มีแล้ว ${data.rows} แถว)${pendingNote}`);
     if (pending) flushQueue(true);
   }
 
@@ -1741,9 +1753,14 @@
       if (READ.includes(action)) {
         res = await fetch(`${googleScriptUrl}?${new URLSearchParams({ action, ...payload })}`, { signal: ctrl && ctrl.signal });
       } else {
-        // submit ไม่ใส่ action เพื่อให้เข้ากับ Apps Script เวอร์ชันเก่าได้
-        const body = toFormData(action === 'submit' ? payload : { action, ...payload });
-        res = await fetch(googleScriptUrl, { method: 'POST', body, signal: ctrl && ctrl.signal });
+        // ส่งเป็น JSON แบบ text/plain: เป็น "simple request" ที่ Apps Script รับได้เสถียรที่สุด
+        res = await fetch(googleScriptUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action, ...payload }),
+          redirect: 'follow',
+          signal: ctrl && ctrl.signal
+        });
       }
     } catch (e) {
       throw netErr(e.name === 'AbortError' ? 'timeout' : 'network');
