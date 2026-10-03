@@ -822,6 +822,7 @@
     .status-rows > div:last-child { border-bottom: none; }
     .status-rows span:first-child { color: var(--muted); flex-shrink: 0; }
     .status-rows span:last-child { font-weight: 500; text-align: right; word-break: break-word; }
+    .adm-url { font-family: ui-monospace, 'SF Mono', Consolas, monospace; font-size: 11.5px; word-break: break-all; }
     .spinner.dark { border-color: rgba(30, 58, 138, 0.2); border-top-color: var(--tw-blue); }
     .status-hint { margin-top: 12px; font-size: 12.5px; line-height: 1.6; padding: 10px 12px; border-radius: 10px; background: rgba(245, 158, 11, 0.12); color: #92400E; }
 
@@ -913,6 +914,61 @@
     .adm-kv { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 5px 0; }
     .adm-kv span:first-child { color: var(--muted); flex-shrink: 0; } .adm-kv span:last-child { text-align: right; word-break: break-word; font-weight: 500; }
 
+    /* ============ v5.17: EMPLOYEE LOGIN ============ */
+    input.ro-field { background: var(--surface-2); color: var(--text); font-weight: 600; cursor: default; }
+    .emp-line { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .emp-line .ic { width: 13px; height: 13px; color: #10B981; flex-shrink: 0; }
+    .emp-line button { font-family: inherit; }
+
+    /* ============ v5.18: SIDE NAV (จอกว้าง) + DASHBOARD LAYOUT ============ */
+    .side-nav { display: none; }
+    @media (min-width: 1024px) {
+      :root { --app-max-width: 1120px; --sidebar-w: 248px; }
+      body { margin-left: var(--sidebar-w); }
+      .app-header { left: calc(50% + var(--sidebar-w) / 2); }
+      .bottom-nav { display: none; }
+      .side-nav {
+        display: flex; flex-direction: column; gap: 3px;
+        position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w);
+        background: linear-gradient(180deg, #0B1636 0%, #132249 60%, #0B1636 100%);
+        padding: 22px 14px calc(16px + env(safe-area-inset-bottom));
+        z-index: 95; overflow-y: auto;
+        box-shadow: 4px 0 24px -8px rgba(0, 0, 0, 0.35);
+      }
+      .side-brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 20px; }
+      .side-brand-icon { width: 34px; height: 34px; border-radius: 10px; background: rgba(255, 255, 255, 0.08);
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+      .side-brand-title { color: #fff; font-size: 14.5px; font-weight: 700; line-height: 1.3; }
+      .side-brand-sub { color: rgba(255, 255, 255, 0.45); font-size: 9.5px; font-weight: 600; letter-spacing: 1px; }
+      .side-label { color: rgba(255, 255, 255, 0.38); font-size: 11px; font-weight: 600; letter-spacing: .5px;
+        padding: 6px 12px 8px; }
+      .side-item {
+        display: flex; align-items: center; gap: 11px; width: 100%; border: none; cursor: pointer;
+        background: transparent; color: rgba(255, 255, 255, 0.72); font-family: inherit;
+        font-size: 14px; font-weight: 500; text-align: left; padding: 10px 12px; border-radius: 10px;
+        transition: background .18s, color .18s;
+      }
+      .side-item:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
+      .side-item.active { background: #fff; color: var(--tw-blue); font-weight: 700; box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.4); }
+      .side-item svg { flex-shrink: 0; }
+      .side-spacer { flex: 1; }
+      .side-version { color: rgba(255, 255, 255, 0.3); font-size: 11px; text-align: center; padding: 10px 0 2px; }
+
+      .app-container { padding-left: 28px; padding-right: 28px; }
+      .report-top-grid {
+        display: grid; grid-template-columns: 1.3fr 0.9fr; grid-template-rows: auto auto; gap: 15px; align-items: start;
+      }
+      .report-top-grid #chartCard { grid-column: 1; grid-row: 1 / 3; margin-bottom: 0; }
+      .report-top-grid #report-stats { grid-column: 2; grid-row: 1; }
+      .report-top-grid #report-metrics { grid-column: 2; grid-row: 2; }
+      .report-top-grid #report-stats.stats { grid-template-columns: repeat(2, 1fr); }
+      /* ไม่มีกราฟให้แสดง (ยังไม่มีข้อมูล หรือโหลด Chart.js ไม่สำเร็จ): ให้สถิติขยายเต็มความกว้างแทนที่จะเหลือช่องว่าง */
+      .report-top-grid:has(#chartCard[hidden]) { grid-template-columns: 1fr; }
+      .report-top-grid:has(#chartCard[hidden]) #report-stats { grid-column: 1; grid-row: 1; }
+      .report-top-grid:has(#chartCard[hidden]) #report-stats.stats { grid-template-columns: repeat(4, 1fr); }
+      .report-top-grid:has(#chartCard[hidden]) #report-metrics { grid-column: 1; grid-row: 2; }
+    }
+
     /* ============ v4: PRINT ============ */
     @media print {
       #appBg, .hero, .app-header, .bottom-nav, .report-tools, .chips, #filterCard, .toast-container, .rc-more, #refreshBtn { display: none !important; }
@@ -967,6 +1023,37 @@
   <div class="progress-track"><div class="progress-fill" id="formProgress"></div></div>
 </header>
 
+<nav class="side-nav" id="sideNav" aria-label="เมนูหลัก (จอกว้าง)">
+  <div class="side-brand">
+    <div class="side-brand-icon" aria-hidden="true">
+      <svg width="24" height="24" viewBox="110 76 292 352"><rect x="138" y="112" width="236" height="300" rx="26" fill="#FFFFFF"/><rect x="206" y="88" width="100" height="52" rx="14" fill="#DC2626"/><path d="M178 206 l20 20 l34 -36 M178 286 l20 20 l34 -36" fill="none" stroke="#DC2626" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M258 210 H334 M258 290 H334 M178 362 H334" stroke="#1E3A8A" stroke-width="22" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <div class="side-brand-title">ระบบหน้างาน</div>
+      <div class="side-brand-sub">FIELD OPERATIONS</div>
+    </div>
+  </div>
+  <div class="side-label">เมนูหลัก</div>
+  <button class="side-item active" data-tab="form" onclick="switchTab('form')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+    <span>บันทึก</span>
+  </button>
+  <button class="side-item" data-tab="report" onclick="switchTab('report')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+    <span>รายงาน</span>
+  </button>
+  <button class="side-item" data-tab="import" onclick="switchTab('import')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+    <span>เครื่องมือ</span>
+  </button>
+  <div class="side-spacer"></div>
+  <button class="side-item" onclick="openSettings()">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    <span>ตั้งค่าระบบ</span>
+  </button>
+  <div class="side-version">v<span id="sideVerNum"></span></div>
+</nav>
+
 <div class="app-container">
   <div id="bannerBox" class="banner-box" aria-live="polite"></div>
 
@@ -1006,6 +1093,7 @@
               <label for="reporterName">ชื่อผู้รายงาน <span class="required">*</span></label>
               <input type="text" name="reporter" id="reporterName" placeholder="เช่น นพดล" required autocomplete="name" list="peopleList">
               <datalist id="peopleList"></datalist>
+              <div class="emp-line" id="empLine" hidden></div>
             </div>
             <div class="form-group">
               <label for="currentDate">วันที่ปฏิบัติงาน <span class="required">*</span></label>
@@ -1045,14 +1133,6 @@
               <input type="text" name="location" id="siteLocation" list="locList" maxlength="100" placeholder="เช่น โรงงาน A อาคาร 2" autocomplete="off">
               <datalist id="locList"></datalist>
             </div>
-          </div>
-          <div class="form-group" data-section="location" style="margin-bottom: 0;">
-            <label>พิกัด GPS</label>
-            <div class="geo-row" style="margin-top: 0;">
-              <button type="button" class="geo-btn" id="geoBtn" onclick="captureLocation(true)"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> บันทึกพิกัดตอนนี้</button>
-              <span id="geoStatus" class="geo-status">กดปุ่มเพื่อบันทึกพิกัดของตำแหน่งปัจจุบัน</span>
-            </div>
-            <input type="hidden" name="lat" id="geoLat"><input type="hidden" name="lng" id="geoLng"><input type="hidden" name="acc" id="geoAcc">
           </div>
         </div>
 
@@ -1150,6 +1230,7 @@
       </button>
     </div>
 
+    <div class="report-top-grid" id="reportTopGrid">
     <div class="stats" id="report-stats"></div>
     <div id="report-metrics"></div>
 
@@ -1159,6 +1240,7 @@
         จำนวนรายงานต่อวัน
       </div>
       <div class="chart-wrap"><canvas id="reportChart" aria-label="กราฟจำนวนรายงานต่อวัน แยกกะเช้าและกะดึก"></canvas></div>
+    </div>
     </div>
 
     <div class="report-tools" id="reportTools" hidden>
@@ -1298,15 +1380,15 @@
 
 <nav class="bottom-nav" id="bottomNav" aria-label="เมนูหลัก">
   <span class="nav-indicator" aria-hidden="true"></span>
-  <button class="nav-item active" id="nav-form" onclick="switchTab('form')">
+  <button class="nav-item active" id="nav-form" data-tab="form" onclick="switchTab('form')">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
     <span>บันทึก</span>
   </button>
-  <button class="nav-item" id="nav-report" onclick="switchTab('report')">
+  <button class="nav-item" id="nav-report" data-tab="report" onclick="switchTab('report')">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
     <span>รายงาน</span>
   </button>
-  <button class="nav-item" id="nav-import" onclick="switchTab('import')">
+  <button class="nav-item" id="nav-import" data-tab="import" onclick="switchTab('import')">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
     <span>เครื่องมือ</span>
   </button>
@@ -1329,10 +1411,16 @@
       <div class="shift-hint">ปิดส่วนที่ไม่ใช้เพื่อให้กรอกเร็วขึ้น ตั้งค่านี้มีผลเฉพาะเครื่องนี้</div>
       <div class="shift-hint" id="secLockHint" hidden style="color: var(--tw-red);">ผู้ดูแลระบบกำหนดส่วนของฟอร์มให้ทุกเครื่อง ปรับเองไม่ได้</div>
     </div>
+    <div class="form-group" id="empSettingsRow" hidden>
+      <label style="font-size:13px;">ผู้ใช้งาน</label>
+      <div class="sec-list">
+        <div class="sec-row"><span class="sec-name" id="empSettingsText">-</span><button type="button" class="geo-btn" id="empSettingsBtn" style="padding:9px 16px;"></button></div>
+      </div>
+    </div>
     <div class="form-group">
       <label style="font-size:13px;">การกรอกข้อมูล</label>
       <div class="sec-list">
-        <label class="sec-row"><span class="sec-name">เติมข้อมูลให้อัตโนมัติ<small>จำชื่อ/Job/สถานที่ล่าสุด, เลือกวันที่และกะตามเวลาปัจจุบัน, บันทึกพิกัดเมื่อกด Now ที่ Arrival</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-autofill"><span></span></span></label>
+        <label class="sec-row"><span class="sec-name">เติมข้อมูลให้อัตโนมัติ<small>จำชื่อ/Job/สถานที่ล่าสุด, เลือกวันที่และกะตามเวลาปัจจุบัน</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-autofill"><span></span></span></label>
       </div>
       <div class="shift-hint">ปิดอยู่ = ทุกช่องว่าง ต้องกรอกหรือเลือกเองทุกครั้ง</div>
     </div>
@@ -1414,6 +1502,20 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="empLoginModal">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="empLoginTitle" style="max-width: 360px;">
+    <div class="modal-title" id="empLoginTitle"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg><span>เข้าสู่ระบบด้วยรหัสพนักงาน</span></div>
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.6;">ใส่รหัสพนักงานของคุณ ระบบจะใส่ชื่อผู้รายงานให้ทันทีทุกครั้งที่เปิดแอปนี้</p>
+    <div class="form-group">
+      <label for="empCodeInput">รหัสพนักงาน</label>
+      <input type="text" id="empCodeInput" inputmode="numeric" autocomplete="off" placeholder="เช่น 1001" style="font-size: 20px; letter-spacing: 1px; text-align:center;">
+    </div>
+    <p id="empLoginErr" class="status-hint" hidden></p>
+    <button type="button" class="btn-primary" style="padding:13px;" onclick="submitEmpLogin()">เข้าสู่ระบบ</button>
+    <button type="button" class="link-btn" id="empSkipBtn" style="display:block; margin:12px auto 0;" onclick="skipEmpLogin()">พนักงานใหม่ยังไม่มีรหัส / พิมพ์ชื่อเอง</button>
+  </div>
+</div>
+
 <div class="modal-overlay" id="statusModal" onclick="if(event.target===this) closeStatus()">
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="statusTitle">
     <div class="modal-title" id="statusTitle"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg><span>สถานะการเชื่อมต่อเซิร์ฟเวอร์</span></div>
@@ -1449,7 +1551,7 @@
   const REMIND_WINDOW = { Day: [18 * 60 + 30, 23 * 60 + 59], Night: [6 * 60 + 30, 12 * 60] };
   const QR_LIB = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
   const KEYS = { url: 'googleScriptUrl', job: 'lastJobNo', reporter: 'lastReporter', draft: 'formDraft',
-                 queue: 'pendingQueue', sent: 'sentLog', loc: 'lastLocation', locs: 'recentLocs', sections: 'formSections', sound: 'soundOn', autofill: 'autoFill', timeHist: 'timeHist', reportLimit: 'reportLimit', jobList: 'jobList', jobHist: 'jobHist', cfg: 'serverCfg', dev: 'devId', ann: 'annSeen', soundLevel: 'soundLevel', bg: 'bgOn', pin: 'adminPin', install: 'installDismissed',
+                 queue: 'pendingQueue', sent: 'sentLog', loc: 'lastLocation', locs: 'recentLocs', sections: 'formSections', sound: 'soundOn', autofill: 'autoFill', timeHist: 'timeHist', reportLimit: 'reportLimit', jobList: 'jobList', jobHist: 'jobHist', emp: 'empIdentity', cfg: 'serverCfg', dev: 'devId', ann: 'annSeen', soundLevel: 'soundLevel', bg: 'bgOn', pin: 'adminPin', install: 'installDismissed',
                  presets: 'mpPresets', glove: 'gloveMode', remindOn: 'remindOn', reminded: 'remindedKey' };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // เปิดผ่าน Apps Script (HtmlService) หรือโฮสต์เอง
@@ -1495,7 +1597,8 @@
   // ขอให้เบราว์เซอร์เก็บข้อมูลของแอปถาวร (กันถูกล้างเมื่อพื้นที่เครื่องเต็ม)
   function requestPersist() { try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {} }
   requestPersist();
-  const APP_VERSION = '5.15';   // เพิ่มเลขทุกครั้งที่ปล่อยเวอร์ชันใหม่ ผู้ดูแลตั้ง min_app_version ในแท็บ Config เพื่อบังคับให้เครื่องเก่ารีเฟรชได้
+  const APP_VERSION = '5.18';   // เพิ่มเลขทุกครั้งที่ปล่อยเวอร์ชันใหม่ ผู้ดูแลตั้ง min_app_version ในแท็บ Config เพื่อบังคับให้เครื่องเก่ารีเฟรชได้
+  $('sideVerNum').textContent = APP_VERSION;
   const DEVICE_ID = (() => { let v = store.get(KEYS.dev); if (!v) { v = uid(); store.set(KEYS.dev, v); } return v; })();   // ใช้นับการใส่ PIN ผิดต่อเครื่อง
   function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
   const shiftLabel = s => String(s || '').toLowerCase() === 'day' ? 'กะเช้า' : 'กะดึก';
@@ -1579,7 +1682,7 @@
   if (EMBEDDED_URL) store.del(KEYS.url);   // ล้าง URL เก่าที่ค้างในเครื่อง ป้องกันส่งไปผิดที่
   // ค่าตั้งต้นกลางจากเซิร์ฟเวอร์ (แท็บ Config) และรายชื่อหลัก จำไว้ในเครื่องเผื่อออฟไลน์
   let serverCfg = store.getJSON(KEYS.cfg) || {}, serverVersion = '';
-  let masterLocs = (store.getJSON(KEYS.jobList) || {}).locations || [], peopleNames = (store.getJSON(KEYS.jobList) || {}).people || [];
+  let masterLocs = (store.getJSON(KEYS.jobList) || {}).locations || [], peopleDir = (store.getJSON(KEYS.jobList) || {}).people || [];
   const server = { state: (IS_GAS || googleScriptUrl) ? 'checking' : 'nourl', latency: null, lastOk: null, lastCheck: null, info: null, outdated: false, err: '' };
   let timelineState = { warns: 0, total: 0 };
   let lastSummary = '';
@@ -1594,6 +1697,7 @@
     $('siteLocation').value = on ? (store.get(KEYS.loc) || '') : '';
     $('currentDate').value = on ? todayLocal() : '';
     autoSelectShift();
+    applyEmployeeLock();
   }
   // เพิ่งเปิดสวิตช์: เติมเฉพาะช่องที่ยังว่าง ไม่ทับสิ่งที่กรอกไว้
   function applyAutofillNow() {
@@ -1603,7 +1707,8 @@
     if (!$('siteLocation').value && sectionOn('location')) $('siteLocation').value = store.get(KEYS.loc) || '';
     if (!$('currentDate').value) $('currentDate').value = todayLocal();
     if (!form.querySelector('input[name="shift"]:checked')) autoSelectShift();
-    renderGeoStatus(); refreshForm(); scheduleDraftSave();
+    applyEmployeeLock();
+    refreshForm(); scheduleDraftSave();
   }
   prefillBasics();
 
@@ -1893,7 +1998,6 @@
     input.dispatchEvent(new Event('input', { bubbles: true }));
     haptic(15);
     showToast(`บันทึกเวลา ${input.value} แล้ว`, 'success');
-    if (inputId === 'arr_bee' && autofillOn() && sectionOn('location') && !$('geoLat').value) captureLocation(false);
   }
   window.addEventListener('resize', updateTimeline);
 
@@ -1942,36 +2046,6 @@
   renderPhotos();
 
   /* ============ GPS ============ */
-  function renderGeoStatus() {
-    const lat = $('geoLat').value, lng = $('geoLng').value, acc = $('geoAcc').value;
-    const el = $('geoStatus');
-    if (lat && lng) {
-      el.className = 'geo-status ok';
-      el.innerHTML = `${ic('pin')}บันทึกพิกัดแล้ว${acc ? ` (±${escapeHTML(acc)} ม.)` : ''} <a href="https://www.google.com/maps?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}" target="_blank" rel="noopener">ดูแผนที่</a>`;
-      $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดใหม่';
-    } else {
-      el.className = 'geo-status';
-      el.textContent = autofillOn() ? 'พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to Site' : 'กดปุ่มเพื่อบันทึกพิกัดของตำแหน่งปัจจุบัน';
-      $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดตอนนี้';
-    }
-  }
-  function captureLocation(manual) {
-    if (!navigator.geolocation) { if (manual) showToast('อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง', 'error'); return; }
-    $('geoStatus').className = 'geo-status';
-    $('geoStatus').textContent = 'กำลังหาพิกัด...';
-    navigator.geolocation.getCurrentPosition(pos => {
-      $('geoLat').value = pos.coords.latitude.toFixed(6);
-      $('geoLng').value = pos.coords.longitude.toFixed(6);
-      $('geoAcc').value = Math.round(pos.coords.accuracy);
-      renderGeoStatus(); scheduleDraftSave();
-      if (manual) showToast('บันทึกพิกัดแล้ว', 'success');
-    }, err => {
-      renderGeoStatus();
-      const msg = err.code === 1 ? 'ไม่ได้รับอนุญาตให้ใช้ตำแหน่ง เปิดสิทธิ์ตำแหน่งในการตั้งค่าเบราว์เซอร์'
-        : err.code === 3 ? 'หาพิกัดไม่ทันเวลา ลองกดบันทึกพิกัดอีกครั้งในที่โล่ง' : 'หาพิกัดไม่ได้ ลองอีกครั้ง';
-      if (manual) showToast(msg, 'error', 4500);
-    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
-  }
 
   /* ============ PROGRESS ============ */
   function updateProgress() {
@@ -2003,14 +2077,14 @@
   // ขณะแก้ไขรายการเดิม แสดงทุกส่วนเสมอ เพื่อไม่ให้ข้อมูลของส่วนที่ซ่อนถูกทับเป็นค่าว่าง
   const sectionOn = key => { const s = SECTIONS.find(x => x.key === key); return !!(editing || (s && s.locked) || (key === 'location' && serverCfg.require_location) || getSections()[key]); };
   function sectionHasData(key) {
-    if (key === 'location') return !!($('siteLocation').value.trim() || $('geoLat').value);
+    if (key === 'location') return !!$('siteLocation').value.trim();
     if (key === 'manpower') return manpowerInputs.some(i => i.value !== '');
     if (key === 'times') return ACTIVITIES.some(([n]) => $(n).value);
     if (key === 'photos') return photos.length > 0;
     return false;
   }
   function clearSection(key) {
-    if (key === 'location') { $('siteLocation').value = ''; ['geoLat', 'geoLng', 'geoAcc'].forEach(id => { $(id).value = ''; }); renderGeoStatus(); }
+    if (key === 'location') { $('siteLocation').value = ''; }
     if (key === 'manpower') manpowerInputs.forEach(i => { i.value = ''; });
     if (key === 'times') ACTIVITIES.forEach(([n]) => { $(n).value = ''; $(n).classList.remove('invalid'); });
     if (key === 'photos') { photos = []; renderPhotos(); $('existingPhotos').textContent = ''; }
@@ -2089,7 +2163,7 @@
     fillForm(draft.data);
     ACTIVITIES.forEach(([n]) => commitTime($(n)));
     photos = draft.photos || [];
-    renderPhotos(); renderGeoStatus();
+    renderPhotos();
     if (draft.data.shift) {
       applyTheme(draft.data.shift);
       $('shiftHint').textContent = 'ใช้กะจากข้อมูลที่กรอกค้างไว้';
@@ -2101,20 +2175,23 @@
   }
   function resetWorkFields(keepDraft = false, clearText = false) {
     form.querySelectorAll('input[type="number"], input.time-input, input[type="hidden"]').forEach(input => { input.value = ''; input.classList.remove('invalid'); });
-    if (clearText) ['reporterName', 'jobNo', 'siteLocation'].forEach(id => { $(id).value = ''; });
+    if (clearText) ['reporterName', 'jobNo', 'siteLocation'].forEach(id => { if (id === 'reporterName' && getEmpIdentity()) return; $(id).value = ''; });
     $('currentDate').value = autofillOn() ? todayLocal() : '';
     photos = [];
-    renderPhotos(); renderGeoStatus();
+    renderPhotos();
     $('existingPhotos').textContent = '';
     autoSelectShift();
+    applyEmployeeLock();
     if (!keepDraft) { store.del(KEYS.draft); setDraftStatus(''); }
     refreshForm();
   }
   async function clearForm() {
-    const keep = autofillOn();
-    const anyText = ['reporterName', 'jobNo', 'siteLocation'].some(id => $(id).value.trim());
+    const keep = autofillOn(), locked = !!getEmpIdentity();
+    const anyText = ['jobNo', 'siteLocation'].concat(locked ? [] : ['reporterName']).some(id => $(id).value.trim());
     if (!hasWork(collectForm()) && !photos.length && (keep || !anyText)) return showToast('ฟอร์มว่างอยู่แล้ว', 'info');
-    const ok = await confirmDialog('ล้างฟอร์ม', keep ? 'ล้างจำนวนกำลังพล เวลา รูป และพิกัดที่กรอกไว้ ชื่อผู้รายงาน, Job No. และสถานที่ จะยังอยู่' : 'ล้างข้อมูลที่กรอกไว้ในฟอร์มทั้งหมด', 'ล้างฟอร์ม');
+    const msg = keep ? 'ล้างจำนวนกำลังพล เวลา และรูปที่กรอกไว้ ชื่อผู้รายงาน, Job No. และสถานที่ จะยังอยู่'
+      : (locked ? 'ล้างข้อมูลที่กรอกไว้ในฟอร์มทั้งหมด (ชื่อผู้รายงานจะคงไว้เพราะเข้าสู่ระบบอยู่)' : 'ล้างข้อมูลที่กรอกไว้ในฟอร์มทั้งหมด');
+    const ok = await confirmDialog('ล้างฟอร์ม', msg, 'ล้างฟอร์ม');
     if (ok) { resetWorkFields(false, !keep); showToast('ล้างฟอร์มแล้ว', 'success'); }
   }
 
@@ -2353,10 +2430,9 @@
   function switchTab(tabId) {
     window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     $(`page-${tabId}`).classList.add('active');
     const navId = tabId === 'admin' ? 'import' : tabId;   // ศูนย์ผู้ดูแลเป็นหน้าย่อยของแท็บ "เครื่องมือ"
-    $(`nav-${navId}`).classList.add('active');
+    document.querySelectorAll('[data-tab]').forEach(n => n.classList.toggle('active', n.dataset.tab === navId));
     $('bottomNav').style.setProperty('--idx', TABS.indexOf(navId));
     $('appHeader').classList.toggle('no-progress', tabId !== 'form');
     haptic(6);
@@ -2669,7 +2745,7 @@
   $('pref-autofill').addEventListener('change', e => {
     store.set(KEYS.autofill, e.target.checked ? '1' : '0');
     if (e.target.checked) { applyAutofillNow(); showToast('เปิดเติมข้อมูลอัตโนมัติแล้ว', 'info', 2500); }
-    else { renderGeoStatus(); showToast('ปิดเติมข้อมูลอัตโนมัติแล้ว ฟอร์มถัดไปจะว่างทุกช่อง', 'info', 3500); }
+    else { showToast('ปิดเติมข้อมูลอัตโนมัติแล้ว ฟอร์มถัดไปจะว่างทุกช่อง', 'info', 3500); }
   });
   $('pref-sound').addEventListener('change', e => {
     store.set(KEYS.sound, e.target.checked ? '1' : '0');
@@ -2691,6 +2767,84 @@
     const bg = $('appBg');
     bg.classList.add('custom');
     bg.style.backgroundImage = `linear-gradient(rgba(248, 250, 252, .86), rgba(248, 250, 252, .94)), url("${BG_IMAGE_URL.replace(/"/g, '%22')}")`;
+  }
+
+  /* ============ EMPLOYEE LOGIN (เข้าสู่ระบบด้วยรหัสพนักงาน) ============ */
+  // ทำงานฝั่งเครื่องล้วนๆ เทียบกับรายชื่อที่แคชไว้ (เหมือนการค้นหา Job) จึงเข้าสู่ระบบได้ทันทีแม้ออฟไลน์
+  // ฟีเจอร์นี้เปิดเองก็ต่อเมื่อผู้ดูแลเริ่มใส่ "รหัส" ให้พนักงานอย่างน้อย 1 คนในแท็บ People ถ้ายังไม่ใส่ แอปจะทำงานแบบเดิม (พิมพ์ชื่อเอง)
+  const normEmpCode_ = v => String(v || '').trim().toLowerCase();
+  function hasEmployeeDirectory() { return peopleDir.some(p => p.code); }
+  function getEmpIdentity() { return store.getJSON(KEYS.emp); }
+  function setEmpIdentity(v) { store.setJSON(KEYS.emp, v); }
+  function clearEmpIdentity() { store.del(KEYS.emp); }
+  function empMatch(raw) {
+    const code = normEmpCode_(raw);
+    if (!code) return null;
+    let hit = peopleDir.find(p => p.code && normEmpCode_(p.code) === code);
+    if (!hit && /^\d+$/.test(code)) {                         // ยอมรับเลข 0 นำหน้าต่างกัน เช่น 007 เทียบเท่า 7
+      const n = String(parseInt(code, 10));
+      hit = peopleDir.find(p => p.code && /^\d+$/.test(p.code) && String(parseInt(p.code, 10)) === n);
+    }
+    return hit || null;
+  }
+  // ล็อกช่องชื่อผู้รายงานด้วยตัวตนที่ล็อกอินไว้ (ยกเว้นระหว่างแก้ไขรายการเดิม ซึ่งต้องแสดงชื่อเจ้าของรายการนั้น ไม่ใช่ผู้ใช้เครื่องนี้)
+  function applyEmployeeLock() {
+    const id = getEmpIdentity(), input = $('reporterName');
+    const locked = !!(id && id.name && !editing);
+    input.readOnly = locked;
+    input.classList.toggle('ro-field', locked);
+    if (locked) input.value = id.name;
+    renderEmpLine();
+    renderEmpSettingsRow();
+  }
+  function renderEmpLine() {
+    const id = getEmpIdentity(), el = $('empLine');
+    if (id && id.name && !editing) {
+      el.hidden = false;
+      el.innerHTML = `${ic('check-circle')}<span>เข้าสู่ระบบ: <b>${escapeHTML(id.name)}</b></span><button type="button" class="link-btn" onclick="empLogout()">เปลี่ยนผู้ใช้</button>`;
+    } else el.hidden = true;
+  }
+  function renderEmpSettingsRow() {
+    $('empSettingsRow').hidden = !hasEmployeeDirectory();
+    const id = getEmpIdentity();
+    $('empSettingsText').textContent = (id && id.name) ? `เข้าสู่ระบบ: ${id.name}${id.code ? ` (${id.code})` : ''}` : 'ยังไม่เข้าสู่ระบบ (พิมพ์ชื่อเอง)';
+    const btn = $('empSettingsBtn');
+    btn.textContent = (id && id.name) ? 'เปลี่ยนผู้ใช้' : 'เข้าสู่ระบบ';
+    btn.onclick = () => { closeSettings(); openEmpLogin(); };
+  }
+  function openEmpLogin() {
+    $('empLoginErr').hidden = true;
+    $('empCodeInput').value = '';
+    $('empCodeInput').classList.remove('invalid');
+    $('empLoginModal').classList.add('active');
+    setTimeout(() => $('empCodeInput').focus(), 150);
+  }
+  function closeEmpLogin() { $('empLoginModal').classList.remove('active'); }
+  function skipEmpLogin() { setEmpIdentity({ skipped: true, at: Date.now() }); closeEmpLogin(); applyEmployeeLock(); }
+  function submitEmpLogin() {
+    const hit = empMatch($('empCodeInput').value);
+    if (!hit) {
+      $('empLoginErr').hidden = false;
+      $('empLoginErr').textContent = 'ไม่พบรหัสพนักงานนี้ในระบบ ตรวจรหัสอีกครั้ง หรือติดต่อผู้ดูแลให้เพิ่มชื่อในแท็บ People';
+      $('empCodeInput').classList.add('invalid');
+      haptic(15);
+      return;
+    }
+    setEmpIdentity({ code: hit.code, name: hit.name });
+    closeEmpLogin();
+    applyEmployeeLock();
+    refreshForm(); scheduleDraftSave();
+    showToast(`เข้าสู่ระบบ: ${hit.name}`, 'success');
+    playSound('success');
+  }
+  function empLogout() { clearEmpIdentity(); applyEmployeeLock(); showToast('ออกจากระบบแล้ว', 'info', 2500); openEmpLogin(); }
+  $('empCodeInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submitEmpLogin(); } });
+  $('empCodeInput').addEventListener('input', () => { $('empCodeInput').classList.remove('invalid'); $('empLoginErr').hidden = true; });
+  // เปิดหน้าล็อกอินเองเมื่อมีรายชื่อพนักงาน(ที่ใส่รหัสแล้ว) แต่เครื่องนี้ยังไม่เข้าสู่ระบบ ไม่ไปแย่งหน้าตั้งค่า URL ตอนเปิดแอปครั้งแรก
+  function maybeOpenEmpLogin() {
+    if (!hasEmployeeDirectory() || getEmpIdentity()) { renderEmpSettingsRow(); return; }
+    if ($('empLoginModal').classList.contains('active') || $('settingsModal').classList.contains('active')) return;
+    openEmpLogin();
   }
 
   /* ============ JOB LIST (รายชื่อ Job: พิมพ์แล้วขึ้นรายการที่ตรงกันอัตโนมัติ) ============ */
@@ -2730,8 +2884,9 @@
       const r = await api('getJobs', {}, { timeout: 15000 });
       if (r && Array.isArray(r.jobs)) {
         jobsServer = r.jobs; jobsAt = Date.now();
-        masterLocs = Array.isArray(r.locations) ? r.locations : []; peopleNames = Array.isArray(r.people) ? r.people : [];
-        store.setJSON(KEYS.jobList, { at: jobsAt, jobs: jobsServer, locations: masterLocs, people: peopleNames });
+        masterLocs = Array.isArray(r.locations) ? r.locations : []; peopleDir = Array.isArray(r.people) ? r.people : [];
+        maybeOpenEmpLogin();
+        store.setJSON(KEYS.jobList, { at: jobsAt, jobs: jobsServer, locations: masterLocs, people: peopleDir });
         renderLocList(); renderPeopleList();
       }
     } catch (_) { /* เซิร์ฟเวอร์เวอร์ชันเก่าหรือเชื่อมต่อไม่ได้: ใช้รายการที่จำไว้ในเครื่อง */ }
@@ -2794,6 +2949,7 @@
   $('jobSuggest').addEventListener('mousedown', e => e.preventDefault());   // กดเลือกแล้วช่องไม่เสียโฟกัสก่อน
   $('jobSuggest').addEventListener('click', e => { const b = e.target.closest('.js-item'); if (b) pickJob(jobShown[Number(b.dataset.i)]); });
   setTimeout(() => loadJobs(), 1500);
+  maybeOpenEmpLogin();   // ใช้ข้อมูลที่แคชไว้จากครั้งก่อนไปก่อน ระหว่างรอโหลดข้อมูลล่าสุด
 
   /* ============ SERVER CONFIG (ตั้งค่ากลางจากแท็บ Config ใน Sheet) + แถบประกาศ ============ */
   const cmpVer = (a, b) => {
@@ -2819,10 +2975,13 @@
     if (b.dataset.act === 'dismiss') { store.set(KEYS.ann, annKey()); renderBanners(); }
     if (b.dataset.act === 'refresh') { try { const r = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (r) await r.update(); } catch (_) {} location.reload(); }
   });
-  function renderPeopleList() { $('peopleList').innerHTML = peopleNames.map(n => `<option value="${escapeHTML(n)}">`).join(''); }
+  function renderPeopleList() {
+    const seen = {};
+    $('peopleList').innerHTML = peopleDir.filter(p => p.name && !seen[p.name] && (seen[p.name] = 1)).map(p => `<option value="${escapeHTML(p.name)}">`).join('');
+  }
   // ส่วนของฟอร์มที่ซ่อนอยู่ (ผู้ดูแลปิดจากส่วนกลาง หรือผู้ใช้ปิดเอง) ไม่ส่งค่าเข้า Sheet
   function stripHiddenFields(d) {
-    if (!sectionOn('location')) { d.location = ''; d.lat = ''; d.lng = ''; d.acc = ''; }
+    if (!sectionOn('location')) { d.location = ''; }
     if (!sectionOn('manpower')) MANPOWER.forEach(([k]) => { d[k] = ''; });
     if (!sectionOn('times')) ACTIVITIES.forEach(([k]) => { d[k] = ''; });
     if (!sectionOn('photos')) d.photos = '[]';
@@ -2907,15 +3066,16 @@
     }
     editing = { sid: item.sid, item, base: item.updated_at || item.timestamp || '' };
     applySectionVisibility();
+    $('reporterName').readOnly = false; $('reporterName').classList.remove('ro-field');
     closeSheet();
     switchTab('form');
     const data = { reporter: item.reporter || '', job: item.job || '', date: String(item.date || '').slice(0, 10), shift: item.shift,
-                   lat: item.lat || '', lng: item.lng || '', acc: item.acc || '', location: item.location || '' };
+                   location: item.location || '' };
     MANPOWER.forEach(([k]) => { data[k] = item[k] ?? ''; });
     ACTIVITIES.forEach(([k]) => { data[k] = normTime(item[k]); });
     fillForm(data);
     photos = [];
-    renderPhotos(); renderGeoStatus();
+    renderPhotos();
     const oldPhotos = String(item.photos || '').split(',').filter(Boolean).length;
     $('existingPhotos').textContent = oldPhotos ? `มีรูปเดิม ${oldPhotos} รูปใน Drive รูปที่เพิ่มตอนนี้จะถูกต่อท้าย` : '';
     applyTheme(item.shift);
@@ -2932,10 +3092,10 @@
     $('submitBtn').innerHTML = SUBMIT_HTML;
     resetWorkFields(true, true);
     if (autofillOn()) {
-      $('reporterName').value = store.get(KEYS.reporter) || '';
       $('jobNo').value = store.get(KEYS.job) || '';
       $('siteLocation').value = store.get(KEYS.loc) || '';
     }
+    applyEmployeeLock();
     restoreDraft(true);
     applySectionVisibility(true);
   }
@@ -3051,6 +3211,7 @@
     };
 
     try {
+      const emp = getEmpIdentity(); if (emp && emp.code) data.empCode = emp.code;
       const res = await apiRetry('submit', data, { onRetry: n => { submitBtn.innerHTML = `<span class="spinner"></span> เซิร์ฟเวอร์ไม่ว่าง กำลังลองใหม่ (${n}/3)...`; } });
       logSent(data);
       resetWorkFields(false, !autofillOn());
@@ -3513,7 +3674,7 @@
       const labels = { timestamp: 'เวลาบันทึก', reporter: 'ชื่อผู้รายงาน', job: 'Job No.', date: 'วันที่', shift: 'กะ', location: 'สถานที่',
                        lat: 'ละติจูด', lng: 'ลองจิจูด', acc: 'ความแม่นยำ (ม.)', photos: 'รหัสรูปใน Drive', updated_at: 'แก้ไขล่าสุด', sid: 'รหัสรายการ' };
       MANPOWER.concat(ACTIVITIES).forEach(([k, l]) => { labels[k] = l; });
-      const order = ['timestamp', 'reporter', 'job', 'date', 'shift', 'location', ...MANPOWER.map(x => x[0]), ...ACTIVITIES.map(x => x[0]), 'lat', 'lng', 'acc', 'photos', 'updated_at', 'sid'];
+      const order = ['timestamp', 'reporter', 'job', 'date', 'shift', 'location', ...MANPOWER.map(x => x[0]), ...ACTIVITIES.map(x => x[0]), 'photos', 'updated_at', 'sid'];
       const present = new Set(data.flatMap(Object.keys));
       const cols = order.filter(k => present.has(k)).concat([...present].filter(k => !order.includes(k)));
       const table = [cols.map(k => labels[k] || k), ...data.map(it => cols.map(k => it[k]))];
@@ -3634,7 +3795,7 @@
     const spec = [['timestamp', 'เวลาบันทึก', 'str', 20], ['reporter', 'ชื่อผู้รายงาน', 'str', 20], ['job', 'Job No.', 'str', 18], ['date', 'วันที่', 'date', 12],
       ['shift', 'กะ', 'shift', 9], ['location', 'สถานที่', 'str', 24],
       ...MANPOWER.map(([k, l]) => [k, l, 'num', 11]), ...ACTIVITIES.map(([k, l]) => [k, l, 'time', 12]),
-      ['lat', 'ละติจูด', 'str', 12], ['lng', 'ลองจิจูด', 'str', 12], ['acc', 'ความแม่นยำ (ม.)', 'num', 14], ['updated_at', 'แก้ไขล่าสุด', 'str', 20]];
+      ['updated_at', 'แก้ไขล่าสุด', 'str', 20]];
     const sorted = rows.slice().sort((a, b) => dateKey(a).localeCompare(dateKey(b)) || String(a.timestamp || '').localeCompare(String(b.timestamp || '')));
     const body = sorted.map(it => spec.map(([k, , kind]) => {
       const v = it[k];
@@ -3917,7 +4078,7 @@
     MANPOWER.concat(ACTIVITIES).forEach(([k, l]) => { o[k] = l; });
     return o;
   })();
-  let adminInfo = null, admJobsCount = null;
+  let adminInfo = null, admJobsCount = null, adminLastUrl = '';
   async function adm(action, payload = {}) {
     try { return await callWithPin(action, payload); }
     catch (e) { if (!e.cancelled) showToast(e.message || 'ทำรายการไม่สำเร็จ', 'error', 5000); throw e; }
@@ -3997,8 +4158,12 @@
         kv('บัญชีผู้ดูแล', s.accounts.length ? escapeHTML(s.accounts.map(a => `${a.name} (${a.role}${a.by === 'email' ? ', อีเมล' : ''})`).join(', ')) : 'ยังไม่ได้ตั้ง') +
         kv('โหมดบัญชีองค์กร', s.domainMode ? 'เปิดอยู่ (ระบุตัวตนด้วยอีเมล)' : 'ปิด (ใช้ PIN)') + kv('LINE', s.lineConfigured ? (s.lineTarget ? 'พร้อมส่งสรุปรายวัน' : 'มี token แต่ยังไม่ได้ลงทะเบียนกลุ่ม') : 'ยังไม่ตั้ง') +
         kv('เวอร์ชัน', `แอป ${APP_VERSION} · Apps Script ${escapeHTML(s.version)}`) +
+        kv('URL เว็บแอปปัจจุบัน', s.appUrl
+          ? `<span class="adm-url">${escapeHTML(s.appUrl)}</span> <button type="button" class="mini-btn" data-act="copyAppUrl" data-url="${escapeHTML(s.appUrl)}" style="padding:3px 9px;">คัดลอก</button>`
+          : '<span style="color:var(--tw-red);">ยังไม่ได้ Deploy เป็น Web app</span>') +
         `<div class="adm-actions"><button type="button" class="btn-primary" data-act="backup" style="padding: 11px; width: auto;">สำรองข้อมูลตอนนี้</button><button type="button" class="mini-btn" data-act="refreshStats">${ic('refresh')} รีเฟรช</button><a class="mini-btn" href="${escapeHTML(s.spreadsheet.url)}" target="_blank" rel="noopener">เปิด Google Sheet</a></div>`;
       if (s.config) { serverCfg = s.config; store.setJSON(KEYS.cfg, s.config); fillAdminForms(s.config); renderBanners(); }
+      adminLastUrl = s.appUrl || '';
     } catch (err) { box.innerHTML = `<div class="adm-warn">โหลดสถานะไม่สำเร็จ: ${escapeHTML(err.message || '')}</div>`; }
   }
   async function loadAdminJobs() {
@@ -4049,6 +4214,12 @@
     const b = e.target.closest('[data-act]'); if (!b) return;
     const act = b.dataset.act;
     if (act === 'refreshStats') return loadAdminStats();
+    if (act === 'copyAppUrl') {
+      const url = e.target.closest('[data-act]').dataset.url;
+      try { await navigator.clipboard.writeText(url); showToast('คัดลอก URL เว็บแอปแล้ว', 'success'); }
+      catch (_) { showToast('คัดลอกไม่ได้ กดค้างที่ข้อความ URL เพื่อคัดลอกเอง', 'error'); }
+      return;
+    }
     if (act === 'backup') {
       if (!(await confirmDialog('สำรองข้อมูลตอนนี้', 'คัดลอกไฟล์ Google Sheet ทั้งไฟล์ไปไว้ในโฟลเดอร์สำรองข้อมูลใน Drive (ใช้เวลาสักครู่)', 'สำรอง'))) return;
       b.disabled = true;
