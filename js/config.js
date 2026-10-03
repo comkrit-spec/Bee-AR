@@ -65,7 +65,7 @@
   // ขอให้เบราว์เซอร์เก็บข้อมูลของแอปถาวร (กันถูกล้างเมื่อพื้นที่เครื่องเต็ม)
   function requestPersist() { try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {} }
   requestPersist();
-  const APP_VERSION = '5.20';   // เพิ่มเลขทุกครั้งที่ปล่อยเวอร์ชันใหม่ ผู้ดูแลตั้ง min_app_version ในแท็บ Config เพื่อบังคับให้เครื่องเก่ารีเฟรชได้
+  const APP_VERSION = '5.21';   // เพิ่มเลขทุกครั้งที่ปล่อยเวอร์ชันใหม่ ผู้ดูแลตั้ง min_app_version ในแท็บ Config เพื่อบังคับให้เครื่องเก่ารีเฟรชได้
   $('sideVerNum').textContent = APP_VERSION;
   const DEVICE_ID = (() => { let v = store.get(KEYS.dev); if (!v) { v = uid(); store.set(KEYS.dev, v); } return v; })();   // ใช้นับการใส่ PIN ผิดต่อเครื่อง
   function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
