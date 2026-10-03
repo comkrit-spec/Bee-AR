@@ -876,6 +876,43 @@
     .report-more[hidden] { display: none; }
     .report-more .btn-outline { width: auto; display: inline-flex; padding: 10px 22px; }
 
+    /* ============ v5.15: BANNERS + ADMIN CENTER ============ */
+    .banner-box { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .banner-box:empty { display: none; }
+    .banner { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; font-size: 13px; line-height: 1.55;
+      border: 1px solid var(--border); background: rgba(239, 246, 255, 0.96); color: var(--text); }
+    .banner .ic { width: 18px; height: 18px; margin-top: 2px; color: var(--accent); }
+    .banner.warn { background: rgba(255, 247, 224, 0.97); border-color: #F59E0B; } .banner.warn .ic { color: #B45309; }
+    .banner.upd { background: rgba(254, 242, 242, 0.97); border-color: var(--tw-red); } .banner.upd .ic { color: var(--tw-red); }
+    .bn-text { flex: 1; min-width: 0; word-break: break-word; }
+    .bn-btn { border: none; background: var(--tw-red); color: #fff; border-radius: 8px; padding: 5px 12px; font-family: inherit; font-weight: 600; cursor: pointer; flex-shrink: 0; }
+    .bn-x { border: none; background: none; color: var(--muted); cursor: pointer; padding: 2px; flex-shrink: 0; }
+    .admin-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .admin-who { margin-left: auto; font-size: 12px; color: var(--muted); word-break: break-all; }
+    .adm-sec { background: rgba(255, 255, 255, 0.93); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 12px; overflow: hidden; }
+    .adm-sec > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--accent); }
+    .adm-sec > summary::-webkit-details-marker { display: none; }
+    .adm-sec[open] > summary { border-bottom: 1px solid var(--border); }
+    .adm-body { padding: 14px 16px; }
+    .adm-row { display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 9px 0; border-bottom: 1px dashed var(--border); font-size: 13px; }
+    .adm-row:last-child { border-bottom: none; }
+    .adm-row b { word-break: break-word; }
+    .meta { font-size: 11px; color: var(--muted); }
+    .adm-chip { font-size: 11px; padding: 2px 8px; border-radius: 10px; background: var(--tint); color: var(--accent); white-space: nowrap; }
+    .adm-chip.closed { background: #F1F5F9; color: #64748B; }
+    .adm-warn { background: rgba(245, 158, 11, 0.13); color: #92400E; border-radius: 10px; padding: 9px 12px; font-size: 12.5px; line-height: 1.6; margin-bottom: 8px; }
+    .adm-ok { background: rgba(16, 185, 129, 0.12); color: #047857; border-radius: 10px; padding: 9px 12px; font-size: 12.5px; line-height: 1.6; margin-bottom: 8px; }
+    .adm-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+    .mini-btn { border: 1px solid var(--border); background: var(--surface); color: var(--accent); border-radius: 9px; padding: 6px 10px; font-family: inherit;
+      font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; }
+    .mini-btn.danger { color: var(--tw-red); }
+    .adm-log { font-size: 12px; padding: 8px 0; border-bottom: 1px dashed var(--border); line-height: 1.55; }
+    .adm-log:last-child { border-bottom: none; }
+    .adm-log .detail { color: var(--muted); word-break: break-word; }
+    .adm-body select { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; background: var(--surface); color: var(--text); }
+    .adm-kv { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 5px 0; }
+    .adm-kv span:first-child { color: var(--muted); flex-shrink: 0; } .adm-kv span:last-child { text-align: right; word-break: break-word; font-weight: 500; }
+
     /* ============ v4: PRINT ============ */
     @media print {
       #appBg, .hero, .app-header, .bottom-nav, .report-tools, .chips, #filterCard, .toast-container, .rc-more, #refreshBtn { display: none !important; }
@@ -892,7 +929,7 @@
   </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol></defs></svg>
 <div id="appBg" aria-hidden="true">
   <div class="bg-grid"></div>
   <div class="bg-sky"></div>
@@ -931,6 +968,7 @@
 </header>
 
 <div class="app-container">
+  <div id="bannerBox" class="banner-box" aria-live="polite"></div>
 
   <!-- PAGE 1: FORM -->
   <div id="page-form" class="view-page active">
@@ -966,7 +1004,8 @@
           <div class="desktop-2-col">
             <div class="form-group">
               <label for="reporterName">ชื่อผู้รายงาน <span class="required">*</span></label>
-              <input type="text" name="reporter" id="reporterName" placeholder="เช่น นพดล" required autocomplete="name">
+              <input type="text" name="reporter" id="reporterName" placeholder="เช่น นพดล" required autocomplete="name" list="peopleList">
+              <datalist id="peopleList"></datalist>
             </div>
             <div class="form-group">
               <label for="currentDate">วันที่ปฏิบัติงาน <span class="required">*</span></label>
@@ -1132,9 +1171,13 @@
         <button data-shift="day">กะเช้า</button>
         <button data-shift="night">กะดึก</button>
       </div>
-      <button class="tool-btn" onclick="exportCSV()">
+      <button class="tool-btn" id="xlsxBtn" onclick="exportXLSX()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         Excel
+      </button>
+      <button class="tool-btn" id="csvBtn" onclick="exportCSV()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        CSV
       </button>
       <button class="tool-btn" onclick="window.print()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
@@ -1213,6 +1256,12 @@
       </div>
     </div>
 
+    <div class="card" id="adminEntry" style="border-top: 4px solid var(--tw-red);">
+      <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> ศูนย์ผู้ดูแลระบบ</h2>
+      <p class="tool-p">สำหรับผู้ดูแล: ดูสถานะระบบ สำรองข้อมูล ตั้งค่ากลางให้ทุกเครื่อง จัดการรายชื่อ Job ดูประวัติการแก้ไข/ลบ และกู้คืนรายการที่ลบ (ต้องใส่ PIN ผู้ดูแล)</p>
+      <button type="button" class="btn-outline" onclick="openAdmin()">เปิดศูนย์ผู้ดูแล</button>
+    </div>
+
     <div class="card" id="setupCard" hidden style="border-top: 4px solid var(--tw-blue);">
       <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg> ตั้งค่าเครื่องใหม่</h2>
       <p class="tool-p">สร้าง QR หรือลิงก์ที่มี URL ของฐานข้อมูลอยู่ในตัว ให้เครื่องใหม่สแกนหรือเปิดลิงก์ ระบบจะจำค่าไว้และใช้งานได้ทันที ไม่ต้องวาง URL เอง (ส่งให้เฉพาะเพื่อนร่วมงานที่ไว้ใจ)</p>
@@ -1232,6 +1281,17 @@
       <p class="tool-p">ถ้าเลยเวลาเลิกกะ (กะเช้า 18:30, กะดึก 06:30) แล้วฟอร์มยังมีข้อมูลค้างแต่ไม่มีเวลา Close Permit แอปจะแจ้งเตือน ใช้ได้เมื่อแอปยังเปิดค้างไว้ในเครื่อง</p>
       <button class="btn-outline" id="remindBtn" onclick="toggleReminders()">เปิดการแจ้งเตือน</button>
     </div>
+  </div>
+
+
+  <!-- PAGE: ADMIN -->
+  <div id="page-admin" class="view-page">
+    <div class="admin-head">
+      <button type="button" class="mini-btn" onclick="closeAdmin()"><svg class="ic" aria-hidden="true"><use href="#i-chevron-left"/></svg> กลับ</button>
+      <h2 style="margin: 0; font-size: 18px; color: var(--accent);">ศูนย์ผู้ดูแลระบบ</h2>
+      <span class="admin-who" id="adminWho"></span>
+    </div>
+    <div id="adminBody"></div>
   </div>
 
 </div>
@@ -1267,6 +1327,7 @@
       <label style="font-size:13px;">ส่วนของแบบฟอร์มที่แสดง</label>
       <div class="sec-list" id="secList"></div>
       <div class="shift-hint">ปิดส่วนที่ไม่ใช้เพื่อให้กรอกเร็วขึ้น ตั้งค่านี้มีผลเฉพาะเครื่องนี้</div>
+      <div class="shift-hint" id="secLockHint" hidden style="color: var(--tw-red);">ผู้ดูแลระบบกำหนดส่วนของฟอร์มให้ทุกเครื่อง ปรับเองไม่ได้</div>
     </div>
     <div class="form-group">
       <label style="font-size:13px;">การกรอกข้อมูล</label>
@@ -1291,6 +1352,7 @@
     </div>
     <button type="button" class="btn-outline" style="padding: 10px; margin-bottom: 10px;" onclick="testConnection()"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg> ทดสอบการเชื่อมต่อ</button>
     <div id="connResult" class="conn-result" hidden></div>
+    <div class="shift-hint" id="verInfo" style="margin: 0 0 10px;"></div>
     <div style="display: flex; gap: 10px;">
       <button class="btn-outline" style="padding: 10px;" onclick="closeSettings()">ยกเลิก</button>
       <button class="btn-primary" style="padding: 10px;" onclick="saveSettings()">บันทึก</button>
@@ -1376,7 +1438,7 @@
     ['jetter', 'Jetter'], ['jetter_c', 'Jetter (C)']
   ];
   const ACTIVITIES = [
-    ['arr_bee', 'Arrival to BEE'], ['tb_talk', 'Safety Tool Box Talk'], ['wp_app', 'Work Permit Approve'],
+    ['arr_bee', 'Arrival to Site'], ['tb_talk', 'Safety Tool Box Talk'], ['wp_app', 'Work Permit Approve'],
     ['break_time', 'Break'], ['close_permit', 'Close Permit'], ['arr_asia', 'Arrival to Asia']
   ];
   const DAY_START = 6, DAY_END = 18;   // 06:00–17:59 = กะเช้า
@@ -1387,7 +1449,7 @@
   const REMIND_WINDOW = { Day: [18 * 60 + 30, 23 * 60 + 59], Night: [6 * 60 + 30, 12 * 60] };
   const QR_LIB = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
   const KEYS = { url: 'googleScriptUrl', job: 'lastJobNo', reporter: 'lastReporter', draft: 'formDraft',
-                 queue: 'pendingQueue', sent: 'sentLog', loc: 'lastLocation', locs: 'recentLocs', sections: 'formSections', sound: 'soundOn', autofill: 'autoFill', timeHist: 'timeHist', reportLimit: 'reportLimit', jobList: 'jobList', jobHist: 'jobHist', soundLevel: 'soundLevel', bg: 'bgOn', pin: 'adminPin', install: 'installDismissed',
+                 queue: 'pendingQueue', sent: 'sentLog', loc: 'lastLocation', locs: 'recentLocs', sections: 'formSections', sound: 'soundOn', autofill: 'autoFill', timeHist: 'timeHist', reportLimit: 'reportLimit', jobList: 'jobList', jobHist: 'jobHist', cfg: 'serverCfg', dev: 'devId', ann: 'annSeen', soundLevel: 'soundLevel', bg: 'bgOn', pin: 'adminPin', install: 'installDismissed',
                  presets: 'mpPresets', glove: 'gloveMode', remindOn: 'remindOn', reminded: 'remindedKey' };
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // เปิดผ่าน Apps Script (HtmlService) หรือโฮสต์เอง
@@ -1433,6 +1495,8 @@
   // ขอให้เบราว์เซอร์เก็บข้อมูลของแอปถาวร (กันถูกล้างเมื่อพื้นที่เครื่องเต็ม)
   function requestPersist() { try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {} }
   requestPersist();
+  const APP_VERSION = '5.15';   // เพิ่มเลขทุกครั้งที่ปล่อยเวอร์ชันใหม่ ผู้ดูแลตั้ง min_app_version ในแท็บ Config เพื่อบังคับให้เครื่องเก่ารีเฟรชได้
+  const DEVICE_ID = (() => { let v = store.get(KEYS.dev); if (!v) { v = uid(); store.set(KEYS.dev, v); } return v; })();   // ใช้นับการใส่ PIN ผิดต่อเครื่อง
   function haptic(ms = 10) { if (navigator.vibrate) navigator.vibrate(ms); }
   const shiftLabel = s => String(s || '').toLowerCase() === 'day' ? 'กะเช้า' : 'กะดึก';
   function thaiDate(s) {
@@ -1513,6 +1577,9 @@
   const SUBMIT_HTML = $('submitBtn').innerHTML;
   let googleScriptUrl = EMBEDDED_URL || store.get(KEYS.url) || '';
   if (EMBEDDED_URL) store.del(KEYS.url);   // ล้าง URL เก่าที่ค้างในเครื่อง ป้องกันส่งไปผิดที่
+  // ค่าตั้งต้นกลางจากเซิร์ฟเวอร์ (แท็บ Config) และรายชื่อหลัก จำไว้ในเครื่องเผื่อออฟไลน์
+  let serverCfg = store.getJSON(KEYS.cfg) || {}, serverVersion = '';
+  let masterLocs = (store.getJSON(KEYS.jobList) || {}).locations || [], peopleNames = (store.getJSON(KEYS.jobList) || {}).people || [];
   const server = { state: (IS_GAS || googleScriptUrl) ? 'checking' : 'nourl', latency: null, lastOk: null, lastCheck: null, info: null, outdated: false, err: '' };
   let timelineState = { warns: 0, total: 0 };
   let lastSummary = '';
@@ -1884,7 +1951,7 @@
       $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดใหม่';
     } else {
       el.className = 'geo-status';
-      el.textContent = autofillOn() ? 'พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to BEE' : 'กดปุ่มเพื่อบันทึกพิกัดของตำแหน่งปัจจุบัน';
+      el.textContent = autofillOn() ? 'พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to Site' : 'กดปุ่มเพื่อบันทึกพิกัดของตำแหน่งปัจจุบัน';
       $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดตอนนี้';
     }
   }
@@ -1928,9 +1995,13 @@
     { key: 'times',    label: 'เวลา (Activity)', desc: 'เวลาของแต่ละขั้นตอน' },
     { key: 'photos',   label: 'รูปถ่าย',         desc: 'แนบรูปหน้างาน' }
   ];
-  const getSections = () => Object.assign({}, DEFAULT_SECTIONS, store.getJSON(KEYS.sections) || {});
+  function getSections() {
+    const base = Object.assign({}, DEFAULT_SECTIONS);
+    ['location', 'manpower', 'times', 'photos'].forEach(k => { if (typeof serverCfg['sections_' + k] === 'boolean') base[k] = serverCfg['sections_' + k]; });
+    return serverCfg.sections_locked ? base : Object.assign(base, store.getJSON(KEYS.sections) || {});   // ผู้ดูแลล็อก = ใช้ค่ากลางอย่างเดียว
+  }
   // ขณะแก้ไขรายการเดิม แสดงทุกส่วนเสมอ เพื่อไม่ให้ข้อมูลของส่วนที่ซ่อนถูกทับเป็นค่าว่าง
-  const sectionOn = key => { const s = SECTIONS.find(x => x.key === key); return !!(editing || (s && s.locked) || getSections()[key]); };
+  const sectionOn = key => { const s = SECTIONS.find(x => x.key === key); return !!(editing || (s && s.locked) || (key === 'location' && serverCfg.require_location) || getSections()[key]); };
   function sectionHasData(key) {
     if (key === 'location') return !!($('siteLocation').value.trim() || $('geoLat').value);
     if (key === 'manpower') return manpowerInputs.some(i => i.value !== '');
@@ -1958,17 +2029,19 @@
     refreshForm();
   }
   function renderSectionSettings() {
-    const cfg = getSections();
+    const cfg = getSections(), adminLocked = !!serverCfg.sections_locked;
+    $('secLockHint').hidden = !adminLocked;
     $('secList').innerHTML = SECTIONS.map(s => `
       <label class="sec-row">
         <span class="sec-name">${escapeHTML(s.label)}<small>${escapeHTML(s.desc)}</small></span>
-        <span class="switch"><input type="checkbox" role="switch" id="sec-${s.key}" ${s.locked || cfg[s.key] ? 'checked' : ''} ${s.locked ? 'disabled' : ''}><span></span></span>
+        <span class="switch"><input type="checkbox" role="switch" id="sec-${s.key}" ${s.locked || cfg[s.key] ? 'checked' : ''} ${s.locked || adminLocked ? 'disabled' : ''}><span></span></span>
       </label>`).join('');
   }
 
   /* ============ RECENT LOCATIONS ============ */
   function renderLocList() {
-    $('locList').innerHTML = (store.getJSON(KEYS.locs) || []).map(l => `<option value="${escapeHTML(l)}">`).join('');
+    const all = [...new Set([...masterLocs, ...(store.getJSON(KEYS.locs) || [])])];
+    $('locList').innerHTML = all.map(l => `<option value="${escapeHTML(l)}">`).join('');
   }
   function rememberLocation(name, front = true) {
     name = String(name || '').trim();
@@ -2147,6 +2220,7 @@
     $('connResult').hidden = true;
     renderSectionSettings();
     renderPrefs();
+    $('verInfo').textContent = `เวอร์ชันแอป ${APP_VERSION} · Apps Script ${serverVersion || (server.state === 'ok' ? '(เก่า ยังไม่รายงานเวอร์ชัน)' : '-')}`;
     $('settingsModal').classList.add('active');
     setTimeout(() => (IS_GAS || EMBEDDED_URL ? $('pinNew') : $('scriptUrlInput')).focus(), 150);
   }
@@ -2159,9 +2233,10 @@
     if (needUrl && !/\/exec\/?$/.test(url)) return showToast('URL ต้องลงท้ายด้วย /exec (ไม่ใช่ /dev) กด "ทดสอบการเชื่อมต่อ" เพื่อตรวจ', 'error', 5000);
     if (pin && !/^\d{4,6}$/.test(pin)) return showToast('PIN ต้องเป็นตัวเลข 4–6 หลัก', 'error');
     // ส่วนของแบบฟอร์ม: ถ้าปิดส่วนที่มีข้อมูลค้าง ต้องยืนยันก่อนล้าง
+    const adminLocked = !!serverCfg.sections_locked;
     const cur = getSections(), next = { ...cur };
-    SECTIONS.filter(x => !x.locked).forEach(x => { const el = $('sec-' + x.key); if (el) next[x.key] = el.checked; });
-    if (!editing) {
+    if (!adminLocked) SECTIONS.filter(x => !x.locked).forEach(x => { const el = $('sec-' + x.key); if (el) next[x.key] = el.checked; });
+    if (!editing && !adminLocked) {
       const losing = SECTIONS.filter(x => !x.locked && cur[x.key] && !next[x.key] && sectionHasData(x.key));
       if (losing.length) {
         const ok = await confirmDialog('ปิดส่วนที่มีข้อมูลค้างอยู่',
@@ -2169,7 +2244,7 @@
         if (!ok) return;
       }
     }
-    store.setJSON(KEYS.sections, next);
+    if (!adminLocked) store.setJSON(KEYS.sections, next);
     applySectionVisibility(true);
     if (needUrl) { googleScriptUrl = url; store.set(KEYS.url, url); }
     if (pin) store.set(KEYS.pin, await hashPin(pin));
@@ -2280,8 +2355,9 @@
     document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     $(`page-${tabId}`).classList.add('active');
-    $(`nav-${tabId}`).classList.add('active');
-    $('bottomNav').style.setProperty('--idx', TABS.indexOf(tabId));
+    const navId = tabId === 'admin' ? 'import' : tabId;   // ศูนย์ผู้ดูแลเป็นหน้าย่อยของแท็บ "เครื่องมือ"
+    $(`nav-${navId}`).classList.add('active');
+    $('bottomNav').style.setProperty('--idx', TABS.indexOf(navId));
     $('appHeader').classList.toggle('no-progress', tabId !== 'form');
     haptic(6);
     if (tabId === 'form') requestAnimationFrame(updateTimeline);
@@ -2314,7 +2390,7 @@
       try { const r = await gasCall(action, payload); noteServer(true); return r; }
       catch (e) { noteServer(!e.network, e.network ? e.message : ''); throw e; }
     }
-    const READ = ['getReport', 'checkDuplicate', 'ping', 'getJobs'];
+    const READ = ['getReport', 'checkDuplicate', 'ping', 'getJobs', 'getConfig'];
     const ctrl = opts.timeout ? new AbortController() : null;
     if (ctrl) setTimeout(() => ctrl.abort(), opts.timeout);
     let res;
@@ -2364,6 +2440,7 @@
     for (let i = 0; ; i++) {
       try { return await api(action, payload, opts); }
       catch (err) {
+        if (err.code === 'MAINTENANCE') { err.network = true; err.kind = 'maintenance'; throw err; }   // ปิดปรับปรุง: ไม่ลองซ้ำ เก็บเข้าคิวทันที
         if (!isBusyErr(err)) throw err;
         if (i >= waits.length) { err.network = true; err.kind = 'busy'; throw err; }   // ยังไม่ว่าง: ให้เก็บเข้าคิวส่งทีหลัง
         if (opts.onRetry) opts.onRetry(i + 1);
@@ -2374,7 +2451,7 @@
   // คำสั่งที่ต้องใช้ PIN ฝั่งเซิร์ฟเวอร์ (แก้ไข/ลบ)
   async function callWithPin(action, payload) {
     try {
-      return await apiRetry(action, { ...payload, pin: sessionPin });
+      return await apiRetry(action, { ...payload, pin: sessionPin, dev: DEVICE_ID });
     } catch (err) {
       if (err.code !== 'PIN_REQUIRED' && err.code !== 'PIN_WRONG') throw err;
       if (err.code === 'PIN_WRONG') { sessionPin = ''; showToast('PIN ไม่ถูกต้อง', 'error'); }
@@ -2425,7 +2502,7 @@
         sent++;
         setQueue(getQueue().filter(x => x.id !== item.id));
       } catch (err) {
-        if (isBusyErr(err)) { flushHold = Date.now() + 20000 + Math.random() * 10000; failed = err; break; }   // ไม่ว่าง: เก็บรายการไว้ ลองรอบหน้า
+        if (isBusyErr(err) || err.code === 'MAINTENANCE' || err.code === 'JOB_NOT_ALLOWED') { flushHold = Date.now() + 20000 + Math.random() * 10000; failed = err; break; }   // ไม่ว่าง/ปิดปรับปรุง/Job ยังไม่อนุญาต: เก็บรายการไว้ ลองรอบหน้า
         if (!err.network) { // เซิร์ฟเวอร์ปฏิเสธข้อมูล: ไม่ต้องลองซ้ำไปเรื่อย ๆ
           setQueue(getQueue().filter(x => x.id !== item.id));
           showToast(`ส่งรายการค้างไม่ผ่าน: ${err.message}`, 'error', 6000);
@@ -2437,7 +2514,7 @@
     flushing = false;
     $('pendingBadge').classList.remove('syncing');
     if (sent) { showToast(`ส่งรายการที่ค้างไว้ ${sent} รายการแล้ว`, 'success'); playSound('success'); }
-    else if (failed && manual) showToast('ส่งรายการค้างไม่สำเร็จ: เชื่อมต่อ Apps Script ไม่ได้ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 7000);
+    else if (failed && manual) showToast(failed.code === 'MAINTENANCE' || failed.code === 'JOB_NOT_ALLOWED' ? `ส่งรายการค้างยังไม่ได้: ${failed.message}` : 'ส่งรายการค้างไม่สำเร็จ: เชื่อมต่อ Apps Script ไม่ได้ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 7000);
   }
   window.addEventListener('online', () => setTimeout(() => flushQueue(), Math.random() * 3000));
   window.addEventListener('offline', () => showToast('ออฟไลน์อยู่ บันทึกต่อได้ ระบบจะเก็บไว้ส่งทีหลัง', 'info', 4000));
@@ -2651,11 +2728,18 @@
     if (!force && Date.now() - jobsAt < JOB_REFRESH_MS) return;
     try {
       const r = await api('getJobs', {}, { timeout: 15000 });
-      if (r && Array.isArray(r.jobs)) { jobsServer = r.jobs; jobsAt = Date.now(); store.setJSON(KEYS.jobList, { at: jobsAt, jobs: jobsServer }); }
+      if (r && Array.isArray(r.jobs)) {
+        jobsServer = r.jobs; jobsAt = Date.now();
+        masterLocs = Array.isArray(r.locations) ? r.locations : []; peopleNames = Array.isArray(r.people) ? r.people : [];
+        store.setJSON(KEYS.jobList, { at: jobsAt, jobs: jobsServer, locations: masterLocs, people: peopleNames });
+        renderLocList(); renderPeopleList();
+      }
     } catch (_) { /* เซิร์ฟเวอร์เวอร์ชันเก่าหรือเชื่อมต่อไม่ได้: ใช้รายการที่จำไว้ในเครื่อง */ }
   }
   function matchJobs(q) {
-    const nq = normJob(q), list = allJobs();
+    const nq = normJob(q);
+    let list = allJobs().filter(j => !j.closed || normJob(j.job) === nq);                 // ซ่อน Job ที่ปิดงานแล้ว (ยกเว้นพิมพ์ชื่อตรงทั้งหมด)
+    if (serverCfg.restrict_jobs && list.some(j => j.master)) list = list.filter(j => j.master);   // ผู้ดูแลจำกัดเฉพาะรายชื่อหลัก
     if (!nq) return list.slice(0, 6);                                   // ยังไม่พิมพ์: แสดง Job ล่าสุด
     return list.map(j => { const nj = normJob(j.job); return { j, sc: nj === nq ? 0 : nj.startsWith(nq) ? 1 : nj.includes(nq) ? 2 : -1 }; })
       .filter(x => x.sc >= 0).sort((a, b) => a.sc - b.sc).map(x => x.j).slice(0, 6);
@@ -2666,7 +2750,7 @@
     jobShown = document.activeElement === input ? matchJobs(q) : [];
     if (!jobShown.length) return hideJobSuggest();
     box.innerHTML = (q.trim() ? '' : '<div class="js-head">Job ล่าสุด</div>') + jobShown.map((j, i) => {
-      const meta = [j.location && `${ic('pin')} ${escapeHTML(j.location)}`, j.lastDate && `ล่าสุด ${escapeHTML(thaiDate(j.lastDate))}`, j.count && `${j.count} ครั้ง`].filter(Boolean).join(' · ');
+      const meta = [j.location && `${ic('pin')} ${escapeHTML(j.location)}`, j.lastDate && `ล่าสุด ${escapeHTML(thaiDate(j.lastDate))}`, j.count && `${j.count} ครั้ง`, j.closed && 'ปิดงานแล้ว'].filter(Boolean).join(' · ');
       return `<button type="button" class="js-item${i === jobSel ? ' sel' : ''}" role="option" data-i="${i}"><b>${escapeHTML(j.job)}</b>${meta ? `<small>${meta}</small>` : ''}</button>`;
     }).join('');
     box.hidden = false; input.setAttribute('aria-expanded', 'true');
@@ -2679,7 +2763,8 @@
     showToast(`ใส่สถานที่ "${item.location}" ให้แล้ว (จาก Job นี้)`, 'info', 3500);
     return true;
   }
-  function pickJob(item) {
+  async function pickJob(item) {
+    if (item.closed && !(await confirmDialog('Job นี้ปิดงานแล้ว', `Job ${item.job} ถูกตั้งเป็นปิดงานแล้ว ต้องการใช้ต่อหรือไม่`, 'ใช้ต่อ'))) return;
     jobSuppress = true;
     $('jobNo').value = item.job;
     $('jobNo').dispatchEvent(new Event('input', { bubbles: true }));
@@ -2709,6 +2794,56 @@
   $('jobSuggest').addEventListener('mousedown', e => e.preventDefault());   // กดเลือกแล้วช่องไม่เสียโฟกัสก่อน
   $('jobSuggest').addEventListener('click', e => { const b = e.target.closest('.js-item'); if (b) pickJob(jobShown[Number(b.dataset.i)]); });
   setTimeout(() => loadJobs(), 1500);
+
+  /* ============ SERVER CONFIG (ตั้งค่ากลางจากแท็บ Config ใน Sheet) + แถบประกาศ ============ */
+  const cmpVer = (a, b) => {
+    const x = String(a || '0').split('.').map(Number), y = String(b || '0').split('.').map(Number);
+    for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i] || 0) - (y[i] || 0); if (d) return d > 0 ? 1 : -1; }
+    return 0;
+  };
+  const annKey = () => `${serverCfg.announcement || ''}|${serverCfg.announcement_until || ''}`;
+  function renderBanners() {
+    const items = [];
+    if (serverCfg.maintenance) items.push({ cls: 'warn', icon: 'alert', html: `<b>ระบบปิดปรับปรุงชั่วคราว</b> ${escapeHTML(serverCfg.maintenance_message || '')} บันทึกได้ ข้อมูลจะเก็บไว้ในเครื่องแล้วส่งให้เมื่อเปิดใช้งาน` });
+    if (serverCfg.min_app_version && cmpVer(APP_VERSION, serverCfg.min_app_version) < 0) {
+      items.push({ cls: 'upd', icon: 'refresh', html: `<b>มีแอปเวอร์ชันใหม่</b> เครื่องนี้ใช้ ${APP_VERSION} ต้องเป็น ${escapeHTML(serverCfg.min_app_version)} ขึ้นไป`, action: 'refresh' });
+    }
+    const ann = String(serverCfg.announcement || '').trim(), until = String(serverCfg.announcement_until || '').trim();
+    if (ann && (!until || todayLocal() <= until) && store.get(KEYS.ann) !== annKey()) items.push({ cls: 'info', icon: 'info', html: escapeHTML(ann), dismiss: true });
+    $('bannerBox').innerHTML = items.map(b => `<div class="banner ${b.cls}" role="status">${ic(b.icon)}<div class="bn-text">${b.html}</div>` +
+      (b.action ? '<button type="button" class="bn-btn" data-act="refresh">รีเฟรช</button>' : '') +
+      (b.dismiss ? `<button type="button" class="bn-x" data-act="dismiss" aria-label="ปิดประกาศ">${ic('x')}</button>` : '') + '</div>').join('');
+  }
+  $('bannerBox').addEventListener('click', async e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    if (b.dataset.act === 'dismiss') { store.set(KEYS.ann, annKey()); renderBanners(); }
+    if (b.dataset.act === 'refresh') { try { const r = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (r) await r.update(); } catch (_) {} location.reload(); }
+  });
+  function renderPeopleList() { $('peopleList').innerHTML = peopleNames.map(n => `<option value="${escapeHTML(n)}">`).join(''); }
+  // ส่วนของฟอร์มที่ซ่อนอยู่ (ผู้ดูแลปิดจากส่วนกลาง หรือผู้ใช้ปิดเอง) ไม่ส่งค่าเข้า Sheet
+  function stripHiddenFields(d) {
+    if (!sectionOn('location')) { d.location = ''; d.lat = ''; d.lng = ''; d.acc = ''; }
+    if (!sectionOn('manpower')) MANPOWER.forEach(([k]) => { d[k] = ''; });
+    if (!sectionOn('times')) ACTIVITIES.forEach(([k]) => { d[k] = ''; });
+    if (!sectionOn('photos')) d.photos = '[]';
+  }
+  function applyServerConfig() {
+    renderBanners();
+    applySectionVisibility(false);
+    if (!store.get(KEYS.reportLimit) && adminLimit() !== reportLimit) { reportLimit = adminLimit(); renderLimitSeg(); }
+    if ($('settingsModal').classList.contains('active')) {      // ห้ามวาดสวิตช์ทับ (ผู้ใช้อาจกดค้างไว้ยังไม่บันทึก) อัปเดตเฉพาะสถานะ "ผู้ดูแลล็อก"
+      const locked = !!serverCfg.sections_locked;
+      $('secLockHint').hidden = !locked;
+      document.querySelectorAll('#secList input').forEach(i => { const sec = SECTIONS.find(x => 'sec-' + x.key === i.id); if (sec && !sec.locked) i.disabled = locked; });
+    }
+  }
+  async function loadConfig() {
+    if (!hasBackend() || !navigator.onLine) return;
+    try {
+      const r = await api('getConfig', {}, { timeout: 12000 });
+      if (r && r.config) { serverCfg = r.config; serverVersion = r.version || ''; store.setJSON(KEYS.cfg, r.config); applyServerConfig(); }
+    } catch (_) { /* เซิร์ฟเวอร์เวอร์ชันเก่า (ยังไม่มี getConfig) หรือเชื่อมต่อไม่ได้: ใช้ค่าที่จำไว้ */ }
+  }
 
   /* ============ DUPLICATE CHECK ============ */
   function logSent(d) {
@@ -2808,7 +2943,7 @@
 
   async function deleteRecord(item) {
     const ok = await confirmDialog('ลบรายการนี้',
-      `ลบ Job ${item.job || '-'} วันที่ ${thaiDate(item.date)} ${shiftLabel(item.shift)} ออกจาก Sheet และย้ายรูปถ่ายไปถังขยะ ลบแล้วกู้คืนจากแอปไม่ได้`, 'ลบรายการ');
+      `ลบ Job ${item.job || '-'} วันที่ ${thaiDate(item.date)} ${shiftLabel(item.shift)} ออกจากรายงาน ระบบย้ายไปถังขยะและบันทึกชื่อผู้ลบไว้ ผู้ดูแลระดับ admin กู้คืนได้ภายใน ${serverCfg.trash_days || 90} วัน`, 'ลบรายการ');
     if (!ok) return;
     try {
       await callWithPin('delete', { sid: item.sid });
@@ -2816,7 +2951,7 @@
       reportTotal = Math.max(0, reportTotal - 1);
       closeSheet();
       applyReportFilter();
-      showToast('ลบรายการแล้ว', 'success'); playSound('success');
+      showToast('ย้ายรายการไปถังขยะแล้ว (กู้คืนได้โดยผู้ดูแล)', 'success'); playSound('success');
     } catch (err) {
       if (!err.cancelled) showToast(err.message || 'ลบไม่สำเร็จ', 'error', 4500);
     }
@@ -2838,6 +2973,7 @@
     const data = collectForm();
     data.sid = editing ? editing.sid : uid();
     data.photos = JSON.stringify(photos);
+    stripHiddenFields(data);
 
     if (timelineState.warns) {
       const ok = await confirmDialog('ลำดับเวลาไม่ถูกต้อง',
@@ -2845,6 +2981,15 @@
       if (!ok) { const w = document.querySelector('.tl-item.warn input'); w && w.focus(); return; }
     }
 
+    if (serverCfg.require_location && !String(data.location || '').trim()) { showToast('ผู้ดูแลระบบกำหนดให้ต้องระบุสถานที่', 'error', 4500); $('siteLocation').focus(); return; }
+    const jobHit = allJobs().find(j => normJob(j.job) === normJob(data.job));
+    if (serverCfg.restrict_jobs && !editing) {
+      const allowed = allJobs().filter(j => j.master && !j.closed);
+      if (allowed.length && !(jobHit && jobHit.master && !jobHit.closed)) { showToast('Job นี้ไม่อยู่ในรายชื่อที่ผู้ดูแลอนุญาต เลือกจากรายการที่แนะนำ', 'error', 5000); $('jobNo').focus(); return; }
+    } else if (jobHit && jobHit.closed && !editing) {
+      const ok = await confirmDialog('Job นี้ปิดงานแล้ว', `Job ${data.job} ถูกตั้งเป็นปิดงานแล้ว ต้องการบันทึกต่อหรือไม่`, 'บันทึกต่อ');
+      if (!ok) return;
+    }
     const submitBtn = $('submitBtn');
     const btnHTML = submitBtn.innerHTML;
     submitBtn.disabled = true;
@@ -2897,11 +3042,11 @@
       if (r === 'fail') return showToast('พื้นที่ในเครื่องเต็ม เก็บรายการไว้ส่งทีหลังไม่ได้ ลองลบรูปออกแล้วส่งใหม่', 'error', 6000);
       logSent(data);
       resetWorkFields(false, !autofillOn());
-      const why = kind === 'busy' ? 'เซิร์ฟเวอร์ไม่ว่าง (มีผู้ใช้พร้อมกันจำนวนมาก)' : kind !== 'offline' ? 'เชื่อมต่อ Apps Script ไม่ได้' : 'ยังไม่มีสัญญาณ';
+      const why = kind === 'maintenance' ? 'ระบบปิดปรับปรุงชั่วคราว' : kind === 'busy' ? 'เซิร์ฟเวอร์ไม่ว่าง (มีผู้ใช้พร้อมกันจำนวนมาก)' : kind !== 'offline' ? 'เชื่อมต่อ Apps Script ไม่ได้' : 'ยังไม่มีสัญญาณ';
       showSuccess(detail, summary,
         r === 'nophotos' ? `${why} เก็บข้อมูลไว้ส่งทีหลังแล้ว แต่รูปใหญ่เกินพื้นที่ในเครื่อง รูปจะไม่ถูกส่ง`
                          : `${why} เก็บไว้ในเครื่องแล้ว จะลองส่งใหม่อัตโนมัติ` +
-                           (kind !== 'offline' && kind !== 'busy' ? ' ถ้าเกิดซ้ำ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
+                           (kind !== 'offline' && kind !== 'busy' && kind !== 'maintenance' ? ' ถ้าเกิดซ้ำ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
         'ยังไม่ได้ส่ง', 'queued');
     };
 
@@ -3110,13 +3255,7 @@
 
   function applyReportFilter(resetShown = true) {
     if (resetShown) reportShown = REPORT_DOM_PAGE;
-    const q = reportFilter.q.trim().toLowerCase();
-    reportView = reportData.filter(it => {
-      if (reportFilter.shift === 'day' && !isDay(it)) return false;
-      if (reportFilter.shift === 'night' && isDay(it)) return false;
-      if (q && !`${it.job || ''} ${it.reporter || ''} ${it.location || ''}`.toLowerCase().includes(q)) return false;
-      return true;
-    });
+    reportView = reportData.filter(reportPredicate());
     renderStats(reportView);
     renderMetrics(reportView);
     renderChart(reportView);
@@ -3197,7 +3336,8 @@
   ['filterStartDate', 'filterEndDate'].forEach(id => $(id).addEventListener('change', () => setActiveChip(null)));
 
   let reportTotal = 0, reportTruncated = false, reportFetching = false, reportSig = '', reportShown = REPORT_DOM_PAGE;
-  let reportLimit = ['50', '100', '200', '0'].includes(store.get(KEYS.reportLimit)) ? store.get(KEYS.reportLimit) : '50';
+  const adminLimit = () => { const v = String(serverCfg.report_default_limit); return ['50', '100', '200', '0'].includes(v) ? v : '50'; };
+  let reportLimit = ['50', '100', '200', '0'].includes(store.get(KEYS.reportLimit)) ? store.get(KEYS.reportLimit) : adminLimit();
   function renderLimitSeg() { $('limitSeg').querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.limit === reportLimit)); }
   renderLimitSeg();
   function setReportLimit(v) { reportLimit = v; store.set(KEYS.reportLimit, v); renderLimitSeg(); fetchReport(); }
@@ -3291,7 +3431,7 @@
         <h3>${escapeHTML(it.job || '-')}</h3>
         <span class="rc-shift ${day ? 'day' : 'night'}">${day ? ic('sun') + ' กะเช้า' : ic('moon') + ' กะดึก'}</span>
       </div>
-      <div class="sub"><div>${ic('user')}<span>${escapeHTML(it.reporter || 'ไม่ระบุ')}</span></div><div>${ic('calendar')}<span>${escapeHTML(thaiDate(it.date))}</span></div>${it.location ? `<div>${ic('pin')}<span>${escapeHTML(it.location)}</span></div>` : ''}<div>${ic('clock')}<span>บันทึกเมื่อ ${escapeHTML(it.timestamp || '-')}</span></div>${it.updated_at ? `<div>${ic('edit')}<span>แก้ไขล่าสุด ${escapeHTML(it.updated_at)}</span></div>` : ''}</div>`;
+      <div class="sub"><div>${ic('user')}<span>${escapeHTML(it.reporter || 'ไม่ระบุ')}</span></div><div>${ic('calendar')}<span>${escapeHTML(thaiDate(it.date))}</span></div>${it.location ? `<div>${ic('pin')}<span>${escapeHTML(it.location)}</span></div>` : ''}<div>${ic('clock')}<span>บันทึกเมื่อ ${escapeHTML(it.timestamp || '-')}</span></div>${it.submitted_by ? `<div>${ic('user')}<span>บัญชีผู้ส่ง ${escapeHTML(it.submitted_by)}</span></div>` : ''}${it.updated_at ? `<div>${ic('edit')}<span>แก้ไขล่าสุด ${escapeHTML(it.updated_at)}${it.updated_by ? ' โดย ' + escapeHTML(it.updated_by) : ''}</span></div>` : ''}</div>`;
     if (mp.length) {
       html += `<h4>กำลังพล ${total} คน</h4><div class="mp-grid">` +
         mp.map(([k, l]) => `<div><span>${l}</span><b>${escapeHTML(it[k])}</b></div>`).join('') + '</div>';
@@ -3325,36 +3465,205 @@
   }
   function closeSheet() { $('detailSheet').classList.remove('active'); }
 
-  /* ============ EXPORT CSV ============ */
+  /* ============ EXPORT (CSV + Excel ตาราง Activity Project Schedule) ============ */
   const csvCell = v => /[",\n\r]/.test(String(v ?? '')) ? `"${String(v).replace(/"/g, '""')}"` : String(v ?? '');
-  function exportCSV() {
-    if (!reportView.length) return showToast('ไม่มีข้อมูลให้ส่งออก', 'error');
-    const labels = { timestamp: 'เวลาบันทึก', reporter: 'ชื่อผู้รายงาน', job: 'Job No.', date: 'วันที่', shift: 'กะ', location: 'สถานที่',
-                     lat: 'ละติจูด', lng: 'ลองจิจูด', acc: 'ความแม่นยำ (ม.)', photos: 'รหัสรูปใน Drive', updated_at: 'แก้ไขล่าสุด', sid: 'รหัสรายการ' };
-    MANPOWER.concat(ACTIVITIES).forEach(([k, l]) => { labels[k] = l; });
-    const order = ['timestamp', 'reporter', 'job', 'date', 'shift', 'location', ...MANPOWER.map(x => x[0]), ...ACTIVITIES.map(x => x[0]), 'lat', 'lng', 'acc', 'photos', 'updated_at', 'sid'];
-    const present = new Set(reportView.flatMap(Object.keys));
-    const cols = order.filter(k => present.has(k)).concat([...present].filter(k => !order.includes(k)));
-    const rows = [cols.map(k => labels[k] || k), ...reportView.map(it => cols.map(k => it[k]))];
-    const csv = '\uFEFF' + rows.map(r => r.map(csvCell).join(',')).join('\r\n');
-    const s = $('filterStartDate').value, e = $('filterEndDate').value;
-    downloadBlob(csv, `รายงานหน้างาน_${s && e ? `${s}_ถึง_${e}` : todayLocal()}.csv`);
-    showToast(reportTotal > reportData.length ? `ส่งออก ${reportView.length} รายการที่แสดง (ทั้งหมด ${reportTotal.toLocaleString('th-TH')}) เลือก "ทั้งหมด" หากต้องการส่งออกครบ` : `ส่งออก ${reportView.length} รายการแล้ว`, 'success', reportTotal > reportData.length ? 6000 : undefined);
-  }
-  function downloadBlob(text, filename) {
-    const blob = new Blob([text], { type: 'text/csv;charset=utf-8;' });
+  const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+  function downloadFile(blob, filename) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url; link.download = filename;
     document.body.appendChild(link); link.click(); document.body.removeChild(link);
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
+  function downloadBlob(text, filename) { downloadFile(new Blob([text], { type: 'text/csv;charset=utf-8;' }), filename); }
+
+  // ตัวกรองเดียวกับที่ใช้ในหน้ารายงาน (ค้นหา + กะ)
+  function reportPredicate() {
+    const q = reportFilter.q.trim().toLowerCase();
+    return it => {
+      if (reportFilter.shift === 'day' && !isDay(it)) return false;
+      if (reportFilter.shift === 'night' && isDay(it)) return false;
+      if (q && !`${it.job || ''} ${it.reporter || ''} ${it.location || ''}`.toLowerCase().includes(q)) return false;
+      return true;
+    };
+  }
+  // ข้อมูลที่จะส่งออก: ถ้าหน้ารายงานโหลดมาไม่ครบ (เลือก 50/100/200) จะดึง "ทั้งหมดของช่วงวันที่ที่เลือก" มาให้ ไม่ขึ้นกับจำนวนที่แสดง
+  let exporting = false;
+  async function getExportRows() {
+    let rows = reportData, truncated = false;
+    if (reportTotal > reportData.length) {
+      showToast('กำลังเตรียมข้อมูลทั้งหมดของช่วงที่เลือก...', 'info', 4000);
+      const params = { paged: '1', limit: '0' };
+      const sDate = $('filterStartDate').value, eDate = $('filterEndDate').value;
+      if (sDate && eDate) { params.startDate = sDate; params.endDate = eDate; }
+      const res = await api('getReport', params);
+      if (Array.isArray(res)) rows = res; else { rows = res.rows || []; truncated = !!res.truncated; }
+    }
+    return { rows: rows.filter(reportPredicate()), truncated };
+  }
+  const exportSuffix = () => { const s = $('filterStartDate').value, e = $('filterEndDate').value; return s && e ? `${s}_to_${e}` : todayLocal(); };
+  const capNote = t => t ? ' (ระบบรองรับสูงสุด 5,000 รายการล่าสุด เลือกช่วงวันที่เพื่อส่งออกส่วนที่เหลือ)' : '';
+
+  async function exportCSV() {
+    if (exporting) return;
+    exporting = true;
+    try {
+      const { rows: data, truncated } = await getExportRows();
+      if (!data.length) return showToast('ไม่มีข้อมูลให้ส่งออก', 'error');
+      const labels = { timestamp: 'เวลาบันทึก', reporter: 'ชื่อผู้รายงาน', job: 'Job No.', date: 'วันที่', shift: 'กะ', location: 'สถานที่',
+                       lat: 'ละติจูด', lng: 'ลองจิจูด', acc: 'ความแม่นยำ (ม.)', photos: 'รหัสรูปใน Drive', updated_at: 'แก้ไขล่าสุด', sid: 'รหัสรายการ' };
+      MANPOWER.concat(ACTIVITIES).forEach(([k, l]) => { labels[k] = l; });
+      const order = ['timestamp', 'reporter', 'job', 'date', 'shift', 'location', ...MANPOWER.map(x => x[0]), ...ACTIVITIES.map(x => x[0]), 'lat', 'lng', 'acc', 'photos', 'updated_at', 'sid'];
+      const present = new Set(data.flatMap(Object.keys));
+      const cols = order.filter(k => present.has(k)).concat([...present].filter(k => !order.includes(k)));
+      const table = [cols.map(k => labels[k] || k), ...data.map(it => cols.map(k => it[k]))];
+      downloadBlob('\uFEFF' + table.map(r => r.map(csvCell).join(',')).join('\r\n'), `รายงานหน้างาน_${exportSuffix()}.csv`);
+      showToast(`ส่งออก CSV ${data.length.toLocaleString('th-TH')} รายการแล้ว${capNote(truncated)}`, 'success', truncated ? 6000 : undefined);
+    } catch (err) { showToast(`ส่งออกไม่สำเร็จ: ${err.message}`, 'error', 5000); }
+    finally { exporting = false; }
+  }
+
+  /* ---------- ตัวสร้างไฟล์ .xlsx (ไม่ใช้ไลบรารี ทำงานได้ตอนออฟไลน์) ---------- */
+  const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(u8) { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = CRC_TABLE[(c ^ u8[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function zipStore(files) {          // .xlsx คือไฟล์ zip: ใช้แบบไม่บีบอัด (store) ก็เปิดใน Excel ได้
+    const enc = new TextEncoder(), chunks = [], central = [];
+    let offset = 0;
+    const d = new Date(), dosTime = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+    const dosDate = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+    files.forEach(f => {
+      const name = enc.encode(f.name), data = enc.encode(f.data), crc = crc32(data);
+      const lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true);
+      lh.setUint16(10, dosTime, true); lh.setUint16(12, dosDate, true); lh.setUint32(14, crc, true);
+      lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, name.length, true);
+      chunks.push(new Uint8Array(lh.buffer), name, data);
+      const ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true);
+      ch.setUint16(12, dosTime, true); ch.setUint16(14, dosDate, true); ch.setUint32(16, crc, true);
+      ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true); ch.setUint32(42, offset, true);
+      central.push(new Uint8Array(ch.buffer), name);
+      offset += 30 + name.length + data.length;
+    });
+    const cdSize = central.reduce((s, c) => s + c.length, 0), end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+    end.setUint32(12, cdSize, true); end.setUint32(16, offset, true);
+    return new Blob([...chunks, ...central, new Uint8Array(end.buffer)], { type: XLSX_MIME });
+  }
+  const xmlEsc = v => String(v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').replace(/[<>&"']/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;', "'": '&apos;' }[c]));
+  const colLetter = i => { let s = '', n = i + 1; while (n > 0) { const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+  // สไตล์เซลล์ (ดัชนีใน cellXfs): 1 ชื่อรายงาน, 2 หัวตาราง, 3 กลาง+เส้น, 4 ซ้าย+เส้น, 5 วันที่, 6 เวลา, 7 หัว D (เช้า), 8 หัว N (ดึก)
+  const XLSX_STYLES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="2"><numFmt numFmtId="164" formatCode="dd/mm/yyyy"/><numFmt numFmtId="165" formatCode="hh:mm"/></numFmts><fonts count="3"><font><sz val="11"/><name val="Tahoma"/><family val="2"/></font><font><b/><sz val="14"/><name val="Tahoma"/><family val="2"/></font><font><b/><sz val="11"/><name val="Tahoma"/><family val="2"/></font></fonts><fills count="5"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEAF0FA"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFFF3D1"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFDDE5FB"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FF000000"/></left><right style="thin"><color rgb="FF000000"/></right><top style="thin"><color rgb="FF000000"/></top><bottom style="thin"><color rgb="FF000000"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="9"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment horizontal="left" vertical="center" wrapText="1" indent="1"/></xf><xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="165" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="2" fillId="4" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+  const C = (v, s = 0, kind = 'str') => ({ v, s, kind });   // เซลล์: ค่า, สไตล์, ชนิด (str | num)
+  function sheetXml(sh) {
+    let data = '';
+    sh.rows.forEach((row, ri) => {
+      const r = ri + 1, ht = sh.heights && sh.heights[r] ? ` ht="${sh.heights[r]}" customHeight="1"` : '';
+      let cells = '';
+      row.forEach((c, ci) => {
+        if (c == null) return;
+        const ref = colLetter(ci) + r, st = c.s ? ` s="${c.s}"` : '';
+        if (c.v === '' || c.v == null) cells += `<c r="${ref}"${st}/>`;
+        else if (c.kind === 'num') cells += `<c r="${ref}"${st}><v>${c.v}</v></c>`;
+        else cells += `<c r="${ref}"${st} t="inlineStr"><is><t xml:space="preserve">${xmlEsc(c.v)}</t></is></c>`;
+      });
+      data += `<row r="${r}"${ht}>${cells}</row>`;
+    });
+    const cols = sh.widths.map((w, i) => `<col min="${i + 1}" max="${i + 1}" width="${w}" customWidth="1"/>`).join('');
+    const pane = sh.freezeRows ? `<pane ySplit="${sh.freezeRows}" topLeftCell="A${sh.freezeRows + 1}" activePane="bottomLeft" state="frozen"/><selection pane="bottomLeft" activeCell="A${sh.freezeRows + 1}" sqref="A${sh.freezeRows + 1}"/>` : '';
+    const merges = sh.merges && sh.merges.length ? `<mergeCells count="${sh.merges.length}">${sh.merges.map(m => `<mergeCell ref="${m}"/>`).join('')}</mergeCells>` : '';
+    const filter = sh.autoFilter ? `<autoFilter ref="${sh.autoFilter}"/>` : '';
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView workbookViewId="0"${sh.first ? ' tabSelected="1"' : ''}>${pane}</sheetView></sheetViews><sheetFormatPr defaultRowHeight="20"/><cols>${cols}</cols><sheetData>${data}</sheetData>${filter}${merges}<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/></worksheet>`;
+  }
+  function buildXlsx(sheets) {
+    sheets.forEach((s, i) => { s.first = i === 0; });
+    const files = [
+      { name: '[Content_Types].xml', data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>` },
+      { name: '_rels/.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>' },
+      { name: 'xl/workbook.xml', data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s, i) => `<sheet name="${xmlEsc(s.name)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join('')}</sheets></workbook>` },
+      { name: 'xl/_rels/workbook.xml.rels', data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>` },
+      { name: 'xl/styles.xml', data: XLSX_STYLES },
+      ...sheets.map((s, i) => ({ name: `xl/worksheets/sheet${i + 1}.xml`, data: sheetXml(s) }))
+    ];
+    return zipStore(files);
+  }
+  const excelDate = iso => { const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? Math.round((Date.UTC(+m[1], +m[2] - 1, +m[3]) - Date.UTC(1899, 11, 30)) / 86400000) : null; };
+  const excelTime = v => { const t = parseTime(normTime(v)); return t ? Number((toMin(t) / 1440).toPrecision(15)) : null; };
+
+  // รวมรายการที่ วันที่/สถานที่/Job เดียวกัน เป็นแถวเดียว: เวลากะเช้าลงคอลัมน์ D กะดึกลงคอลัมน์ N
+  // (ถ้ากะเดียวกันมีหลายรายการ เช่น คนละคนรายงาน จะแยกเป็นแถวถัดไป ไม่ให้ข้อมูลทับกัน)
+  function scheduleRows(rows) {
+    const groups = new Map();
+    rows.forEach((r, idx) => {
+      const k = [dateKey(r), String(r.location || '').trim(), String(r.job || '').trim()].join('\u0001');
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(Object.assign({}, r, { _i: idx }));
+    });
+    const out = [];
+    groups.forEach(list => {
+      list.sort((a, b) => String(a.timestamp || '').localeCompare(String(b.timestamp || '')) || b._i - a._i);
+      const day = list.filter(isDay), night = list.filter(r => !isDay(r));
+      for (let i = 0; i < Math.max(day.length, night.length); i++) {
+        out.push({ date: dateKey(list[0]), location: String(list[0].location || '').trim(), job: String(list[0].job || '').trim(), D: day[i], N: night[i] });
+      }
+    });
+    return out.sort((a, b) => a.date.localeCompare(b.date) || a.location.localeCompare(b.location, 'th') || a.job.localeCompare(b.job, 'th'));
+  }
+  function scheduleSheet(rows) {
+    const total = 4 + ACTIVITIES.length * 2, last = colLetter(total - 1);
+    const r1 = Array.from({ length: total }, (_, i) => C(i === 0 ? 'Activity Project Schedule' : '', 1));
+    const r2 = [C('ลำดับ', 2), C('วันที่', 2), C('สถานที่', 2), C('Job', 2)], r3 = [C('', 2), C('', 2), C('', 2), C('', 2)];
+    const merges = [`A1:${last}1`, 'A2:A3', 'B2:B3', 'C2:C3', 'D2:D3'];
+    ACTIVITIES.forEach(([, label], i) => {
+      r2.push(C(label, 2), C('', 2)); r3.push(C('D', 7), C('N', 8));
+      merges.push(`${colLetter(4 + i * 2)}2:${colLetter(5 + i * 2)}2`);
+    });
+    const body = scheduleRows(rows).map((o, idx) => {
+      const row = [C(idx + 1, 3, 'num'), excelDate(o.date) != null ? C(excelDate(o.date), 5, 'num') : C(o.date, 3), C(o.location, 4), C(o.job, 4)];
+      ACTIVITIES.forEach(([k]) => [o.D, o.N].forEach(rec => {
+        const t = rec ? excelTime(rec[k]) : null;
+        row.push(t != null ? C(t, 6, 'num') : C('', 6));
+      }));
+      return row;
+    });
+    return { name: 'Activity Schedule', rows: [r1, r2, r3, ...body], merges, heights: { 1: 32, 2: 26, 3: 22 }, freezeRows: 3,
+             widths: [8, 13, 26, 20, ...ACTIVITIES.flatMap(() => [12, 12])] };
+  }
+  // ชีตที่ 2: ข้อมูลทั้งหมดทีละรายการ (กำลังพล พิกัด ผู้รายงาน ฯลฯ) ใช้กรอง/ทำ Pivot ต่อได้
+  function rawSheet(rows) {
+    const spec = [['timestamp', 'เวลาบันทึก', 'str', 20], ['reporter', 'ชื่อผู้รายงาน', 'str', 20], ['job', 'Job No.', 'str', 18], ['date', 'วันที่', 'date', 12],
+      ['shift', 'กะ', 'shift', 9], ['location', 'สถานที่', 'str', 24],
+      ...MANPOWER.map(([k, l]) => [k, l, 'num', 11]), ...ACTIVITIES.map(([k, l]) => [k, l, 'time', 12]),
+      ['lat', 'ละติจูด', 'str', 12], ['lng', 'ลองจิจูด', 'str', 12], ['acc', 'ความแม่นยำ (ม.)', 'num', 14], ['updated_at', 'แก้ไขล่าสุด', 'str', 20]];
+    const sorted = rows.slice().sort((a, b) => dateKey(a).localeCompare(dateKey(b)) || String(a.timestamp || '').localeCompare(String(b.timestamp || '')));
+    const body = sorted.map(it => spec.map(([k, , kind]) => {
+      const v = it[k];
+      if (kind === 'date') { const n = excelDate(v); return n != null ? C(n, 5, 'num') : C(v ?? '', 3); }
+      if (kind === 'time') { const t = excelTime(v); return t != null ? C(t, 6, 'num') : C('', 6); }
+      if (kind === 'shift') return C(isDay(it) ? 'กะเช้า' : 'กะดึก', 3);
+      if (kind === 'num') { const n = Number(v); return v === '' || v == null || !isFinite(n) ? C('', 3) : C(n, 3, 'num'); }
+      return C(v ?? '', 4);
+    }));
+    return { name: 'ข้อมูลทั้งหมด', rows: [spec.map(([, h]) => C(h, 2)), ...body], heights: { 1: 32 }, freezeRows: 1,
+             widths: spec.map(s => s[3]), autoFilter: `A1:${colLetter(spec.length - 1)}${body.length + 1}` };
+  }
+  async function exportXLSX() {
+    if (exporting) return;
+    exporting = true;
+    try {
+      const { rows, truncated } = await getExportRows();
+      if (!rows.length) return showToast('ไม่มีข้อมูลให้ส่งออก', 'error');
+      downloadFile(buildXlsx([scheduleSheet(rows), rawSheet(rows)]), `Activity_Project_Schedule_${exportSuffix()}.xlsx`);
+      showToast(`ส่งออก Excel ${rows.length.toLocaleString('th-TH')} รายการแล้ว${capNote(truncated)}`, 'success', truncated ? 6000 : undefined);
+    } catch (err) { showToast(`ส่งออกไม่สำเร็จ: ${err.message}`, 'error', 5000); }
+    finally { exporting = false; }
+  }
 
   /* ============ IMPORT ============ */
   const TEMPLATE_HEADERS = [
     'ชื่อผู้รายงาน', 'Job No.', 'วันที่ (YYYY-MM-DD)', 'กะ (Day หรือ Night)',
     'Operation Manager', 'Sale Engineer', 'Foreman', 'Permit Holder', 'Safety', 'Fire watch', 'Jetter', 'Jetter (C)',
-    'Arrival to BEE', 'Safety Tool Box Talk', 'Work Permit Approve', 'Break', 'Close Permit', 'Arrival to Asia', 'สถานที่'
+    'Arrival to Site', 'Safety Tool Box Talk', 'Work Permit Approve', 'Break', 'Close Permit', 'Arrival to Asia', 'สถานที่'
   ];
   function parseCSV(text) {
     const rows = []; let row = [], cell = '', q = false;
@@ -3597,6 +3906,180 @@
   if (EMBEDDED_URL && !IS_GAS && urlProblem(EMBEDDED_URL)) {
     setTimeout(() => showToast('URL ที่ฝังใน index.html ไม่ถูกต้อง (ต้องลงท้ายด้วย /exec) กดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 9000), 900);
   }
+
+  /* ============ ADMIN CENTER (ศูนย์ผู้ดูแลระบบ) ============ */
+  const ACTION_LABEL = { update: 'แก้ไข', delete: 'ลบ', restore: 'กู้คืน', config: 'ตั้งค่า', backup: 'สำรองข้อมูล', job: 'รายชื่อ Job', purge: 'ล้างถังขยะ' };
+  const FIELD_LABEL = (() => {
+    const o = { reporter: 'ผู้รายงาน', job: 'Job', date: 'วันที่', shift: 'กะ', location: 'สถานที่', lat: 'ละติจูด', lng: 'ลองจิจูด', acc: 'ความแม่นยำ', photos: 'รูป', status: 'สถานะ', daily: 'รายงานทุกวัน' };
+    Object.assign(o, { announcement: 'ข้อความประกาศ', announcement_until: 'ประกาศถึงวันที่', maintenance: 'โหมดปิดปรับปรุง', maintenance_message: 'ข้อความปิดปรับปรุง', min_app_version: 'เวอร์ชันแอปต่ำสุด',
+      sections_location: 'ส่วนสถานที่', sections_manpower: 'ส่วนกำลังพล', sections_times: 'ส่วนเวลา', sections_photos: 'ส่วนรูปถ่าย', sections_locked: 'ล็อกส่วนของฟอร์ม', require_location: 'บังคับกรอกสถานที่',
+      restrict_jobs: 'จำกัดเฉพาะ Job ในรายชื่อ', report_default_limit: 'จำนวนรายงานเริ่มต้น', lock_days: 'ล็อกงวด (วัน)', trash_days: 'เก็บถังขยะ (วัน)', backup_keep: 'จำนวนไฟล์สำรอง', daily_summary_hour: 'เวลาสรุป LINE', error_alert: 'แจ้งเตือนข้อผิดพลาด' });
+    MANPOWER.concat(ACTIVITIES).forEach(([k, l]) => { o[k] = l; });
+    return o;
+  })();
+  let adminInfo = null, admJobsCount = null;
+  async function adm(action, payload = {}) {
+    try { return await callWithPin(action, payload); }
+    catch (e) { if (!e.cancelled) showToast(e.message || 'ทำรายการไม่สำเร็จ', 'error', 5000); throw e; }
+  }
+  async function openAdmin() {
+    if (!hasBackend()) { showToast('ตั้งค่า URL ของระบบก่อน', 'error'); return openSettings(); }
+    try { adminInfo = await callWithPin('adminLogin', {}); }
+    catch (err) { if (!err.cancelled) showToast(err.message || 'เข้าศูนย์ผู้ดูแลไม่ได้', 'error', 5000); return; }
+    $('adminWho').textContent = `${adminInfo.name}${adminInfo.email ? ' · ' + adminInfo.email : ''}`;
+    renderAdminShell();
+    switchTab('admin');
+    loadAdminStats();
+  }
+  function closeAdmin() { switchTab('import'); }
+  const swRow = (id, label, desc) => `<label class="sec-row"><span class="sec-name">${label}${desc ? `<small>${desc}</small>` : ''}</span><span class="switch"><input type="checkbox" role="switch" id="${id}"><span></span></span></label>`;
+  const admSec = (id, icon, title, inner, open) => `<details class="adm-sec" id="adm-${id}"${open ? ' open' : ''}><summary>${ic(icon)}<span>${title}</span></summary><div class="adm-body">${inner}</div></details>`;
+  function renderAdminShell() {
+    $('adminBody').innerHTML =
+      admSec('stats', 'server', 'สถานะระบบและการสำรองข้อมูล', '<div id="admStats"></div>', true) +
+      admSec('announce', 'bell', 'ประกาศและโหมดปิดปรับปรุง', `
+        <div class="form-group"><label for="admAnn">ข้อความประกาศ (แสดงบนหน้าแอปของทุกเครื่อง)</label><input type="text" id="admAnn" maxlength="300" placeholder="เช่น พรุ่งนี้หยุดทำการ / ย้ายจุดรวมพล"></div>
+        <div class="form-group"><label for="admAnnUntil">แสดงถึงวันที่ (ไม่บังคับ)</label><input type="date" id="admAnnUntil"></div>
+        <div class="sec-list">${swRow('admMaint', 'โหมดปิดปรับปรุง', 'แอปยังกดบันทึกได้ แต่เก็บไว้ในเครื่องก่อน แล้วส่งให้เมื่อเปิดใช้งาน')}</div>
+        <div class="form-group" style="margin-top: 10px;"><label for="admMaintMsg">ข้อความตอนปิดปรับปรุง</label><input type="text" id="admMaintMsg" maxlength="200"></div>
+        <button type="button" class="btn-primary" data-act="saveAnnounce" style="padding: 12px;">บันทึกประกาศ</button>`, true) +
+      admSec('form', 'file', 'ตั้งค่ากลางของฟอร์มและกติกา (ใช้กับทุกเครื่อง)', `
+        <div class="sec-list">
+          ${swRow('admSecLoc', 'แสดงส่วน "สถานที่"', '')}${swRow('admSecMan', 'แสดงส่วน "กำลังพล"', '')}${swRow('admSecTime', 'แสดงส่วน "เวลา"', '')}${swRow('admSecPhoto', 'แสดงส่วน "รูปถ่าย"', '')}
+          ${swRow('admSecLocked', 'ล็อกให้ทุกเครื่องใช้ตามนี้', 'ผู้ใช้ปรับส่วนของฟอร์มเองไม่ได้')}
+          ${swRow('admReqLoc', 'บังคับกรอกสถานที่', '')}
+          ${swRow('admRestrict', 'รับเฉพาะ Job ในรายชื่อหลัก', 'Job ที่ไม่อยู่ในรายชื่อหรือปิดงานแล้ว จะบันทึกไม่ได้ (ถ้ารายชื่อหลักยังว่าง ระบบไม่จำกัด)')}
+        </div>
+        <div class="form-group" style="margin-top: 12px;"><label for="admLockDays">ล็อกงวด: ผู้ดูแลระดับ editor แก้/ลบรายการที่เก่ากว่ากี่วันไม่ได้ (0 = ไม่ล็อก)</label><input type="number" id="admLockDays" min="0" inputmode="numeric"></div>
+        <div class="form-group"><label for="admLimit">จำนวนรายการที่หน้ารายงานโหลดเป็นค่าเริ่มต้น</label>
+          <select id="admLimit"><option value="50">50</option><option value="100">100</option><option value="200">200</option><option value="0">ทั้งหมด</option></select></div>
+        <button type="button" class="btn-primary" data-act="saveForm" style="padding: 12px;">บันทึกการตั้งค่า</button>`, false) +
+      admSec('jobs', 'clipboard', 'รายชื่อ Job (รายชื่อหลัก)', `
+        <p class="meta" style="margin: 0 0 10px;">Job ที่เพิ่มที่นี่จะขึ้นให้พนักงานเลือก ปิดงานแล้วจะไม่ขึ้นแนะนำ ตั้ง "รายงานทุกวัน" เพื่อให้สรุป LINE เตือนเมื่อวันนี้ยังไม่มีรายงาน</p>
+        <div class="form-group"><label for="admJobName">Job ใหม่</label><input type="text" id="admJobName" maxlength="100" placeholder="เช่น V-20601"></div>
+        <div class="form-group"><label for="admJobLoc">สถานที่ตั้งต้น (ไม่บังคับ)</label><input type="text" id="admJobLoc" maxlength="100" list="locList"></div>
+        <div class="sec-list">${swRow('admJobDaily', 'ต้องรายงานทุกวัน', '')}</div>
+        <button type="button" class="btn-outline" data-act="jobAdd" style="padding: 11px; margin: 10px 0 14px;">${ic('plus')} เพิ่ม / อัปเดต Job</button>
+        <div id="admJobs"></div>`, false) +
+      admSec('audit', 'clock', 'ประวัติการแก้ไข / ลบ / ตั้งค่า', '<div id="admAudit"></div>', false) +
+      admSec('trash', 'trash', 'ถังขยะ (กู้คืนรายการที่ลบ)', '<div id="admTrash"></div>', false);
+    fillAdminForms(serverCfg);
+  }
+  function fillAdminForms(c) {
+    $('admAnn').value = c.announcement || ''; $('admAnnUntil').value = c.announcement_until || '';
+    $('admMaint').checked = !!c.maintenance; $('admMaintMsg').value = c.maintenance_message || '';
+    $('admSecLoc').checked = c.sections_location !== false; $('admSecMan').checked = c.sections_manpower !== false;
+    $('admSecTime').checked = c.sections_times !== false; $('admSecPhoto').checked = c.sections_photos !== false;
+    $('admSecLocked').checked = !!c.sections_locked; $('admReqLoc').checked = !!c.require_location; $('admRestrict').checked = !!c.restrict_jobs;
+    $('admLockDays').value = c.lock_days || 0; $('admLimit').value = String(c.report_default_limit ?? 50);
+  }
+  const fmtN = n => Number(n || 0).toLocaleString('th-TH');
+  async function loadAdminStats() {
+    const box = $('admStats');
+    box.innerHTML = '<div class="sk-line" style="width: 60%;"></div><div class="sk-line" style="width: 40%;"></div>';
+    try {
+      const s = await callWithPin('adminStats', {});
+      const warn = [];
+      if (s.pinOpen) warn.push('ยังไม่ได้ตั้ง PIN ผู้ดูแลที่เซิร์ฟเวอร์ ใครก็แก้/ลบรายการได้ ตั้ง ADMIN_PINS ใน Script properties');
+      if (s.editors && s.editors < 2) warn.push('ไฟล์ข้อมูลมีผู้แก้ไขได้บัญชีเดียว ควรเพิ่มผู้ดูแลอย่างน้อย 1 คน เพื่อไม่ให้ระบบพึ่งคนคนเดียว');
+      if (!s.triggers.includes('dailyMaintenance')) warn.push('ยังไม่ได้ตั้งการสำรองข้อมูลอัตโนมัติ (รัน setupMaintenanceTrigger ใน Apps Script)');
+      if (!s.backup.at) warn.push('ยังไม่เคยสำรองข้อมูล กดปุ่ม "สำรองตอนนี้"');
+      if (s.errors24h) warn.push(`มีข้อผิดพลาดของระบบ ${s.errors24h} ครั้งใน 24 ชั่วโมง ดูรายละเอียดในแท็บ ErrorLog ของ Sheet`);
+      if (String(s.version).replace(/^v/, '') !== APP_VERSION) warn.push(`เวอร์ชัน Apps Script (${s.version}) ไม่ตรงกับแอป (${APP_VERSION}) ตรวจว่า Deploy เวอร์ชันล่าสุดแล้ว`);
+      const tile = (label, val, c) => `<div class="stat" style="--c: ${c}"><div class="num">${val}</div><div class="lbl">${label}</div></div>`;
+      const kv = (k, v) => `<div class="adm-kv"><span>${k}</span><span>${v}</span></div>`;
+      box.innerHTML = (warn.length ? warn.map(w => `<div class="adm-warn">${escapeHTML(w)}</div>`).join('') : '<div class="adm-ok">ระบบปกติ ไม่พบข้อควรระวัง</div>') +
+        `<div class="stats" style="margin: 10px 0 12px;">${tile('รายการวันนี้', fmtN(s.today), 'var(--tw-blue)')}${tile('รายการทั้งหมด', fmtN(s.total), '#3358C9')}${tile('ข้อผิดพลาด 24 ชม.', fmtN(s.errors24h), 'var(--tw-red)')}${tile('ในถังขยะ', fmtN(s.trash), '#F59E0B')}</div>` +
+        kv('ส่งล่าสุด', escapeHTML(s.lastSubmit || '-')) + kv('ระบบไม่ว่างวันนี้', `${fmtN(s.busyToday)} ครั้ง`) +
+        kv('สำรองข้อมูลล่าสุด', s.backup.at ? `${escapeHTML(s.backup.at)}${s.backup.url ? ` <a href="${escapeHTML(s.backup.url)}" target="_blank" rel="noopener">เปิดไฟล์</a>` : ''}` : 'ยังไม่เคย') +
+        (s.backup.status ? kv('สถานะสำรอง', escapeHTML(s.backup.status)) : '') +
+        kv('เจ้าของระบบ (บัญชีที่รันสคริปต์)', escapeHTML(s.owner || '-')) + kv('ผู้แก้ไขไฟล์ข้อมูล', `${s.editors || '-'} บัญชี`) +
+        kv('บัญชีผู้ดูแล', s.accounts.length ? escapeHTML(s.accounts.map(a => `${a.name} (${a.role}${a.by === 'email' ? ', อีเมล' : ''})`).join(', ')) : 'ยังไม่ได้ตั้ง') +
+        kv('โหมดบัญชีองค์กร', s.domainMode ? 'เปิดอยู่ (ระบุตัวตนด้วยอีเมล)' : 'ปิด (ใช้ PIN)') + kv('LINE', s.lineConfigured ? (s.lineTarget ? 'พร้อมส่งสรุปรายวัน' : 'มี token แต่ยังไม่ได้ลงทะเบียนกลุ่ม') : 'ยังไม่ตั้ง') +
+        kv('เวอร์ชัน', `แอป ${APP_VERSION} · Apps Script ${escapeHTML(s.version)}`) +
+        `<div class="adm-actions"><button type="button" class="btn-primary" data-act="backup" style="padding: 11px; width: auto;">สำรองข้อมูลตอนนี้</button><button type="button" class="mini-btn" data-act="refreshStats">${ic('refresh')} รีเฟรช</button><a class="mini-btn" href="${escapeHTML(s.spreadsheet.url)}" target="_blank" rel="noopener">เปิด Google Sheet</a></div>`;
+      if (s.config) { serverCfg = s.config; store.setJSON(KEYS.cfg, s.config); fillAdminForms(s.config); renderBanners(); }
+    } catch (err) { box.innerHTML = `<div class="adm-warn">โหลดสถานะไม่สำเร็จ: ${escapeHTML(err.message || '')}</div>`; }
+  }
+  async function loadAdminJobs() {
+    const box = $('admJobs'); box.innerHTML = '<div class="sk-line" style="width: 50%;"></div>';
+    try {
+      const r = await callWithPin('adminJobs', {});
+      admJobsCount = r.jobs.length;
+      box.innerHTML = r.jobs.length ? r.jobs.map(j => `<div class="adm-row"><div><b>${escapeHTML(j.job)}</b><div class="meta">${escapeHTML(j.location || 'ไม่ระบุสถานที่')}${j.daily ? ' · รายงานทุกวัน' : ''}${j.note ? ' · ' + escapeHTML(j.note) : ''}</div></div>
+        <div class="adm-actions" style="margin: 0;"><span class="adm-chip${j.closed ? ' closed' : ''}">${j.closed ? 'ปิดงานแล้ว' : 'เปิดอยู่'}</span>
+        <button type="button" class="mini-btn" data-act="jobStatus" data-job="${escapeHTML(j.job)}" data-status="${j.closed ? 'active' : 'closed'}">${j.closed ? 'เปิดใหม่' : 'ปิดงาน'}</button>
+        <button type="button" class="mini-btn" data-act="jobDaily" data-job="${escapeHTML(j.job)}" data-daily="${j.daily ? '' : 'Y'}">${j.daily ? 'เลิกรายงานทุกวัน' : 'ตั้งรายงานทุกวัน'}</button></div></div>`).join('')
+        : '<div class="meta">ยังไม่มีรายชื่อหลัก (พนักงานยังพิมพ์ Job เองได้ตามปกติ)</div>';
+    } catch (err) { box.innerHTML = `<div class="adm-warn">โหลดไม่สำเร็จ: ${escapeHTML(err.message || '')}</div>`; }
+  }
+  function auditDetail(r) {
+    let d = r.detail; try { d = JSON.parse(d); } catch (_) {}
+    const v = x => (x === '' || x == null) ? '(ว่าง)' : (x === 'true' ? 'เปิด' : x === 'false' ? 'ปิด' : x);
+    if (d && typeof d === 'object') return Object.entries(d).map(([k, x]) => Array.isArray(x) ? `${FIELD_LABEL[k] || k}: ${v(x[0])} → ${v(x[1])}` : `${FIELD_LABEL[k] || k}: ${v(x)}`).join(' · ');
+    return String(d || '');
+  }
+  async function loadAdminAudit() {
+    const box = $('admAudit'); box.innerHTML = '<div class="sk-line" style="width: 60%;"></div>';
+    try {
+      const r = await callWithPin('adminAudit', {});
+      box.innerHTML = r.rows.length ? r.rows.map(x => `<div class="adm-log"><b>${escapeHTML(ACTION_LABEL[x.action] || x.action)}</b> โดย ${escapeHTML(x.who)} <span class="meta">(${escapeHTML(x.role)}) · ${escapeHTML(x.time)}</span>
+        ${x.job ? `<div>${escapeHTML(x.job)} ${x.date ? '· ' + escapeHTML(thaiDate(x.date)) : ''} ${x.shift ? '· ' + shiftLabel(x.shift) : ''}</div>` : ''}<div class="detail">${escapeHTML(auditDetail(x))}</div></div>`).join('')
+        : '<div class="meta">ยังไม่มีประวัติ</div>';
+    } catch (err) { box.innerHTML = `<div class="adm-warn">โหลดไม่สำเร็จ: ${escapeHTML(err.message || '')}</div>`; }
+  }
+  async function loadAdminTrash() {
+    const box = $('admTrash'); box.innerHTML = '<div class="sk-line" style="width: 60%;"></div>';
+    try {
+      const r = await callWithPin('adminTrash', {});
+      box.innerHTML = r.rows.length ? `<p class="meta" style="margin: 0 0 8px;">เก็บไว้ ${serverCfg.trash_days || 90} วัน แล้วลบถาวรพร้อมรูปถ่ายของรายการนั้น</p>` + r.rows.map(x => `<div class="adm-row"><div><b>${escapeHTML(x.job)}</b> <span class="meta">${escapeHTML(thaiDate(x.date))} · ${shiftLabel(x.shift)}</span>
+        <div class="meta">${x.location ? escapeHTML(x.location) + ' · ' : ''}ผู้รายงาน ${escapeHTML(x.reporter)} · ลบโดย ${escapeHTML(x.deleted_by)} เมื่อ ${escapeHTML(x.deleted_at)}</div></div>
+        <button type="button" class="mini-btn" data-act="restore" data-sid="${escapeHTML(x.sid)}">${ic('undo')} กู้คืน</button></div>`).join('')
+        : '<div class="meta">ถังขยะว่าง</div>';
+    } catch (err) { box.innerHTML = `<div class="adm-warn">โหลดไม่สำเร็จ: ${escapeHTML(err.message || '')}</div>`; }
+  }
+  async function saveAdminConfig(data, okMsg) {
+    try {
+      const r = await adm('adminSetConfig', { data: JSON.stringify(data) });
+      serverCfg = r.config; store.setJSON(KEYS.cfg, r.config); applyServerConfig(); fillAdminForms(r.config);
+      showToast(okMsg, 'success'); playSound('success');
+    } catch (_) {}
+  }
+  $('adminBody').addEventListener('click', async e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const act = b.dataset.act;
+    if (act === 'refreshStats') return loadAdminStats();
+    if (act === 'backup') {
+      if (!(await confirmDialog('สำรองข้อมูลตอนนี้', 'คัดลอกไฟล์ Google Sheet ทั้งไฟล์ไปไว้ในโฟลเดอร์สำรองข้อมูลใน Drive (ใช้เวลาสักครู่)', 'สำรอง'))) return;
+      b.disabled = true;
+      try { const r = await adm('backupNow', {}); showToast('สำรองข้อมูลแล้ว', 'success'); playSound('success'); loadAdminStats(); } catch (_) {} finally { b.disabled = false; }
+    }
+    if (act === 'saveAnnounce') saveAdminConfig({ announcement: $('admAnn').value.trim(), announcement_until: $('admAnnUntil').value, maintenance: $('admMaint').checked, maintenance_message: $('admMaintMsg').value.trim() },
+      $('admMaint').checked ? 'เปิดโหมดปิดปรับปรุงแล้ว' : 'บันทึกประกาศแล้ว');
+    if (act === 'saveForm') saveAdminConfig({ sections_location: $('admSecLoc').checked, sections_manpower: $('admSecMan').checked, sections_times: $('admSecTime').checked, sections_photos: $('admSecPhoto').checked,
+      sections_locked: $('admSecLocked').checked, require_location: $('admReqLoc').checked, restrict_jobs: $('admRestrict').checked, lock_days: Number($('admLockDays').value) || 0, report_default_limit: $('admLimit').value }, 'บันทึกการตั้งค่ากลางแล้ว ทุกเครื่องจะได้ค่าใหม่ภายในไม่กี่นาที');
+    const jobCall = async payload => { try { await adm('adminJobSet', payload); showToast('บันทึกรายชื่อ Job แล้ว', 'success'); loadAdminJobs(); loadJobs(true); } catch (_) {} };
+    if (act === 'jobAdd') { const job = $('admJobName').value.trim(); if (!job) return showToast('ใส่ชื่อ Job ก่อน', 'error'); await jobCall({ job, location: $('admJobLoc').value.trim(), daily: $('admJobDaily').checked ? 'Y' : '', status: 'active' }); $('admJobName').value = ''; }
+    if (act === 'jobStatus') jobCall({ job: b.dataset.job, status: b.dataset.status });
+    if (act === 'jobDaily') jobCall({ job: b.dataset.job, daily: b.dataset.daily });
+    if (act === 'restore') {
+      if (!(await confirmDialog('กู้คืนรายการ', 'ย้ายรายการนี้กลับเข้ารายงาน และบันทึกประวัติการกู้คืน', 'กู้คืน'))) return;
+      try { await adm('adminRestore', { sid: b.dataset.sid }); showToast('กู้คืนรายการแล้ว', 'success'); playSound('success'); reportSig = ''; loadAdminTrash(); loadAdminStats(); } catch (_) {}
+    }
+  });
+  $('adminBody').addEventListener('toggle', e => {
+    if (!e.target.open) return;
+    if (e.target.id === 'adm-jobs') loadAdminJobs();
+    if (e.target.id === 'adm-audit') loadAdminAudit();
+    if (e.target.id === 'adm-trash') loadAdminTrash();
+  }, true);
+
+  // เริ่มต้น: แสดงแถบประกาศ/รายชื่อจากที่จำไว้ แล้วโหลดค่ากลางล่าสุดจากเซิร์ฟเวอร์ (ทุก ~10 นาที เหลื่อมเวลาแต่ละเครื่อง)
+  renderPeopleList();
+  applyServerConfig();
+  setTimeout(() => loadConfig(), 1200);
+  setTimeout(() => setInterval(() => { if (!document.hidden) loadConfig(); }, 10 * 60 * 1000), Math.random() * 60000);
+  window.addEventListener('online', () => setTimeout(() => loadConfig(), 800 + Math.random() * 2000));
 
   /* ============ PWA ============ */
   if (!IS_GAS && 'serviceWorker' in navigator && location.protocol.startsWith('http')) {
