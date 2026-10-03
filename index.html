@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1E3A8A">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ระบบหน้างาน">
@@ -170,7 +170,7 @@
     .form-group label { display: block; font-weight: 500; color: var(--text); margin-bottom: 6px; font-size: 14px; }
     .required { color: var(--tw-red); margin-left: 3px; }
 
-    input[type="text"], input[type="date"], input[type="url"], input[type="time"], input[type="number"] {
+    input[type="text"], input[type="password"], input[type="date"], input[type="url"], input[type="time"], input[type="number"] {
       width: 100%; padding: 12px 14px; background-color: var(--surface);
       border: 1px solid var(--border); border-radius: 10px;
       font-size: 15px; font-family: inherit; color: var(--text);
@@ -707,6 +707,42 @@
     .conn-result.wait { background: var(--surface-2); color: var(--muted); }
     .conn-result ul { margin: 6px 0 0; padding-left: 18px; }
 
+    [hidden] { display: none !important; }
+
+    /* ============ v5.5: ICON SYSTEM (แทนอีโมจิ) ============ */
+    .ic { width: 1.1em; height: 1.1em; flex-shrink: 0; vertical-align: -0.2em; fill: none; stroke: currentColor;
+          stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ic.lg { width: 22px; height: 22px; }
+    .link-btn { display: inline-flex; align-items: center; gap: 6px; }
+    .geo-btn, .chip { display: inline-flex; align-items: center; gap: 6px; }
+    .geo-status .ic { width: 14px; height: 14px; margin-right: 4px; vertical-align: -0.18em; }
+    #draftStatus { display: inline-flex; align-items: center; gap: 6px; }
+    #draftStatus .ic { width: 14px; height: 14px; }
+    .toast-container .ic { width: 20px; height: 20px; }
+    .toast-success .ic { color: #10B981; } .toast-error .ic { color: var(--tw-red); } .toast-info .ic { color: var(--accent); }
+    .conn-result { display: flex; gap: 10px; align-items: flex-start; }
+    .conn-result .ic { width: 18px; height: 18px; margin-top: 2px; }
+    .rc-shift { display: inline-flex; align-items: center; gap: 5px; }
+    .rc-reporter { display: inline-flex; align-items: center; gap: 6px; }
+    .rc-meta span { display: inline-flex; align-items: center; gap: 7px; }
+    .rc-meta .ic { width: 15px; height: 15px; color: var(--muted); }
+    .rc-more { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; }
+    .rc-more .tag { display: inline-flex; align-items: center; gap: 5px; }
+    .rc-more .ic { width: 15px; height: 15px; }
+    .sheet .sub { display: flex; flex-direction: column; gap: 6px; }
+    .sheet .sub > div { display: flex; align-items: center; gap: 8px; }
+    .sheet .sub .ic { width: 16px; height: 16px; color: var(--accent); }
+    .photo-add .ic { width: 30px; height: 30px; }
+    .tool-h2 .ic, .modal-title .ic { width: 20px; height: 20px; }
+    .shift-selector label .ic { width: 18px; height: 18px; }
+    .edit-banner .ic { color: #B45309; }
+    .install-card button .ic { width: 16px; height: 16px; vertical-align: -3px; }
+    #pinInput { text-align: center; font-size: 22px; letter-spacing: 8px; padding: 12px; }
+    #pinRemoveBtn { margin-top: 6px; }
+    .ph-fb { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .ph-fb .ic { width: 26px; height: 26px; }
+    .dropzone .dz-title { display: flex; align-items: center; justify-content: center; gap: 6px; }
+
     /* ============ v4: PRINT ============ */
     @media print {
       .app-header, .bottom-nav, .report-tools, .chips, #filterCard, .toast-container, .rc-more, #refreshBtn { display: none !important; }
@@ -723,11 +759,12 @@
   </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol></defs></svg>
 
 <header class="app-header" id="appHeader">
   <div class="hdr-left">
-    <div class="hdr-logo">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+    <div class="hdr-logo" aria-hidden="true">
+      <svg width="22" height="22" viewBox="110 76 292 352"><rect x="138" y="112" width="236" height="300" rx="26" fill="#FFFFFF"/><rect x="206" y="88" width="100" height="52" rx="14" fill="#DC2626"/><path d="M178 206 l20 20 l34 -36 M178 286 l20 20 l34 -36" fill="none" stroke="#DC2626" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M258 210 H334 M258 290 H334 M178 362 H334" stroke="#1E3A8A" stroke-width="22" stroke-linecap="round"/></svg>
     </div>
     <div style="min-width:0;">
       <h1>ระบบหน้างาน</h1>
@@ -758,10 +795,10 @@
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
       <div class="ic-text"><b>ติดตั้งเป็นแอปบนมือถือ</b>เปิดเต็มจอ เร็วขึ้น และใช้ได้แม้สัญญาณไม่ดี</div>
       <button onclick="installApp()" style="background:#fff; color:var(--tw-blue);">ติดตั้ง</button>
-      <button onclick="dismissInstall()" aria-label="ไม่ใช่ตอนนี้" style="background:rgba(255,255,255,.15); color:#fff; padding:8px 10px;">✕</button>
+      <button onclick="dismissInstall()" aria-label="ไม่ใช่ตอนนี้" style="background:rgba(255,255,255,.15); color:#fff; padding:8px 10px;"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <div class="card edit-banner" id="editBanner" hidden>
-      <span style="font-size:20px;">✏️</span>
+      <svg class="ic lg" aria-hidden="true"><use href="#i-edit"/></svg>
       <div class="eb-text"><b>กำลังแก้ไขรายการ</b><span id="editInfo"></span></div>
       <button type="button" class="link-btn" onclick="cancelEdit()">ยกเลิก</button>
     </div>
@@ -793,9 +830,9 @@
               <label>กะการทำงาน <span class="required">*</span></label>
               <div class="shift-selector" role="radiogroup" aria-label="กะการทำงาน">
                 <input type="radio" id="shiftDay" name="shift" value="Day" required>
-                <label for="shiftDay">☀️ กะเช้า (D)</label>
+                <label for="shiftDay"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg> กะเช้า (D)</label>
                 <input type="radio" id="shiftNight" name="shift" value="Night">
-                <label for="shiftNight">🌙 กะดึก (N)</label>
+                <label for="shiftNight"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg> กะดึก (N)</label>
               </div>
               <div class="shift-hint" id="shiftHint"></div>
             </div>
@@ -835,7 +872,7 @@
           <input type="file" id="photoInput" accept="image/*" capture="environment" multiple hidden>
           <div id="existingPhotos" class="geo-status" style="margin-top:8px;"></div>
           <div class="geo-row">
-            <button type="button" class="geo-btn" id="geoBtn" onclick="captureLocation(true)">📍 บันทึกพิกัดตอนนี้</button>
+            <button type="button" class="geo-btn" id="geoBtn" onclick="captureLocation(true)"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> บันทึกพิกัดตอนนี้</button>
             <span id="geoStatus" class="geo-status">พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to BEE</span>
           </div>
           <input type="hidden" name="lat" id="geoLat"><input type="hidden" name="lng" id="geoLng"><input type="hidden" name="acc" id="geoAcc">
@@ -845,7 +882,7 @@
       <div class="form-tools">
         <span id="draftStatus"></span>
         <span style="display:flex; gap:14px; align-items:center;">
-          <button type="button" class="link-btn glove-btn" id="gloveBtn" onclick="toggleGlove()" aria-pressed="false">🧤 โหมดถุงมือ</button>
+          <button type="button" class="link-btn glove-btn" id="gloveBtn" onclick="toggleGlove()" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-hand"/></svg> โหมดถุงมือ</button>
           <button type="button" class="link-btn" onclick="clearForm()">ล้างฟอร์ม</button>
         </span>
       </div>
@@ -992,7 +1029,7 @@
     </div>
 
     <div class="card" style="border-top: 4px solid #F59E0B;">
-      <h2 class="tool-h2">🔔 เตือนเมื่อลืมกรอก</h2>
+      <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg> เตือนเมื่อลืมกรอก</h2>
       <p class="tool-p">ถ้าเลยเวลาเลิกกะ (กะเช้า 18:30, กะดึก 06:30) แล้วฟอร์มยังมีข้อมูลค้างแต่ไม่มีเวลา Close Permit แอปจะแจ้งเตือน ใช้ได้เมื่อแอปยังเปิดค้างไว้ในเครื่อง</p>
       <button class="btn-outline" id="remindBtn" onclick="toggleReminders()">เปิดการแจ้งเตือน</button>
     </div>
@@ -1031,7 +1068,7 @@
       <input type="password" id="pinNew" inputmode="numeric" maxlength="6" autocomplete="new-password" placeholder="เว้นว่างถ้าไม่ต้องการล็อก">
       <button type="button" class="link-btn" id="pinRemoveBtn" hidden onclick="removePin()">เลิกใช้ PIN</button>
     </div>
-    <button type="button" class="btn-outline" style="padding: 10px; margin-bottom: 10px;" onclick="testConnection()">🔌 ทดสอบการเชื่อมต่อ</button>
+    <button type="button" class="btn-outline" style="padding: 10px; margin-bottom: 10px;" onclick="testConnection()"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg> ทดสอบการเชื่อมต่อ</button>
     <div id="connResult" class="conn-result" hidden></div>
     <div style="display: flex; gap: 10px;">
       <button class="btn-outline" style="padding: 10px;" onclick="closeSettings()">ยกเลิก</button>
@@ -1068,7 +1105,7 @@
 
 <div class="modal-overlay" id="pinModal" style="z-index:450;">
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
-    <div class="modal-title" id="pinTitle">🔒 ใส่ PIN แอดมิน</div>
+    <div class="modal-title" id="pinTitle"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span>ใส่ PIN แอดมิน</span></div>
     <div class="form-group">
       <input type="password" id="pinInput" inputmode="numeric" maxlength="6" autocomplete="off" style="text-align:center; font-size:22px; letter-spacing:8px;">
     </div>
@@ -1084,8 +1121,8 @@
     <div class="sheet-handle"></div>
     <div id="sheetBody"></div>
     <div class="sheet-admin" id="sheetAdmin" hidden>
-      <button class="link-btn" id="sheetEdit" style="color: var(--accent);">✏️ แก้ไขรายการ</button>
-      <button class="link-btn" id="sheetDelete">🗑 ลบรายการ</button>
+      <button class="link-btn" id="sheetEdit" style="color: var(--accent);"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg> แก้ไขรายการ</button>
+      <button class="link-btn" id="sheetDelete"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg> ลบรายการ</button>
     </div>
     <div class="sheet-actions">
       <button class="btn-outline" id="sheetShare">แชร์สรุป</button>
@@ -1121,11 +1158,13 @@
 
   /* ใส่ Web App URL ของ Apps Script ตรงนี้ครั้งเดียว ผู้ใช้ทุกเครื่องจะใช้ได้ทันทีโดยไม่ต้องตั้งค่าเอง
      ตัวอย่าง: 'https://script.google.com/macros/s/AKfy..../exec'
-     (ถ้าเว้นว่าง ผู้ใช้ต้องวาง URL เองที่ปุ่มตั้งค่า ⚙️) */
+     (ถ้าเว้นว่าง ผู้ใช้ต้องวาง URL เองที่ปุ่มตั้งค่า (ไอคอนฟันเฟือง)) */
   const DEFAULT_SCRIPT_URL = '';
 
   /* ============ HELPERS ============ */
   const $ = id => document.getElementById(id);
+  // ไอคอนแบบเส้น (SVG sprite ที่ต้นหน้า) ใช้แทนอีโมจิทั้งแอป
+  const ic = (n, cls = '') => `<svg class="ic${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#i-${n}"/></svg>`;
   const pad = n => String(n).padStart(2, '0');
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
@@ -1307,7 +1346,7 @@
   function renderPresets() {
     $('presetRow').innerHTML = getPresets().map((p, i) => `
       <span class="preset">
-        <button type="button" class="chip" data-apply="${i}">👥 ${escapeHTML(p.name)}<small>${presetTotal(p)} คน</small></button>
+        <button type="button" class="chip" data-apply="${i}">${ic('users')} ${escapeHTML(p.name)}<small>${presetTotal(p)} คน</small></button>
         <button type="button" class="preset-del" data-del="${i}" aria-label="ลบชุด ${escapeHTML(p.name)}">×</button>
       </span>`).join('') + '<button type="button" class="chip chip-add" data-add="1">+ บันทึกชุดนี้</button>';
   }
@@ -1400,7 +1439,7 @@
     const room = MAX_PHOTOS - photos.length;
     $('photoGrid').innerHTML = photos.map((src, i) => `
       <div class="photo-thumb"><img src="${src}" alt="รูปที่ ${i + 1}"><button type="button" data-rm="${i}" aria-label="ลบรูปที่ ${i + 1}">×</button></div>`).join('') +
-      (room > 0 ? `<label class="photo-add" for="photoInput"><span>📷</span><span>ถ่าย/เลือกรูป</span></label>` : '');
+      (room > 0 ? `<label class="photo-add" for="photoInput">${ic('camera')}<span>ถ่าย/เลือกรูป</span></label>` : '');
     $('photoCount').textContent = `${photos.length}/${MAX_PHOTOS}`;
   }
   $('photoGrid').addEventListener('click', e => {
@@ -1429,12 +1468,12 @@
     const el = $('geoStatus');
     if (lat && lng) {
       el.className = 'geo-status ok';
-      el.innerHTML = `📍 บันทึกพิกัดแล้ว${acc ? ` (±${escapeHTML(acc)} ม.)` : ''} <a href="https://www.google.com/maps?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}" target="_blank" rel="noopener">ดูแผนที่</a>`;
-      $('geoBtn').textContent = '📍 บันทึกพิกัดใหม่';
+      el.innerHTML = `${ic('pin')}บันทึกพิกัดแล้ว${acc ? ` (±${escapeHTML(acc)} ม.)` : ''} <a href="https://www.google.com/maps?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}" target="_blank" rel="noopener">ดูแผนที่</a>`;
+      $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดใหม่';
     } else {
       el.className = 'geo-status';
       el.textContent = 'พิกัดจะถูกบันทึกให้อัตโนมัติเมื่อกด Now ที่ Arrival to BEE';
-      $('geoBtn').textContent = '📍 บันทึกพิกัดตอนนี้';
+      $('geoBtn').innerHTML = ic('pin') + ' บันทึกพิกัดตอนนี้';
     }
   }
   function captureLocation(manual) {
@@ -1475,7 +1514,7 @@
     return o;
   }
   const hasWork = d => MANPOWER.some(([k]) => d[k]) || ACTIVITIES.some(([k]) => d[k]);
-  function setDraftStatus(t) { $('draftStatus').textContent = t; }
+  function setDraftStatus(t) { $('draftStatus').innerHTML = t ? ic('save') + '<span>' + escapeHTML(t) + '</span>' : ''; }
   let draftTimer;
   function scheduleDraftSave() { clearTimeout(draftTimer); draftTimer = setTimeout(saveDraft, 400); }
   function saveDraft() {
@@ -1484,10 +1523,10 @@
     if (!hasWork(data) && !photos.length) { store.del(KEYS.draft); setDraftStatus(''); return; }
     const d = new Date(), t = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
     if (store.setJSON(KEYS.draft, { data, photos, savedAt: Date.now() })) {
-      setDraftStatus(`💾 บันทึกร่างในเครื่องแล้ว ${t}`);
+      setDraftStatus(`บันทึกร่างในเครื่องแล้ว ${t}`);
     } else {
       store.setJSON(KEYS.draft, { data, photos: [], savedAt: Date.now() });
-      setDraftStatus(`💾 บันทึกร่างแล้ว ${t} (ไม่รวมรูป เพราะพื้นที่ในเครื่องไม่พอ)`);
+      setDraftStatus(`บันทึกร่างแล้ว ${t} (ไม่รวมรูป เพราะพื้นที่ในเครื่องไม่พอ)`);
     }
   }
   function fillForm(data) {
@@ -1507,7 +1546,7 @@
       $('shiftHint').textContent = 'ใช้กะจากข้อมูลที่กรอกค้างไว้';
     }
     const t = new Date(draft.savedAt);
-    setDraftStatus(`💾 ร่างล่าสุด ${pad(t.getHours())}:${pad(t.getMinutes())}`);
+    setDraftStatus(`ร่างล่าสุด ${pad(t.getHours())}:${pad(t.getMinutes())}`);
     if (!silent) setTimeout(() => showToast('กู้คืนข้อมูลที่กรอกค้างไว้แล้ว', 'info'), 400);
     return true;
   }
@@ -1538,7 +1577,7 @@
   let toastTimer;
   function showToast(message, type = 'info', ms) {
     const toast = $('toast');
-    const icon = type === 'success' ? '✅' : type === 'error' ? '⚠️' : 'ℹ️';
+    const icon = type === 'success' ? ic('check-circle') : type === 'error' ? ic('alert') : ic('info');
     toast.innerHTML = `${icon} <span style="font-weight:600;">${escapeHTML(message)}</span>`;
     toast.className = `toast-container toast-${type} show`;
     clearTimeout(toastTimer);
@@ -1567,10 +1606,10 @@
     });
   }
   const promptDialog = (title, msg, def = '') => confirmDialog(title, msg, 'บันทึก', def);
-  function askPin(title = '🔒 ใส่ PIN แอดมิน') {
+  function askPin(title = 'ใส่ PIN แอดมิน') {
     return new Promise(resolve => {
       const modal = $('pinModal'), input = $('pinInput');
-      $('pinTitle').textContent = title;
+      $('pinTitle').innerHTML = ic('lock') + '<span>' + escapeHTML(title) + '</span>';
       input.value = '';
       modal.classList.add('active');
       setTimeout(() => input.focus(), 120);
@@ -1600,7 +1639,7 @@
       if (Date.now() < pinLockUntil) {
         return showToast(`ใส่ PIN ผิดหลายครั้ง ลองใหม่ใน ${Math.ceil((pinLockUntil - Date.now()) / 1000)} วินาที`, 'error');
       }
-      const p = await askPin('🔒 ใส่ PIN เพื่อเปิดหน้าตั้งค่า');
+      const p = await askPin('ใส่ PIN เพื่อเปิดหน้าตั้งค่า');
       if (p === null) return;
       if (await hashPin(p) !== saved) {
         pinFails++;
@@ -1650,7 +1689,7 @@
   /* ============ CONNECTION TEST ============ */
   async function testConnection() {
     const box = $('connResult');
-    const show = (cls, html) => { box.className = `conn-result ${cls}`; box.innerHTML = html; box.hidden = false; };
+    const show = (cls, html) => { box.className = `conn-result ${cls}`; box.innerHTML = ic({ ok: 'check-circle', bad: 'alert', wait: 'clock' }[cls] || 'info') + '<div>' + html + '</div>'; box.hidden = false; };
     const url = IS_GAS ? '' : ($('scriptUrlInput').value.trim() || googleScriptUrl);
     const pending = getQueue().length;
     const pendingNote = pending ? `<br>มีรายการรอส่ง ${pending} รายการ จะถูกส่งให้อัตโนมัติเมื่อเชื่อมต่อได้` : '';
@@ -1666,7 +1705,7 @@
     show('wait', 'กำลังทดสอบ...');
 
     if (IS_GAS) {
-      try { const r = await gasCall('ping', {}); return show('ok', `✅ เชื่อมต่อสำเร็จ ข้อมูลอยู่ในไฟล์ <b>${escapeHTML(r.spreadsheet || '')}</b> ชีต <b>${escapeHTML(r.sheet || '')}</b> (${r.rows} แถว)${pendingNote}`); }
+      try { const r = await gasCall('ping', {}); return show('ok', `เชื่อมต่อสำเร็จ ข้อมูลอยู่ในไฟล์ <b>${escapeHTML(r.spreadsheet || '')}</b> ชีต <b>${escapeHTML(r.sheet || '')}</b> (${r.rows} แถว)${pendingNote}`); }
       catch (e) { return show('bad', `เชื่อมต่อไม่ได้: ${escapeHTML(e.message)}`); }
     }
 
@@ -1676,22 +1715,22 @@
       res = await fetch(`${url}?action=ping&t=${Date.now()}`, { signal: ctrl.signal });
       text = await res.text();
     } catch (e) {
-      return show('bad', `❌ เข้าถึง Apps Script ไม่ได้ สาเหตุที่พบบ่อย:<ul>
+      return show('bad', `เข้าถึง Apps Script ไม่ได้ สาเหตุที่พบบ่อย:<ul>
         <li>ตอน Deploy ตั้ง <b>Who has access</b> ไม่ใช่ <b>Anyone</b> (ถ้าเป็นบัญชีองค์กร อาจเห็นแค่ "Anyone within ..." ให้ติดต่อผู้ดูแลระบบ)</li>
         <li>URL ผิดหรือ Deployment ถูกลบ/ปิดไปแล้ว</li>
         <li>ยังไม่ได้กด Run ฟังก์ชัน <b>setup</b> เพื่ออนุญาตสิทธิ์</li></ul>`);
     }
     let data = null; try { data = JSON.parse(text); } catch (_) {}
     if (!data) {
-      return show('bad', `❌ Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล${/ScriptError|not found|ไม่พบ/i.test(text) ? ' (สคริปต์ error)' : ''} สาเหตุที่พบบ่อย:<ul>
+      return show('bad', `Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล${/ScriptError|not found|ไม่พบ/i.test(text) ? ' (สคริปต์ error)' : ''} สาเหตุที่พบบ่อย:<ul>
         <li>ยังไม่ได้วางโค้ด <b>Code.gs</b> ตัวใหม่ หรือแก้โค้ดแล้วยังไม่ได้ Deploy เป็น <b>New version</b></li>
         <li>ยังไม่ได้ Run ฟังก์ชัน <b>setup</b> เพื่ออนุญาตสิทธิ์</li>
         <li>Deploy เป็นประเภทอื่นที่ไม่ใช่ <b>Web app</b></li></ul>`);
     }
     if (Array.isArray(data) || data.code === 'UNKNOWN_ACTION') {
-      return show('bad', '⚠️ เชื่อมต่อได้ แต่ Apps Script ที่ Deploy อยู่เป็นเวอร์ชันเก่า วางโค้ด Code.gs ตัวใหม่ แล้ว Deploy > Manage deployments > Edit > <b>New version</b>');
+      return show('bad', 'เชื่อมต่อได้ แต่ Apps Script ที่ Deploy อยู่เป็นเวอร์ชันเก่า วางโค้ด Code.gs ตัวใหม่ แล้ว Deploy > Manage deployments > Edit > <b>New version</b>');
     }
-    if (data.status === 'error') return show('bad', `❌ Apps Script แจ้งข้อผิดพลาด: ${escapeHTML(data.message)}`);
+    if (data.status === 'error') return show('bad', `Apps Script แจ้งข้อผิดพลาด: ${escapeHTML(data.message)}`);
     // ทดสอบการส่งข้อมูล (POST) ด้วย เพราะบางครั้งอ่านได้แต่ส่งไม่ได้
     show('wait', 'อ่านข้อมูลได้แล้ว กำลังทดสอบการส่งข้อมูล...');
     let post = null;
@@ -1701,10 +1740,10 @@
       try { post = JSON.parse(pt); } catch (_) { post = { status: 'error', message: `ตอบกลับไม่ใช่ข้อมูล (HTTP ${pr.status})` }; }
     } catch (e) { post = { status: 'error', message: 'ถูกบล็อกระหว่างส่งข้อมูล' }; }
     if (!post || post.status !== 'ok') {
-      return show('bad', `⚠️ อ่านข้อมูลได้ แต่<b>ส่งข้อมูลไม่ได้</b> (${escapeHTML(post && post.message || '')})<br>
+      return show('bad', `อ่านข้อมูลได้ แต่<b>ส่งข้อมูลไม่ได้</b> (${escapeHTML(post && post.message || '')})<br>
         ตรวจว่าวางโค้ด <b>Code.gs</b> ตัวล่าสุดแล้ว และ Deploy เป็น <b>New version</b> แล้ว`);
     }
-    show('ok', `✅ เชื่อมต่อสำเร็จ (อ่านและส่งข้อมูลได้)<br>ข้อมูลจะถูกบันทึกในไฟล์ <b>${escapeHTML(data.spreadsheet || '-')}</b> ชีต <b>${escapeHTML(data.sheet || '-')}</b> (มีแล้ว ${data.rows} แถว)${pendingNote}`);
+    show('ok', `เชื่อมต่อสำเร็จ (อ่านและส่งข้อมูลได้)<br>ข้อมูลจะถูกบันทึกในไฟล์ <b>${escapeHTML(data.spreadsheet || '-')}</b> ชีต <b>${escapeHTML(data.sheet || '-')}</b> (มีแล้ว ${data.rows} แถว)${pendingNote}`);
     if (pending) flushQueue(true);
   }
 
@@ -1772,7 +1811,7 @@
     if (data === null) {
       // Google ตอบเป็นหน้าเว็บ (เช่น หน้า login หรือหน้า error) = ข้อมูลไม่ได้ถูกบันทึก
       if (/<html|<!doctype/i.test(text)) {
-        throw Object.assign(new Error('Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล ข้อมูลยังไม่ถูกบันทึก กด ⚙️ แล้วกด "ทดสอบการเชื่อมต่อ" เพื่อดูสาเหตุ'), { code: 'BAD_RESPONSE' });
+        throw Object.assign(new Error('Apps Script ตอบกลับเป็นหน้าเว็บแทนข้อมูล ข้อมูลยังไม่ถูกบันทึก เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ" เพื่อดูสาเหตุ'), { code: 'BAD_RESPONSE' });
       }
       return { status: 'ok', unconfirmed: true };
     }
@@ -1786,7 +1825,7 @@
     } catch (err) {
       if (err.code !== 'PIN_REQUIRED' && err.code !== 'PIN_WRONG') throw err;
       if (err.code === 'PIN_WRONG') { sessionPin = ''; showToast('PIN ไม่ถูกต้อง', 'error'); }
-      const p = await askPin('🔒 ใส่ PIN แอดมิน (สำหรับแก้ไข/ลบ)');
+      const p = await askPin('ใส่ PIN แอดมิน (สำหรับแก้ไข/ลบ)');
       if (p === null) throw Object.assign(new Error('ยกเลิกแล้ว'), { cancelled: true });
       sessionPin = p;
       return callWithPin(action, payload);
@@ -1842,7 +1881,7 @@
     flushing = false;
     $('pendingBadge').classList.remove('syncing');
     if (sent) showToast(`ส่งรายการที่ค้างไว้ ${sent} รายการแล้ว`, 'success');
-    else if (failed && manual) showToast('ส่งรายการค้างไม่สำเร็จ: เชื่อมต่อ Apps Script ไม่ได้ กด ⚙️ แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 7000);
+    else if (failed && manual) showToast('ส่งรายการค้างไม่สำเร็จ: เชื่อมต่อ Apps Script ไม่ได้ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"', 'error', 7000);
   }
   window.addEventListener('online', () => flushQueue());
   window.addEventListener('offline', () => showToast('ออฟไลน์อยู่ บันทึกต่อได้ ระบบจะเก็บไว้ส่งทีหลัง', 'info', 4000));
@@ -1871,21 +1910,21 @@
 
   /* ============ SUMMARY + SHARE ============ */
   function buildSummary(d) {
-    const lines = ['📋 รายงานหน้างาน', `Job: ${d.job || '-'}`, `ผู้รายงาน: ${d.reporter || '-'}`, `วันที่: ${thaiDate(d.date)} (${shiftLabel(d.shift)})`];
+    const lines = ['รายงานหน้างาน', `Job: ${d.job || '-'}`, `ผู้รายงาน: ${d.reporter || '-'}`, `วันที่: ${thaiDate(d.date)} (${shiftLabel(d.shift)})`];
     const mp = MANPOWER.filter(([k]) => Number(d[k]) > 0);
     const total = MANPOWER.reduce((s, [k]) => s + (Number(d[k]) || 0), 0);
     if (mp.length) {
-      lines.push('', `👷 กำลังพล ${total} คน`);
+      lines.push('', `กำลังพล ${total} คน`);
       mp.forEach(([k, l]) => lines.push(`• ${l}: ${d[k]}`));
     }
     const times = ACTIVITIES.map(([k]) => normTime(d[k]));
     if (times.some(Boolean)) {
-      lines.push('', '🕒 เวลา');
+      lines.push('', 'เวลาปฏิบัติงาน');
       ACTIVITIES.forEach(([, l], i) => { if (times[i]) lines.push(`• ${l}: ${times[i]}`); });
       const t = analyzeTimes(times);
       if (t.total) lines.push(`รวมเวลา ${fmtDur(t.total, false)}`);
     }
-    if (d.lat && d.lng) lines.push('', `📍 https://www.google.com/maps?q=${d.lat},${d.lng}`);
+    if (d.lat && d.lng) lines.push('', `พิกัด: https://www.google.com/maps?q=${d.lat},${d.lng}`);
     return lines.join('\n');
   }
   async function shareSummary(text) {
@@ -2019,7 +2058,7 @@
       showSuccess(detail, summary,
         r === 'nophotos' ? `${why} เก็บข้อมูลไว้ส่งทีหลังแล้ว แต่รูปใหญ่เกินพื้นที่ในเครื่อง รูปจะไม่ถูกส่ง`
                          : `${why} เก็บไว้ในเครื่องแล้ว จะลองส่งใหม่อัตโนมัติ` +
-                           (wasOnline ? ' ถ้าเกิดซ้ำ กด ⚙️ แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
+                           (wasOnline ? ' ถ้าเกิดซ้ำ เปิดตั้งค่า แล้วกด "ทดสอบการเชื่อมต่อ"' : ''),
         'ยังไม่ได้ส่ง');
     };
 
@@ -2253,14 +2292,14 @@
       <div class="card report-card ${day ? 'is-day' : 'is-night'}" style="--i:${Math.min(i, 12)}" role="button" tabindex="0" data-idx="${i}" aria-label="ดูรายละเอียด Job ${escapeHTML(item.job || '')}">
         <div class="rc-header">
           <span class="rc-job">${escapeHTML(item.job || '-')}</span>
-          <span class="rc-shift ${day ? 'day' : 'night'}">${day ? '☀️ กะเช้า' : '🌙 กะดึก'}</span>
+          <span class="rc-shift ${day ? 'day' : 'night'}">${day ? ic('sun') + ' กะเช้า' : ic('moon') + ' กะดึก'}</span>
         </div>
-        <div style="margin-bottom:8px;"><span class="rc-reporter">✍️ ${escapeHTML(item.reporter || 'ไม่ระบุ')}</span></div>
+        <div style="margin-bottom:8px;"><span class="rc-reporter">${ic('user')} ${escapeHTML(item.reporter || 'ไม่ระบุ')}</span></div>
         <div class="rc-meta">
-          <span>📅 ปฏิบัติงาน: ${escapeHTML(thaiDate(item.date))}</span>
-          <span style="font-size: 11px;">🕒 บันทึก: ${escapeHTML(item.timestamp || '-')}${item.updated_at ? ' (แก้ไขแล้ว)' : ''}</span>
+          <span>${ic('calendar')} ปฏิบัติงาน: ${escapeHTML(thaiDate(item.date))}</span>
+          <span style="font-size: 11px;">${ic('clock')} บันทึก: ${escapeHTML(item.timestamp || '-')}${item.updated_at ? ' (แก้ไขแล้ว)' : ''}</span>
         </div>
-        <div class="rc-more">${nPhotos ? `📷 ${nPhotos} รูป  ` : ''}${item.lat ? '📍 มีพิกัด  ' : ''}แตะเพื่อดูรายละเอียด</div>
+        <div class="rc-more">${nPhotos ? `<span class="tag">${ic('camera')} ${nPhotos} รูป</span>` : ''}${item.lat ? `<span class="tag">${ic('pin')} มีพิกัด</span>` : ''}<span>แตะเพื่อดูรายละเอียด</span></div>
       </div>`;
     }).join('');
   }
@@ -2352,9 +2391,9 @@
     let html = `
       <div class="rc-header" style="margin-bottom:4px;">
         <h3>${escapeHTML(it.job || '-')}</h3>
-        <span class="rc-shift ${day ? 'day' : 'night'}">${day ? '☀️ กะเช้า' : '🌙 กะดึก'}</span>
+        <span class="rc-shift ${day ? 'day' : 'night'}">${day ? ic('sun') + ' กะเช้า' : ic('moon') + ' กะดึก'}</span>
       </div>
-      <div class="sub">✍️ ${escapeHTML(it.reporter || 'ไม่ระบุ')}<br>📅 ${escapeHTML(thaiDate(it.date))}<br>🕒 บันทึกเมื่อ ${escapeHTML(it.timestamp || '-')}${it.updated_at ? `<br>✏️ แก้ไขล่าสุด ${escapeHTML(it.updated_at)}` : ''}</div>`;
+      <div class="sub"><div>${ic('user')}<span>${escapeHTML(it.reporter || 'ไม่ระบุ')}</span></div><div>${ic('calendar')}<span>${escapeHTML(thaiDate(it.date))}</span></div><div>${ic('clock')}<span>บันทึกเมื่อ ${escapeHTML(it.timestamp || '-')}</span></div>${it.updated_at ? `<div>${ic('edit')}<span>แก้ไขล่าสุด ${escapeHTML(it.updated_at)}</span></div>` : ''}</div>`;
     if (mp.length) {
       html += `<h4>กำลังพล ${total} คน</h4><div class="mp-grid">` +
         mp.map(([k, l]) => `<div><span>${l}</span><b>${escapeHTML(it[k])}</b></div>`).join('') + '</div>';
@@ -2370,10 +2409,10 @@
     }
     if (photoIds.length) {
       html += `<h4>รูปถ่าย ${photoIds.length} รูป</h4><div class="sheet-photos">` +
-        photoIds.map(id => `<a href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener"><img src="https://drive.google.com/thumbnail?id=${id}&sz=w400" alt="📷 แตะเพื่อเปิดรูป" loading="lazy"></a>`).join('') + '</div>';
+        photoIds.map(id => `<a href="https://drive.google.com/file/d/${id}/view" target="_blank" rel="noopener"><img src="https://drive.google.com/thumbnail?id=${id}&sz=w400" alt="" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="ph-fb" hidden>${ic('camera')}<span>เปิดรูป</span></span></a>`).join('') + '</div>';
     }
     if (it.lat && it.lng) {
-      html += `<h4>พิกัด</h4><div class="geo-status ok">📍 ${escapeHTML(it.lat)}, ${escapeHTML(it.lng)}${it.acc ? ` (±${escapeHTML(it.acc)} ม.)` : ''} <a href="https://www.google.com/maps?q=${encodeURIComponent(it.lat)},${encodeURIComponent(it.lng)}" target="_blank" rel="noopener">เปิดแผนที่</a></div>`;
+      html += `<h4>พิกัด</h4><div class="geo-status ok">${ic('pin')}${escapeHTML(it.lat)}, ${escapeHTML(it.lng)}${it.acc ? ` (±${escapeHTML(it.acc)} ม.)` : ''} <a href="https://www.google.com/maps?q=${encodeURIComponent(it.lat)},${encodeURIComponent(it.lng)}" target="_blank" rel="noopener">เปิดแผนที่</a></div>`;
     }
     if (!mp.length && !hasTimes) {
       html += '<p style="font-size:13px; color:var(--muted); line-height:1.6;">รายงานนี้มีเฉพาะข้อมูลหลัก ถ้าต้องการเห็นกำลังพลและเวลา ให้ใช้ Apps Script เวอร์ชันใหม่ (Code.gs)</p>';
@@ -2455,7 +2494,7 @@
     const reader = new FileReader();
     reader.onload = e => {
       parsedRows = parseCSV(e.target.result);
-      $('dzTitle').textContent = `📄 ${file.name}`;
+      $('dzTitle').innerHTML = ic('file') + '<span>' + escapeHTML(file.name) + '</span>';
       $('dzSub').textContent = parsedRows.length ? `พร้อมนำเข้า ${parsedRows.length} รายการ` : 'ไม่พบข้อมูลในไฟล์ (มีแค่หัวตาราง)';
     };
     reader.readAsText(file, 'UTF-8');
@@ -2562,7 +2601,7 @@
   /* ============ REMINDERS ============ */
   function updateRemindBtn() {
     const on = store.get(KEYS.remindOn) === '1';
-    $('remindBtn').textContent = on ? '🔔 เปิดการแจ้งเตือนอยู่ (แตะเพื่อปิด)' : 'เปิดการแจ้งเตือน';
+    $('remindBtn').innerHTML = ic('bell') + (on ? ' เปิดการแจ้งเตือนอยู่ (แตะเพื่อปิด)' : ' เปิดการแจ้งเตือน');
   }
   async function toggleReminders() {
     if (store.get(KEYS.remindOn) === '1') {
