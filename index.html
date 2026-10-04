@@ -431,7 +431,8 @@
   </button>
 </nav>
 
-<div class="modal-overlay" id="settingsModal" onclick="if(event.target===this) closeSettings()">
+<!-- แก้บั๊ก: หน้าต่างล็อกอิน (empLoginModal) z-index 500 เคยบังหน้าตั้งค่า/ช่องใส่ PIN ที่ซ้อนทับ (เดิม 200/450) ทำให้กดไม่ได้ -> ยกเป็น 600 ต้องสูงกว่า 500 เสมอ ห้ามลดกลับ -->
+<div class="modal-overlay" id="settingsModal" style="z-index:600;" onclick="if(event.target===this) closeSettings()">
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
     <div class="modal-title" id="settingsTitle">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -499,7 +500,7 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="confirmModal" style="z-index:450;">
+<div class="modal-overlay" id="confirmModal" style="z-index:600;">
   <div class="modal-content" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" style="border-top-color:#F59E0B;">
     <div class="modal-title" id="confirmTitle"></div>
     <p id="confirmMsg" style="font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 18px;"></p>
@@ -511,7 +512,7 @@
   </div>
 </div>
 
-<div class="modal-overlay" id="pinModal" style="z-index:450;">
+<div class="modal-overlay" id="pinModal" style="z-index:600;">
   <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
     <div class="modal-title" id="pinTitle"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span>ใส่ PIN แอดมิน</span></div>
     <div class="form-group">
