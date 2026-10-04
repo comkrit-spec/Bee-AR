@@ -31,8 +31,15 @@
        และ URL นี้ชนะค่าเก่าที่เคยบันทึกค้างในเครื่องพนักงาน
      - เว้นว่าง: ผู้ใช้ต้องวาง URL เองที่ปุ่มตั้งค่า (ไอคอนฟันเฟือง)
      เปลี่ยน URL ภายหลัง: แก้บรรทัดนี้แล้วอัปโหลดไฟล์ใหม่ (เปลี่ยนเลข CACHE ใน sw.js ด้วย) */
+  // >>>>>>>>>> TODO (ทำเอง): วาง Web App URL ระหว่างเครื่องหมายคำพูดบรรทัดล่างนี้ <<<<<<<<<<
+  // รูปแบบ: 'https://script.google.com/macros/s/AKfy.........../exec'  (ต้องลงท้ายด้วย /exec ไม่ใช่ /dev)
+  // ถ้าเว้นว่าง: เครื่องใหม่จะไม่มี URL -> ดึงรายชื่อ People ไม่ได้ -> ล็อกอินด้วยรหัสพนักงานไม่ผ่าน (นี่คือสาเหตุหลักที่เข้าระบบไม่ได้)
+  // หลังวางแล้ว ต้องทำต่อ 2 อย่าง:
+  //   1) เปลี่ยนเลขเวอร์ชัน CACHE ใน sw.js (เช่น 'field-app-v5-21' -> 'field-app-v5-22') ไม่งั้นเครื่องเดิมจะยังใช้ไฟล์เก่าจากแคช
+  //   2) ฝั่ง Apps Script ต้อง Deploy เป็น Web app: Execute as = Me, Who has access = Anyone และกด New version ทุกครั้งที่แก้โค้ด
+  // ทดสอบ: เปิด <URL>/exec?action=ping ในเบราว์เซอร์ ต้องได้ JSON ที่มี "status":"ok"
   const DEFAULT_SCRIPT_URL = '';
-  const EMBEDDED_URL = (DEFAULT_SCRIPT_URL || '').trim();
+  const EMBEDDED_URL = (DEFAULT_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbweyIvKA6tMgUl6NfOMfPTdORdQ5yy13eTdipTp9fvGxN-J9nNdpMOxFb_4LfymSSh5/exec').trim();
 
   /* รูปพื้นหลังของหน่วยงาน (ไม่บังคับ): วางไฟล์ภาพไว้ใน repo แล้วใส่ชื่อไฟล์ เช่น 'bg.jpg'
      เว้นว่าง = ใช้ภาพโรงงานและคลื่นน้ำที่มากับแอป (ภาพที่ใส่จะถูกซ้อนฟิล์มสีขาวบาง ๆ เพื่อให้อ่านตัวหนังสือง่าย) */
