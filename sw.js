@@ -1,5 +1,6 @@
 // Service worker: เปิดแอปได้แม้ออฟไลน์ (ข้อมูลที่ส่งไม่ผ่านจะถูกเก็บในคิวของหน้าแอปเอง)
 // เปลี่ยนเลขเวอร์ชันทุกครั้งที่อัปเดตไฟล์ เพื่อให้เครื่องผู้ใช้ดึงไฟล์ใหม่
+// TODO: หลังฝัง DEFAULT_SCRIPT_URL ใน js/config.js (หรือแก้ไฟล์ใดก็ตาม) ให้เปลี่ยนเลขด้านล่างทุกครั้ง เช่น v5-22
 const CACHE = 'field-app-v5-21';
 const SHELL = ['./', './index.html', './style.css',
   './js/config.js', './js/form.js', './js/sync.js', './js/submit.js', './js/report.js', './js/admin.js',
