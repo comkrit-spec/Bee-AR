@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1E3A8A">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ระบบหน้างาน">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>แอปบันทึกข้อมูลหน้างาน v5</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol><symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol><symbol id="i-check-circle" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol><symbol id="i-hand" viewBox="0 0 24 24"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></symbol><symbol id="i-plug" viewBox="0 0 24 24"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></symbol><symbol id="i-volume" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></symbol><symbol id="i-undo" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol></defs></svg>
+<div id="appBg" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-sky"></div>
+  <div class="bg-wave bg-wave-2"></div>
+  <div class="bg-wave bg-wave-1"></div>
+  <div class="bg-bubbles"><i style="--l:6%;--s:10px;--d:15s;--t:-2s"></i><i style="--l:17%;--s:16px;--d:19s;--t:-9s"></i><i style="--l:29%;--s:8px;--d:13s;--t:-5s"></i><i style="--l:41%;--s:12px;--d:17s;--t:-1s"></i><i style="--l:53%;--s:18px;--d:21s;--t:-12s"></i><i style="--l:64%;--s:9px;--d:14s;--t:-7s"></i><i style="--l:76%;--s:14px;--d:18s;--t:-4s"></i><i style="--l:88%;--s:11px;--d:16s;--t:-10s"></i><i style="--l:95%;--s:7px;--d:12s;--t:-6s"></i></div>
+</div>
+
+<header class="app-header" id="appHeader">
+  <div class="hdr-left">
+    <div class="hdr-logo" aria-hidden="true">
+      <svg width="22" height="22" viewBox="110 76 292 352"><rect x="138" y="112" width="236" height="300" rx="26" fill="#FFFFFF"/><rect x="206" y="88" width="100" height="52" rx="14" fill="#DC2626"/><path d="M178 206 l20 20 l34 -36 M178 286 l20 20 l34 -36" fill="none" stroke="#DC2626" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M258 210 H334 M258 290 H334 M178 362 H334" stroke="#1E3A8A" stroke-width="22" stroke-linecap="round"/></svg>
+    </div>
+    <div style="min-width:0;">
+      <h1>ระบบหน้างาน</h1>
+      <div class="hdr-sub">
+        <button type="button" class="conn-chip" id="connChip" data-state="checking" onclick="openStatus()" aria-label="สถานะเซิร์ฟเวอร์ แตะเพื่อดูรายละเอียด"><span class="dot"></span><span id="connLbl">กำลังตรวจสอบ</span></button>
+        <span class="hdr-greet" id="greeting">สวัสดี</span>
+      </div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <button class="pending-badge" id="pendingBadge" hidden onclick="flushQueue(true)" aria-label="รายการรอส่ง แตะเพื่อส่งตอนนี้">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+      <span id="pendingCount">0</span>
+    </button>
+    <div class="hdr-clock" aria-live="off">
+      <div class="time"><span id="clockHM">--:--</span><small id="clockS">00</small></div>
+      <div class="date" id="clockDate"></div>
+    </div>
+    <!-- ปุ่มออกจากระบบ: อยู่ติดปุ่มตั้งค่า (มือถือแสดงแค่ไอคอน จอกว้างแสดงข้อความด้วย) ซ่อนจนกว่าจะล็อกอิน — ควบคุมโดย renderEmpLine() ใน js/form.js -->
+    <button class="logout-btn" id="hdrLogoutBtn" type="button" hidden onclick="confirmLogout()" aria-label="ออกจากระบบ" title="ออกจากระบบ">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+      <span class="lo-text">ออกจากระบบ</span>
+    </button>
+    <button class="settings-btn" onclick="openSettings()" aria-label="ตั้งค่า URL ของระบบ" title="ตั้งค่า URL ของระบบ">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    </button>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="formProgress"></div></div>
+</header>
+
+<nav class="side-nav" id="sideNav" aria-label="เมนูหลัก (จอกว้าง)">
+  <div class="side-brand">
+    <div class="side-brand-icon" aria-hidden="true">
+      <svg width="24" height="24" viewBox="110 76 292 352"><rect x="138" y="112" width="236" height="300" rx="26" fill="#FFFFFF"/><rect x="206" y="88" width="100" height="52" rx="14" fill="#DC2626"/><path d="M178 206 l20 20 l34 -36 M178 286 l20 20 l34 -36" fill="none" stroke="#DC2626" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><path d="M258 210 H334 M258 290 H334 M178 362 H334" stroke="#1E3A8A" stroke-width="22" stroke-linecap="round"/></svg>
+    </div>
+    <div>
+      <div class="side-brand-title">ระบบหน้างาน</div>
+      <div class="side-brand-sub">FIELD OPERATIONS</div>
+    </div>
+  </div>
+  <div class="side-label">เมนูหลัก</div>
+  <button class="side-item active" data-tab="form" onclick="switchTab('form')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+    <span>บันทึก</span>
+  </button>
+  <button class="side-item" data-tab="report" onclick="switchTab('report')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+    <span>รายงาน</span>
+  </button>
+  <button class="side-item" data-tab="import" onclick="switchTab('import')">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+    <span>เครื่องมือ</span>
+  </button>
+  <div class="side-spacer"></div>
+  <button class="side-item" onclick="openSettings()">
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    <span>ตั้งค่าระบบ</span>
+  </button>
+  <div class="side-version">v<span id="sideVerNum"></span></div>
+</nav>
+
+<div class="app-container">
+  <div id="bannerBox" class="banner-box" aria-live="polite"></div>
+
+  <!-- PAGE 1: FORM -->
+  <div id="page-form" class="view-page active">
+    <div class="hero" id="hero">
+      <div class="hero-art" aria-hidden="true"></div>
+      <div class="hero-wave w2" aria-hidden="true"></div>
+      <div class="hero-wave" aria-hidden="true"></div>
+      <div class="hero-text">
+        <div class="hero-kicker">บันทึกกิจกรรมหน้างาน</div>
+        <div class="hero-title" id="heroDate">-</div>
+        <div class="hero-sub" id="heroSub"></div>
+      </div>
+    </div>
+    <div class="card install-card" id="installCard" hidden>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+      <div class="ic-text"><b>ติดตั้งเป็นแอปบนมือถือ</b>เปิดเต็มจอ เร็วขึ้น และใช้ได้แม้สัญญาณไม่ดี</div>
+      <button onclick="installApp()" style="background:#fff; color:var(--tw-blue);">ติดตั้ง</button>
+      <button onclick="dismissInstall()" aria-label="ไม่ใช่ตอนนี้" style="background:rgba(255,255,255,.15); color:#fff; padding:8px 10px;"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="card edit-banner" id="editBanner" hidden>
+      <svg class="ic lg" aria-hidden="true"><use href="#i-edit"/></svg>
+      <div class="eb-text"><b>กำลังแก้ไขรายการ</b><span id="editInfo"></span></div>
+      <button type="button" class="link-btn" onclick="cancelEdit()">ยกเลิก</button>
+    </div>
+    <form id="dataForm" novalidate>
+      <div class="desktop-grid">
+        <div class="card full-width" data-section="basic">
+          <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            ข้อมูลเบื้องต้น
+          </div>
+
+          <div class="desktop-2-col">
+            <div class="form-group">
+              <label for="reporterName">ชื่อผู้รายงาน <span class="required">*</span></label>
+              <input type="text" name="reporter" id="reporterName" placeholder="เช่น นพดล" required autocomplete="name" list="peopleList">
+              <datalist id="peopleList"></datalist>
+              <div class="emp-line" id="empLine" hidden></div>
+            </div>
+            <div class="form-group">
+              <label for="currentDate">วันที่ปฏิบัติงาน <span class="required">*</span></label>
+              <input type="date" name="date" required id="currentDate">
+              <div class="quick-chips" id="dateChips">
+                <button type="button" class="tchip" data-day="0">วันนี้</button>
+                <button type="button" class="tchip" data-day="-1">เมื่อวาน</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>กะการทำงาน <span class="required">*</span></label>
+            <div class="shift-selector" role="radiogroup" aria-label="กะการทำงาน">
+              <input type="radio" id="shiftDay" name="shift" value="Day" required>
+              <label for="shiftDay"><svg class="ic" aria-hidden="true"><use href="#i-sun"/></svg> กะเช้า (D)</label>
+              <input type="radio" id="shiftNight" name="shift" value="Night">
+              <label for="shiftNight"><svg class="ic" aria-hidden="true"><use href="#i-moon"/></svg> กะดึก (N)</label>
+            </div>
+            <div class="shift-hint" id="shiftHint"></div>
+          </div>
+        </div>
+
+        <div class="card full-width" id="jobCard">
+          <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span id="jobCardTitle">งานและสถานที่</span>
+          </div>
+          <div class="desktop-2-col">
+            <div class="form-group job-field">
+              <label for="jobNo">รหัสงาน (Job No.) <span class="required">*</span></label>
+              <input type="text" name="job" id="jobNo" required placeholder="เช่น V-20601" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="jobSuggest">
+              <div class="job-suggest" id="jobSuggest" role="listbox" hidden></div>
+            </div>
+            <div class="form-group" data-section="location">
+              <label for="siteLocation">ชื่อสถานที่</label>
+              <input type="text" name="location" id="siteLocation" list="locList" maxlength="100" placeholder="เช่น โรงงาน A อาคาร 2" autocomplete="off">
+              <datalist id="locList"></datalist>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" data-section="manpower">
+          <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            กำลังพล (Position)
+            <span id="total-manpower" class="total-badge">รวม 0 คน</span>
+          </div>
+          <div class="preset-row" id="presetRow"></div>
+          <div class="data-list" id="manpower-list"></div>
+        </div>
+
+        <div class="card" data-section="times">
+          <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            เวลา (Activity)
+            <span id="tl-count" class="total-badge" style="background: var(--tw-blue);">0/6</span>
+          </div>
+          <div class="timeline" id="timeline">
+            <div class="tl-track" id="tlTrack"></div>
+            <div class="tl-fill" id="tlFill"></div>
+            <ol class="tl-list" id="tlList"></ol>
+          </div>
+        </div>
+
+        <div class="card full-width" data-section="photos">
+          <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+            รูปถ่าย
+            <span id="photoCount" class="total-badge" style="background: var(--tw-blue);">0/3</span>
+          </div>
+          <div class="photo-grid" id="photoGrid"></div>
+          <input type="file" id="photoInput" accept="image/*" capture="environment" multiple hidden>
+          <div id="existingPhotos" class="geo-status" style="margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <div class="form-tools">
+        <span id="draftStatus"></span>
+        <span style="display:flex; gap:14px; align-items:center;">
+          <button type="button" class="link-btn glove-btn" id="gloveBtn" onclick="toggleGlove()" aria-pressed="false"><svg class="ic" aria-hidden="true"><use href="#i-hand"/></svg> โหมดถุงมือ</button>
+          <button type="button" class="link-btn" onclick="clearForm()">ล้างฟอร์ม</button>
+        </span>
+      </div>
+      <button type="submit" id="submitBtn" class="btn-primary" style="margin-top: 10px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        บันทึกส่งข้อมูล
+      </button>
+    </form>
+  </div>
+
+  <!-- PAGE 2: REPORT -->
+  <div id="page-report" class="view-page">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h2 style="font-size: 18px; margin: 0; color: var(--accent);">ประวัติการบันทึก</h2>
+      <button id="refreshBtn" onclick="fetchReport()" style="background:none; border:none; color:var(--tw-red); font-weight: 600; font-family:inherit; cursor:pointer; display:flex; align-items:center; gap:5px; font-size:14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg> รีเฟรช
+      </button>
+    </div>
+
+    <div class="card" id="filterCard" style="padding: 15px; background: var(--tint);">
+      <div style="font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        ค้นหาตามช่วงวันที่
+      </div>
+      <div class="chips" id="rangeChips">
+        <button class="chip" data-range="today">วันนี้</button>
+        <button class="chip" data-range="7d">7 วัน</button>
+        <button class="chip" data-range="month">เดือนนี้</button>
+        <button class="chip active" data-range="all">ทั้งหมด</button>
+      </div>
+      <div class="limit-row">
+        <span>แสดงรายการล่าสุด</span>
+        <div class="seg" id="limitSeg" role="group" aria-label="จำนวนรายการที่แสดง">
+          <button type="button" data-limit="50">50</button>
+          <button type="button" data-limit="100">100</button>
+          <button type="button" data-limit="200">200</button>
+          <button type="button" data-limit="0">ทั้งหมด</button>
+        </div>
+      </div>
+      <div style="margin-bottom: 12px; display:flex; gap:10px;">
+        <div style="flex: 1;">
+          <label for="filterStartDate" style="font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px;">ตั้งแต่วันที่</label>
+          <input type="date" id="filterStartDate" class="filter-input">
+        </div>
+        <div style="flex: 1;">
+          <label for="filterEndDate" style="font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px;">ถึงวันที่</label>
+          <input type="date" id="filterEndDate" class="filter-input">
+        </div>
+      </div>
+      <button onclick="fetchReport()" class="btn-primary" style="padding: 11px; font-size: 14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        ค้นหาข้อมูล
+      </button>
+    </div>
+
+    <div class="report-top-grid" id="reportTopGrid">
+    <div class="stats" id="report-stats"></div>
+    <div id="report-metrics"></div>
+
+    <div class="card" id="chartCard" hidden>
+      <div class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        จำนวนรายงานต่อวัน
+      </div>
+      <div class="chart-wrap"><canvas id="reportChart" aria-label="กราฟจำนวนรายงานต่อวัน แยกกะเช้าและกะดึก"></canvas></div>
+    </div>
+    </div>
+
+    <div class="report-tools" id="reportTools" hidden>
+      <div class="search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="reportSearch" placeholder="ค้นหา Job, ผู้รายงาน หรือสถานที่" aria-label="ค้นหา Job ผู้รายงาน หรือสถานที่">
+      </div>
+      <div class="seg" id="shiftSeg" role="group" aria-label="กรองตามกะ">
+        <button class="active" data-shift="all">ทั้งหมด</button>
+        <button data-shift="day">กะเช้า</button>
+        <button data-shift="night">กะดึก</button>
+      </div>
+      <button class="tool-btn" id="xlsxBtn" onclick="exportXLSX()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Excel
+      </button>
+      <button class="tool-btn" id="csvBtn" onclick="exportCSV()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        CSV
+      </button>
+      <button class="tool-btn" onclick="window.print()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        PDF
+      </button>
+    </div>
+
+    <div class="card" id="jobTableCard" hidden>
+      <div class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+        สรุปตาม Job
+      </div>
+      <div class="table-wrap"><table class="job-table" id="jobTable"></table></div>
+    </div>
+
+    <div id="report-summary" style="font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 10px; text-align: right;"></div>
+    <div id="report-list" class="report-grid">
+      <div class="empty-state">กด "ค้นหาข้อมูล" หรือ "รีเฟรช" เพื่อดูประวัติการบันทึก</div>
+    </div>
+    <div id="reportMore" class="report-more" hidden></div>
+  </div>
+
+  <!-- PAGE 3: IMPORT -->
+  <div id="page-import" class="view-page">
+    <div class="card" style="border-top: 4px solid var(--tw-blue);">
+      <h2 style="font-size: 18px; margin: 0 0 10px 0; color: var(--accent); display:flex; align-items:center; gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+        นำเข้าข้อมูลย้อนหลัง (Import)
+      </h2>
+      <p style="font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px;">
+        ดาวน์โหลดไฟล์ Template กรอกข้อมูลใน Excel แล้วบันทึกเป็น CSV (UTF-8) จากนั้นเลือกไฟล์เพื่ออัปโหลดเข้าระบบ
+      </p>
+
+      <button onclick="downloadTemplate()" class="btn-outline" style="margin-bottom: 20px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        ดาวน์โหลดไฟล์ Template (.csv)
+      </button>
+
+      <label class="dropzone" id="dropzone" for="csvFileInput">
+        <input type="file" id="csvFileInput" accept=".csv,text/csv">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><polyline points="9 15 12 12 15 15"></polyline></svg>
+        <div class="dz-title" id="dzTitle">แตะเพื่อเลือกไฟล์ CSV</div>
+        <div class="dz-sub" id="dzSub">หรือลากไฟล์มาวางที่นี่</div>
+      </label>
+
+      <button id="btnImport" onclick="processImport()" class="btn-primary" style="margin-top: 15px;">
+        เริ่มนำเข้าข้อมูล
+      </button>
+    </div>
+
+    <div class="card" id="qrCard" style="border-top: 4px solid var(--tw-red);">
+      <h2 class="tool-h2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"></path></svg>
+        QR Code ประจำหน้างาน
+      </h2>
+      <div class="qr-controls">
+        <p class="tool-p">สร้าง QR ติดไว้ที่หน้างาน คนงานสแกนแล้วแอปจะเปิดพร้อมใส่ Job No. และสถานที่ให้ทันที</p>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <input type="text" id="qrJob" placeholder="Job No. เช่น V-20601">
+          <input type="text" id="qrLoc" placeholder="สถานที่ (ไม่บังคับ)" maxlength="100">
+          <button class="btn-primary" style="padding: 12px;" onclick="makeQR()">สร้าง QR</button>
+        </div>
+      </div>
+      <div class="qr-result" id="qrResult" hidden>
+        <div class="qr-print">
+          <div class="qr-title">สแกนเพื่อบันทึกข้อมูลหน้างาน</div>
+          <div id="qrBox" class="qr-box"></div>
+          <div class="qr-job" id="qrJobLabel"></div>
+          <div class="qr-loc" id="qrLocLabel"></div>
+        </div>
+        <div class="qr-url" id="qrUrl"></div>
+        <div class="qr-controls" style="display:flex; gap:10px; margin-top: 12px;">
+          <button class="btn-outline" style="padding:11px;" onclick="copyQrLink()">คัดลอกลิงก์</button>
+          <button class="btn-primary" style="padding:11px;" onclick="printQR()">พิมพ์ QR</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="adminEntry" style="border-top: 4px solid var(--tw-red);">
+      <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> ศูนย์ผู้ดูแลระบบ</h2>
+      <p class="tool-p">สำหรับผู้ดูแล: ดูสถานะระบบ สำรองข้อมูล ตั้งค่ากลางให้ทุกเครื่อง จัดการรายชื่อ Job และรายชื่อผู้มีสิทธิ์เข้าใช้งาน ดูประวัติการแก้ไข/ลบ และกู้คืนรายการที่ลบ (เข้าได้ทันทีถ้า login ด้วยรหัสพนักงานที่เป็น admin อยู่แล้ว หรือใส่ PIN ผู้ดูแล)</p>
+      <button type="button" class="btn-outline" onclick="openAdmin()">เปิดศูนย์ผู้ดูแล</button>
+    </div>
+
+    <div class="card" id="setupCard" hidden style="border-top: 4px solid var(--tw-blue);">
+      <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg> ตั้งค่าเครื่องใหม่</h2>
+      <p class="tool-p">สร้าง QR หรือลิงก์ที่มี URL ของฐานข้อมูลอยู่ในตัว ให้เครื่องใหม่สแกนหรือเปิดลิงก์ ระบบจะจำค่าไว้และใช้งานได้ทันที ไม่ต้องวาง URL เอง (ส่งให้เฉพาะเพื่อนร่วมงานที่ไว้ใจ)</p>
+      <button type="button" class="btn-outline" onclick="makeSetupQR()">สร้าง QR ตั้งค่าเครื่อง</button>
+      <div class="qr-result" id="setupResult" hidden>
+        <div class="qr-print">
+          <div class="qr-title">สแกนเพื่อตั้งค่าเครื่อง</div>
+          <div id="setupQrBox" class="qr-box"></div>
+        </div>
+        <div class="qr-url" id="setupLink"></div>
+        <button type="button" class="btn-outline" style="padding:11px; margin-top:12px;" onclick="copySetupLink()">คัดลอกลิงก์</button>
+      </div>
+    </div>
+
+    <div class="card" style="border-top: 4px solid #F59E0B;">
+      <h2 class="tool-h2"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg> เตือนเมื่อลืมกรอก</h2>
+      <p class="tool-p">ถ้าเลยเวลาเลิกกะ (กะเช้า 18:30, กะดึก 06:30) แล้วฟอร์มยังมีข้อมูลค้างแต่ไม่มีเวลา Close Permit แอปจะแจ้งเตือน ใช้ได้เมื่อแอปยังเปิดค้างไว้ในเครื่อง</p>
+      <button class="btn-outline" id="remindBtn" onclick="toggleReminders()">เปิดการแจ้งเตือน</button>
+    </div>
+  </div>
+
+
+  <!-- PAGE: ADMIN -->
+  <div id="page-admin" class="view-page">
+    <div class="admin-head">
+      <button type="button" class="mini-btn" onclick="closeAdmin()"><svg class="ic" aria-hidden="true"><use href="#i-chevron-left"/></svg> กลับ</button>
+      <h2 style="margin: 0; font-size: 18px; color: var(--accent);">ศูนย์ผู้ดูแลระบบ</h2>
+      <span class="admin-who" id="adminWho"></span>
+    </div>
+    <div id="adminBody"></div>
+  </div>
+
+</div>
+
+<nav class="bottom-nav" id="bottomNav" aria-label="เมนูหลัก">
+  <span class="nav-indicator" aria-hidden="true"></span>
+  <button class="nav-item active" id="nav-form" data-tab="form" onclick="switchTab('form')">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+    <span>บันทึก</span>
+  </button>
+  <button class="nav-item" id="nav-report" data-tab="report" onclick="switchTab('report')">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+    <span>รายงาน</span>
+  </button>
+  <button class="nav-item" id="nav-import" data-tab="import" onclick="switchTab('import')">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+    <span>เครื่องมือ</span>
+  </button>
+</nav>
+
+<!-- แก้บั๊ก: หน้าต่างล็อกอิน (empLoginModal) z-index 500 เคยบังหน้าตั้งค่า/ช่องใส่ PIN ที่ซ้อนทับ (เดิม 200/450) ทำให้กดไม่ได้ -> ยกเป็น 600 ต้องสูงกว่า 500 เสมอ ห้ามลดกลับ -->
+<div class="modal-overlay" id="settingsModal" style="z-index:600;" onclick="if(event.target===this) closeSettings()">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal-title" id="settingsTitle">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+      ตั้งค่าระบบ (Admin)
+    </div>
+    <p id="urlNote" style="font-size: 13px; color: var(--muted); margin-bottom: 15px; line-height:1.6;">วาง Web App URL ของ Google Apps Script ที่นี่ ระบบจะจำค่าไว้ในเครื่องนี้ทันที ไม่ต้องกดบันทึกและไม่ต้องใส่ซ้ำ</p>
+    <div class="form-group" id="urlGroup">
+      <input type="url" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/.../exec">
+    </div>
+    <p id="iosHint" class="status-hint" hidden>iPhone: เพิ่มแอปไปยังหน้าจอโฮมเพื่อให้ค่าที่จำไว้ไม่ถูกลบ (แตะปุ่มแชร์ แล้วเลือก "เพิ่มไปยังหน้าจอโฮม") เพราะ Safari จะล้างข้อมูลของเว็บที่ไม่ได้เปิดเกิน 7 วัน</p>
+    <div class="form-group">
+      <label style="font-size:13px;">ส่วนของแบบฟอร์มที่แสดง</label>
+      <div class="sec-list" id="secList"></div>
+      <div class="shift-hint" id="secLockHint" style="color: var(--tw-red);">ผู้ดูแลระบบเป็นผู้กำหนดส่วนของฟอร์มให้ทุกเครื่อง ปรับเองไม่ได้</div>
+    </div>
+    <div class="form-group" id="empSettingsRow" hidden>
+      <label style="font-size:13px;">ผู้ใช้งาน</label>
+      <div class="sec-list">
+        <div class="sec-row"><span class="sec-name" id="empSettingsText">-</span><button type="button" class="geo-btn" id="empSettingsBtn" style="padding:9px 16px;"></button></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label style="font-size:13px;">การกรอกข้อมูล</label>
+      <div class="sec-list">
+        <label class="sec-row"><span class="sec-name">เติมข้อมูลให้อัตโนมัติ<small>จำชื่อ/Job/สถานที่ล่าสุด, เลือกวันที่และกะตามเวลาปัจจุบัน</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-autofill"><span></span></span></label>
+      </div>
+      <div class="shift-hint">ปิดอยู่ = ทุกช่องว่าง ต้องกรอกหรือเลือกเองทุกครั้ง</div>
+    </div>
+    <div class="form-group">
+      <label style="font-size:13px;">เสียงและการแสดงผล</label>
+      <div class="sec-list">
+        <label class="sec-row"><span class="sec-name">เสียงแจ้งเตือน<small>เสียงเมื่อบันทึกสำเร็จ เก็บไว้ส่งทีหลัง หรือผิดพลาด</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-sound"><span></span></span></label>
+        <div class="sec-row" id="soundLevelRow"><span class="sec-name">ระดับเสียง<small>เพิ่มเมื่อทำงานในที่เสียงดัง</small></span><div class="seg" id="soundLevelSeg" role="group" aria-label="ระดับเสียง"><button type="button" data-level="low">เบา</button><button type="button" data-level="mid">กลาง</button><button type="button" data-level="high">ดัง</button></div></div>
+        <div class="sec-row"><span class="sec-name">ทดสอบเสียง<small>สำเร็จ, เก็บไว้ส่งทีหลัง, ผิดพลาด</small></span><button type="button" class="geo-btn" onclick="testSounds()"><svg class="ic" aria-hidden="true"><use href="#i-play"/></svg> เล่นเสียง</button></div>
+        <label class="sec-row"><span class="sec-name">ภาพพื้นหลัง<small>ปิดเพื่อประหยัดแบตเตอรี่ หรือให้อ่านง่ายกลางแดด</small></span><span class="switch"><input type="checkbox" role="switch" id="pref-bg"><span></span></span></label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="pinNew" style="font-size:13px;">PIN แอดมิน (ตัวเลข 4–6 หลัก)</label>
+      <input type="password" id="pinNew" inputmode="numeric" maxlength="6" autocomplete="new-password" placeholder="เว้นว่างถ้าไม่ต้องการล็อก">
+      <button type="button" class="link-btn" id="pinRemoveBtn" hidden onclick="removePin()">เลิกใช้ PIN</button>
+    </div>
+    <button type="button" class="btn-outline" style="padding: 10px; margin-bottom: 10px;" onclick="testConnection()"><svg class="ic" aria-hidden="true"><use href="#i-plug"/></svg> ทดสอบการเชื่อมต่อ</button>
+    <div id="connResult" class="conn-result" hidden></div>
+    <div class="shift-hint" id="verInfo" style="margin: 0 0 10px;"></div>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn-outline" style="padding: 10px;" onclick="closeSettings()">ยกเลิก</button>
+      <button class="btn-primary" style="padding: 10px;" onclick="saveSettings()">บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<div class="success-overlay" id="successOverlay" onclick="if(event.target===this) hideSuccess()">
+  <canvas id="confetti"></canvas>
+  <div class="success-card" role="status">
+    <svg class="success-check" viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"></circle><path d="M15 27l7 7 15-15"></path></svg>
+    <h3>บันทึกแล้ว</h3>
+    <p id="successDetail"></p>
+    <p id="successNote" class="success-note" hidden></p>
+    <div class="success-actions">
+      <button class="btn-outline" id="successShare" onclick="shareSummary(lastSummary)">แชร์สรุป</button>
+      <button class="btn-primary" onclick="hideSuccess()">เสร็จ</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirmModal" style="z-index:600;">
+  <div class="modal-content" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" style="border-top-color:#F59E0B;">
+    <div class="modal-title" id="confirmTitle"></div>
+    <p id="confirmMsg" style="font-size: 14px; color: var(--muted); line-height: 1.6; margin: 0 0 18px; white-space: pre-line; max-height: 50vh; overflow-y: auto;"></p>
+    <input type="text" id="confirmInput" hidden maxlength="30" style="margin-bottom: 16px;">
+    <div style="display: flex; gap: 10px;">
+      <button class="btn-outline" style="padding: 10px;" id="confirmCancel">ยกเลิก</button>
+      <button class="btn-primary" style="padding: 10px;" id="confirmOk">ตกลง</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="pinModal" style="z-index:600;">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="pinTitle">
+    <div class="modal-title" id="pinTitle"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg><span>ใส่ PIN แอดมิน</span></div>
+    <div class="form-group">
+      <input type="password" id="pinInput" inputmode="numeric" maxlength="6" autocomplete="off" style="text-align:center; font-size:22px; letter-spacing:8px;">
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn-outline" style="padding: 10px;" id="pinCancel">ยกเลิก</button>
+      <button class="btn-primary" style="padding: 10px;" id="pinOk">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<div class="sheet-overlay" id="detailSheet" onclick="if(event.target===this) closeSheet()">
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="รายละเอียดรายการ">
+    <div class="sheet-handle"></div>
+    <div id="sheetBody"></div>
+    <div class="sheet-admin" id="sheetAdmin" hidden>
+      <button class="link-btn" id="sheetEdit" style="color: var(--accent);"><svg class="ic" aria-hidden="true"><use href="#i-edit"/></svg> แก้ไขรายการ</button>
+      <button class="link-btn" id="sheetDelete"><svg class="ic" aria-hidden="true"><use href="#i-trash"/></svg> ลบรายการ</button>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn-outline" id="sheetShare">แชร์สรุป</button>
+      <button class="btn-primary" onclick="closeSheet()">ปิด</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="empLoginModal" style="z-index:500;">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="empLoginTitle" style="max-width: 360px;">
+    <div class="modal-title" id="empLoginTitle"><svg class="ic" aria-hidden="true"><use href="#i-user"/></svg><span>เข้าสู่ระบบด้วยรหัสพนักงาน</span></div>
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.6;">ใส่รหัสพนักงานของคุณก่อนใช้งาน ระบบจะใส่ชื่อผู้รายงานให้ทันที และจำไว้ในเครื่องนี้จนกว่าจะกด "ออกจากระบบ"</p>
+    <div class="form-group">
+      <label for="empCodeInput">รหัสพนักงาน</label>
+      <input type="text" id="empCodeInput" inputmode="numeric" autocomplete="off" placeholder="เช่น 1001" style="font-size: 20px; letter-spacing: 1px; text-align:center;">
+    </div>
+    <p id="empLoginErr" class="status-hint" hidden></p>
+    <button type="button" class="btn-primary" id="empLoginBtn" style="padding:13px;" onclick="submitEmpLogin()">เข้าสู่ระบบ</button>
+    <button type="button" class="link-btn" id="empPinBtn" style="display:block; margin:12px auto 0;" onclick="loginViaPin()">ผู้ดูแลระบบ: เข้าด้วย PIN (ตั้งค่าเริ่มต้น/ลืมรหัส)</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="statusModal" onclick="if(event.target===this) closeStatus()">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="statusTitle">
+    <div class="modal-title" id="statusTitle"><svg class="ic" aria-hidden="true"><use href="#i-server"/></svg><span>สถานะการเชื่อมต่อเซิร์ฟเวอร์</span></div>
+    <div class="status-hero" id="statusHero" data-state="checking"></div>
+    <div class="status-rows" id="statusRows"></div>
+    <div class="status-hint" id="statusHint" hidden></div>
+    <div style="display:flex; gap:10px; margin-top:14px;">
+      <button type="button" class="btn-outline" id="statusCheckBtn" style="padding:10px 8px; font-size:14px; white-space:nowrap;" onclick="checkServer(true)"><svg class="ic" aria-hidden="true"><use href="#i-refresh"/></svg> ตรวจสอบตอนนี้</button>
+      <button type="button" class="btn-primary" style="padding:10px;" onclick="closeStatus()">ปิด</button>
+    </div>
+    <button type="button" class="link-btn" id="statusFlushBtn" hidden onclick="flushQueue(true)" style="margin-top:10px;"></button>
+  </div>
+</div>
+
+<div id="toast" class="toast-container" role="status" aria-live="polite"></div>
+
+<script src="js/config.js" defer></script>
+<script src="js/form.js" defer></script>
+<script src="js/sync.js" defer></script>
+<script src="js/submit.js" defer></script>
+<script src="js/report.js" defer></script>
+<script src="js/admin.js" defer></script>
+
+</body>
+</html>
+
+
