@@ -38,7 +38,7 @@
   //   1) เปลี่ยนเลขเวอร์ชัน CACHE ใน sw.js (เช่น 'field-app-v5-21' -> 'field-app-v5-22') ไม่งั้นเครื่องเดิมจะยังใช้ไฟล์เก่าจากแคช
   //   2) ฝั่ง Apps Script ต้อง Deploy เป็น Web app: Execute as = Me, Who has access = Anyone และกด New version ทุกครั้งที่แก้โค้ด
   // ทดสอบ: เปิด <URL>/exec?action=ping ในเบราว์เซอร์ ต้องได้ JSON ที่มี "status":"ok"
-  const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzdova2mMYDOjhs5isAkAhdTpFAD9M4h6wbzxyejsO3D67PJKU8G_jsW5bpDURiRqZN/exec';
+  const DEFAULT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby9swFKpkvBTpumVt7UpEbvgqH5nI8eSF1n8cqfBeEMwP3O1Abt4A-FVmSTndWlvvA/exec';
   const EMBEDDED_URL = (DEFAULT_SCRIPT_URL || '').trim();
 
   /* รูปพื้นหลังของหน่วยงาน (ไม่บังคับ): วางไฟล์ภาพไว้ใน repo แล้วใส่ชื่อไฟล์ เช่น 'bg.jpg'
